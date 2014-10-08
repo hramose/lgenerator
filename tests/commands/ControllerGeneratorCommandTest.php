@@ -1,6 +1,6 @@
 <?php
 
-use Way\Generators\Commands\ControllerGeneratorCommand;
+use Fragale\Generators\Commands\ControllerGeneratorCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 use Mockery as m;
 
@@ -12,7 +12,7 @@ class ControllerGeneratorCommandTest extends PHPUnit_Framework_TestCase {
 
     public function testGeneratesController()
     {
-        $gen = m::mock('Way\Generators\Generators\ControllerGenerator');
+        $gen = m::mock('Fragale\Generators\Generators\ControllerGenerator');
         $gen->shouldReceive('make')
             ->once()
             ->with(app_path() . '/controllers/FooController.php', 'foo')
@@ -28,7 +28,7 @@ class ControllerGeneratorCommandTest extends PHPUnit_Framework_TestCase {
 
     public function testCanSetCustomPath()
     {
-        $gen = m::mock('Way\Generators\Generators\ControllerGenerator[make]');
+        $gen = m::mock('Fragale\Generators\Generators\ControllerGenerator[make]');
         $gen->shouldReceive('make')->once()->andReturn(true);
 
         $command = new ControllerGeneratorCommand($gen);
@@ -41,7 +41,7 @@ class ControllerGeneratorCommandTest extends PHPUnit_Framework_TestCase {
 
     public function testCanSetCustomStub()
     {
-        $gen = m::mock('Way\Generators\Generators\ControllerGenerator[make]');
+        $gen = m::mock('Fragale\Generators\Generators\ControllerGenerator[make]');
         $gen->shouldReceive('make')
             ->once()
             ->with(app_path() . '/controllers/FooController.php', 'foo')

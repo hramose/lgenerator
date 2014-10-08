@@ -1,6 +1,6 @@
 <?php
 
-use Way\Generators\Generators\ControllerGenerator;
+use Fragale\Generators\Generators\ControllerGenerator;
 use Mockery as m;
 
 class ControllerGeneratorTest extends PHPUnit_Framework_TestCase {
@@ -8,7 +8,7 @@ class ControllerGeneratorTest extends PHPUnit_Framework_TestCase {
 
     public function __construct()
     {
-        static::$templatesDir = __DIR__.'/../../src/Way/Generators/Generators/templates';
+        static::$templatesDir = __DIR__.'/../../src/Fragale/Generators/Generators/templates';
     }
 
     public function tearDown()
@@ -19,7 +19,7 @@ class ControllerGeneratorTest extends PHPUnit_Framework_TestCase {
     public function testCanGenerateControllerUsingDefaultTemplate()
     {
         $file = m::mock('Illuminate\Filesystem\Filesystem')->makePartial();
-        $cache = m::Mock('Way\Generators\Cache');
+        $cache = m::Mock('Fragale\Generators\Cache');
 
         $file->shouldReceive('put')
              ->once()
@@ -32,7 +32,7 @@ class ControllerGeneratorTest extends PHPUnit_Framework_TestCase {
     public function testCanGenerateControllerUsingCustomTemplate()
     {
         $file = m::mock('Illuminate\Filesystem\Filesystem')->makePartial();
-        $cache = m::Mock('Way\Generators\Cache');
+        $cache = m::Mock('Fragale\Generators\Cache');
 
         $file->shouldReceive('put')
              ->once()

@@ -1,12 +1,11 @@
 <?php
 
-namespace Way\Generators\Generators;
+namespace Fragale\Generators\Generators;
 
 use Illuminate\Filesystem\Filesystem as File;
 use Illuminate\Support\Pluralizer;
-use Illuminate\Support\Str as Str;
 
-class ResourceGenerator {
+class ScaffoldGenerator {
 
     /**
      * File system instance
@@ -37,11 +36,11 @@ class ResourceGenerator {
         $path = app_path() . '/routes.php';
         $file=new File();
 
-        $append="Route::resource('" . $name . "', '" . ucwords($name) . "Controller');";
+        $append="\n\nRoute::resource('" . $name . "', '" . ucwords($name) . "Controller');";
         $buffer=$file->get($path);
 
         if ( !Str::contains( $buffer, $append) ) {       
-            $this->file->append($path, "\n\n".$append);
+            $this->file->append($path, $append);
         }
     }
 

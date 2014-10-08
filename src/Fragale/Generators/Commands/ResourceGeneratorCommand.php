@@ -1,7 +1,7 @@
-<?php namespace Way\Generators\Commands;
+<?php namespace Fragale\Generators\Commands;
 
-use Way\Generators\Generators\ResourceGenerator;
-use Way\Generators\Cache;
+use Fragale\Generators\Generators\ResourceGenerator;
+use Fragale\Generators\Cache;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -28,7 +28,7 @@ class ResourceGeneratorCommand extends Command {
     /**
      * Model generator instance.
      *
-     * @var Way\Generators\Generators\ResourceGenerator
+     * @var Fragale\Generators\Generators\ResourceGenerator
      */
     protected $generator;
 
@@ -59,7 +59,7 @@ class ResourceGeneratorCommand extends Command {
      */
     public function fire()
     {
-        // Scaffolding should always begin with the singular
+        // Scaffolding should alfragales begin with the singular
         // form of the now.
         $this->model = Pluralizer::singular($this->argument('name'));
 
@@ -82,7 +82,7 @@ class ResourceGeneratorCommand extends Command {
         $this->generateMigration();
         $this->generateSeed();
 
-        if (get_called_class() === 'Way\\Generators\\Commands\\ScaffoldGeneratorCommand')
+        if (get_called_class() === 'Fragale\\Generators\\Commands\\ScaffoldGeneratorCommand')
         {
             //No genera los tests
             //$this->generateTest();
@@ -201,7 +201,7 @@ class ResourceGeneratorCommand extends Command {
 
         // If generating a scaffold, we also need views/layouts/scaffold  **** OBSOLETO
         /*
-        if (get_called_class() === 'Way\\Generators\\Commands\\ScaffoldGeneratorCommand')
+        if (get_called_class() === 'Fragale\\Generators\\Commands\\ScaffoldGeneratorCommand')
         {
             $views[] = 'scaffold';
             $this->generator->folders($layouts);

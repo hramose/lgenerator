@@ -1,6 +1,6 @@
-<?php namespace Way\Generators\Commands;
+<?php namespace Fragale\Generators\Commands;
 
-use Way\Generators\Generators\ViewGenerator;
+use Fragale\Generators\Generators\ViewGenerator;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

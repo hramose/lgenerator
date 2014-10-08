@@ -1,8 +1,8 @@
 <?php
 
-namespace Way\Generators\Generators;
+namespace Fragale\Generators\Generators;
 
-use Way\Generators\Cache;
+use Fragale\Generators\Cache;
 use Illuminate\Filesystem\Filesystem as File;
 
 class RequestedCacheNotFound extends \Exception {}

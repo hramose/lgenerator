@@ -1,6 +1,6 @@
-<?php namespace Way\Generators\Commands;
+<?php namespace Fragale\Generators\Commands;
 
-use Way\Generators\Generators\FormDumperGenerator;
+use Fragale\Generators\Generators\FormDumperGenerator;
 use Illuminate\Console\Command;
 use Mustache_Engine as Mustache;
 use Illuminate\Support\Pluralizer;
@@ -27,7 +27,7 @@ class FormDumperCommand extends BaseGeneratorCommand {
     /**
      * FormDumper generator instance.
      *
-     * @var Way\Generators\Generators\FormDumperGenerator
+     * @var Fragale\Generators\Generators\FormDumperGenerator
      */
     protected $generator;
 

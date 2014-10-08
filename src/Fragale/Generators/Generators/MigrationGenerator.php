@@ -1,6 +1,6 @@
 <?php
 
-namespace Way\Generators\Generators;
+namespace Fragale\Generators\Generators;
 
 class MigrationGenerator extends Generator {
 

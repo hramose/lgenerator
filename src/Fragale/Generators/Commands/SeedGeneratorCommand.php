@@ -1,6 +1,6 @@
-<?php namespace Way\Generators\Commands;
+<?php namespace Fragale\Generators\Commands;
 
-use Way\Generators\Generators\SeedGenerator;
+use Fragale\Generators\Generators\SeedGenerator;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,7 +24,7 @@ class SeedGeneratorCommand extends BaseGeneratorCommand {
     /**
      * Model generator instance.
      *
-     * @var Way\Generators\Generators\SeedGenerator
+     * @var Fragale\Generators\Generators\SeedGenerator
      */
     protected $generator;
 

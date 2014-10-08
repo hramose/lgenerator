@@ -1,5 +1,5 @@
 <?php
-namespace Way\Generators\Generators;
+namespace Fragale\Generators\Generators;
 
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem as File;

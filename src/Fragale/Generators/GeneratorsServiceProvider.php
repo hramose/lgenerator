@@ -1,8 +1,8 @@
-<?php namespace Way\Generators;
+<?php namespace Fragale\Generators;
 
-use Way\Generators\Commands;
-use Way\Generators\Generators;
-use Way\Generators\Cache;
+use Fragale\Generators\Commands;
+use Fragale\Generators\Generators;
+use Fragale\Generators\Cache;
 use Illuminate\Support\ServiceProvider;
 
 class GeneratorsServiceProvider extends ServiceProvider {

@@ -1,6 +1,6 @@
-<?php namespace Way\Generators\Commands;
+<?php namespace Fragale\Generators\Commands;
 
-use Way\Generators\Generators\MigrationGenerator;
+use Fragale\Generators\Generators\MigrationGenerator;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,7 +24,7 @@ class MigrationGeneratorCommand extends BaseGeneratorCommand
     /**
      * Model generator instance.
      *
-     * @var Way\Generators\Generators\MigrationGenerator
+     * @var Fragale\Generators\Generators\MigrationGenerator
      */
     protected $generator;
 

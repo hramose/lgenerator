@@ -1,6 +1,6 @@
-<?php namespace Way\Generators\Commands;
+<?php namespace Fragale\Generators\Commands;
 
-use Way\Generators\Generators\TestGenerator;
+use Fragale\Generators\Generators\TestGenerator;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,7 +24,7 @@ class TestGeneratorCommand extends BaseGeneratorCommand {
     /**
      * Test generator instance.
      *
-     * @var Way\Generators\Generators\TestGenerator
+     * @var Fragale\Generators\Generators\TestGenerator
      */
     protected $generator;
 
