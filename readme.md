@@ -1,27 +1,31 @@
 This Laravel 4 package provides a variety of generators to speed up your development process. These generators include:
 
-- `generate:model`
-- `generate:controller`
-- `generate:seed`
-- `generate:view`
-- `generate:migration`
-- `generate:resource`
-- `generate:scaffold`
-- `generate:form`
-- `generate:test`
-- `generate:pivot` <-- NEW!!
+- `makefast:model`
+- `makefast:controller`
+- `makefast:seed`
+- `makefast:view`
+- `makefast:migration`
+- `makefast:resource`
+- `makefast:scaffold`
+- `makefast:form`
+- `makefast:test`
+- `makefast:pivot` <-- NEW!!
 
-## Prefer a Video Walk-through?
+## 
+Esta es una version derivada de la original de J. Way, esta incluye la adaptacion especificamente de la generacion de scaffolds utilizados en mis proyectos.
+Originalmente podrá verse un tanto "demasiado personalizada para mi uso" sin embargo la idea es adaptarla para que sea general.
+Si Ud. esta buscando un generador "generico" es recomendable usar way/generators
 
-[See here.](http://tutsplus.s3.amazonaws.com/tutspremium/courses_$folder$/WhatsNewInLaravel4/9-Generators.mp4)
+
+
 
 ## Installation
 
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `way/generators`.
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `fragale/l4generators`.
 
 	"require": {
 		"laravel/framework": "4.0.*",
-		"way/generators": "dev-master"
+		"fragale/l4generators": "1.0.*"
 	},
 	"minimum-stability" : "dev"
 
@@ -31,7 +35,7 @@ Next, update Composer from the Terminal:
 
 Once this operation completes, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
-    'Way\Generators\GeneratorsServiceProvider'
+    'Fragale\Generators\GeneratorsServiceProvider'
 
 That's it! You're all set to go. Run the `artisan` command from the Terminal to see the new `generate` commands.
 
@@ -55,9 +59,9 @@ Think of generators as an easy way to speed up your workflow. Rather than openin
 
 ### Migrations
 
-Laravel 4 offers a migration generator, but it stops just short of creating the schema (or the fields for the table). Let's review a couple examples, using `generate:migration`.
+Laravel 4 offers a migration generator, but it stops just short of creating the schema (or the fields for the table). Let's review a couple examples, using `makefast:migration`.
 
-    php artisan generate:migration create_posts_table
+    php artisan makefast:migration create_posts_table
 
 If we don't specify the `fields` option, the following file will be created within `app/database/migrations`.
 
@@ -100,7 +104,7 @@ Notice that the generator is smart enough to detect that you're trying to create
 
 If you instead use a migration name along the lines of `add_user_id_to_posts_table`, in that case, the keyword is "add," signaling that we intend to add rows to an existing table. Let's see what that generates.
 
-    php artisan generate:migration add_user_id_to_posts_table
+    php artisan makefast:migration add_user_id_to_posts_table
 
 This will prepare the following boilerplate:
 
@@ -154,7 +158,7 @@ When writing migration names, use the following keywords to provide hints for th
 
 This is pretty nice, but let's take things a step further and also generate the schema, using the `fields` option.
 
-    php artisan generate:migration create_posts_table --fields="title:string, body:text"
+    php artisan makefast:migration create_posts_table --fields="title:string, body:text"
 
 Before we decipher this new option, let's see the output:
 
@@ -213,15 +217,15 @@ Please make note of the last example, where we specify a character limit: `strin
 
 It is possible to destroy the table by issuing:
 
-	php artisan generate:migration destroy_posts_table
+	php artisan makefast:migration destroy_posts_table
 	
 If you'd like to have an accurate artisan rollback option set the `fields` option as well:
 
-	php artisan generate:migration destroy_posts_table --fields="title:string, body:text"
+	php artisan makefast:migration destroy_posts_table --fields="title:string, body:text"
 
 As a final demonstration, let's run a migration to remove the `completed` field from a `tasks` table.
 
-    php artisan generate:migration remove_completed_from_tasks_table --fields="completed:boolean"
+    php artisan makefast:migration remove_completed_from_tasks_table --fields="completed:boolean"
 
 This time, as we're using the "remove" keyword, the generator understands that it should drop a column, and add it back in the `down()` method.
 
@@ -263,7 +267,7 @@ class RemoveCompletedFromTasksTable extends Migration {
 
 ### Models
 
-    php artisan generate:model Post
+    php artisan makefast:model Post
 
 This will create the file, `app/models/Post.php` and insert the following boilerplate:
 
@@ -277,7 +281,7 @@ class Post extends Eloquent {
 
 ### Views
 
-    php artisan generate:view dog
+    php artisan makefast:view dog
 
 This command will generate `app/views/dog.blade.php` and a simple string, for convenience.
 
@@ -285,7 +289,7 @@ This command will generate `app/views/dog.blade.php` and a simple string, for co
 
 As with all of the commands, you may specify a `--path` option to place this file elsewhere.
 
-    php artisan generate:view index --path=views/dogs
+    php artisan makefast:view index --path=views/dogs
 
 Now, we get: `app/views/dogs/index.blade.php`.
 
@@ -293,7 +297,7 @@ Now, we get: `app/views/dogs/index.blade.php`.
 
 Laravel 4 provides us with a flexible way to seed new tables.
 
-    php artisan generate:seed dogs
+    php artisan makefast:seed dogs
 
 Set the argument to the name of the table that you'd like a seed file for. This will generate `app/database/seeds/DogsTableSeeder.php` and populate it with:
 
@@ -325,7 +329,7 @@ To fully seed the `dogs` table:
 
 Think of the resource generator as the big enchilada. It calls all of its sibling generate commands. Assuming the following command:
 
-    php artisan generate:resource dog --fields="name:string"
+    php artisan makefast:resource dog --fields="name:string"
 
 The following actions will take place:
 
@@ -344,7 +348,7 @@ The following actions will take place:
 
 Let's create a resource for displaying dogs in a restful way.
 
-    php artisan generate:resource dog --fields="name:string, age:integer"
+    php artisan makefast:resource dog --fields="name:string, age:integer"
 
 Next, we'll seed this new `dogs` table. Open `database/seeds/DogsTableSeeder.php` and add a couple of rows. Remember, you only need to edit the `$dogs` array within this file.
 
@@ -396,7 +400,7 @@ And...it's green!
 Think of scaffolding as an extension of a resource. It has the exact same interface.
 
 ```bash
-php artisan generate:scaffold tweet --fields="author:string, body:text"
+php artisan makefast:scaffold tweet --fields="author:string, body:text"
 ```
 
 The only difference is that it will handle all of the boilerplate. This can be particularly useful for prototyping - or even learning how to do basic things, such as delete a record from a database table, or build a form, or perform validation on that form.
@@ -409,7 +413,7 @@ The only difference is that it will handle all of the boilerplate. This can be p
 This handy new generator allows you to, with a single command, generate the necessary HTML for a form, based on attributes from a provided model. Perhaps an example is in order:
 
 ```bash
-php artisan generate:form tweet
+php artisan makefast:form tweet
 ```
 Assuming that I do have a `Tweet` model and its associated `tweet` table, this command will output:
 
@@ -438,7 +442,7 @@ Pretty neat, huh? It read the attributes and data types, and prepared the markup
 But what if you intend to update a resource, rather than create a new one? Well, in that case, use the `--method` option.
 
 ```bash
-php artisan generate:form tweet --method="update"
+php artisan makefast:form tweet --method="update"
 ```
 
 This will mostly generate the same HTML, however, the `Form::open()` method will be adjusted, as needed:
@@ -454,7 +458,7 @@ The method option will accept any number of values (*add, edit, update, post, cr
 What if you don't like the idea of using an unordered list for a form? Use the `--html` option, along with the name of the element that you'd prefer to use:
 
 ```bash
-php artisan generate:form tweet --html="div"
+php artisan makefast:form tweet --html="div"
 ```
 Now, the generator we'll present the elements within `div`s!
 
@@ -482,17 +486,17 @@ At least for now, and unlike the other generators in this package, this command 
 
 ```bash
 # copy the output to the clipboard
-php artisan generate:form tweet | pbcopy
+php artisan makefast:form tweet | pbcopy
 
 # save it to a form partial
-php artisan generate:form tweet > app/views/posts/form.blade.php
+php artisan makefast:form tweet > app/views/posts/form.blade.php
 ```
 ### Tests
 
-Use `generate:test` when you need to create a new PHPUnit test class. Here's an example:
+Use `makefast:test` when you need to create a new PHPUnit test class. Here's an example:
 
 ```bash
-php artisan generate:test FooTest
+php artisan makefast:test FooTest
 ```
 
 This will produce `app/tests/FooTest.php`.
@@ -518,13 +522,13 @@ Creating joinable/pivot tables can sometimes be confusing.
 - In what order do we write the table names to make Laravel happy?
 - What fields should be in the pivot table?
 
-This process can be automated now. Simply call the `generate:pivot`
+This process can be automated now. Simply call the `makefast:pivot`
 command, and provide the names of the tables that should be joinable.
 For example, a post can have many tags, and a tag can have many posts.
 Run the following command to create the necessary pivot table.
 
 ```bash
-php artisan generate:pivot posts tags
+php artisan makefast:pivot posts tags
 ```
 
 It doesn't matter which order you provide the table names (or whether
@@ -552,10 +556,10 @@ a tags table, and the connecting pivot table for the two. We can tackle
 this easily with the generators.
 
 ```bash
-php artisan generate:migration create_posts_table --fields="title:string, description:text"
+php artisan makefast:migration create_posts_table --fields="title:string, description:text"
 
-php artisan generate:migration create_tags_table --fields="name:string"
+php artisan makefast:migration create_tags_table --fields="name:string"
 
-php artisan generate:pivot posts tags
+php artisan makefast:pivot posts tags
 ```
 
