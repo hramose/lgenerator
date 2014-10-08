@@ -16,7 +16,7 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'generate:scaffold';
+    protected $name = 'makefast:scaffold';
 
     /**
      * The console command description.

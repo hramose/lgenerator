@@ -12,7 +12,7 @@ class MigrationGeneratorCommand extends BaseGeneratorCommand
      *
      * @var string
      */
-    protected $name = 'generate:migration';
+    protected $name = 'makefast:migration';
 
     /**
      * The console command description.

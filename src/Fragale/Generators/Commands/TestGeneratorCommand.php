@@ -12,7 +12,7 @@ class TestGeneratorCommand extends BaseGeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'generate:test';
+    protected $name = 'makefast:test';
 
     /**
      * The console command description.

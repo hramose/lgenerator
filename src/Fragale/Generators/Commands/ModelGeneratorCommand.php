@@ -12,7 +12,7 @@ class ModelGeneratorCommand extends BaseGeneratorCommand {
 	 *
 	 * @var string
 	 */
-	protected $name = 'generate:model';
+	protected $name = 'makefast:model';
 
 	/**
 	 * The console command description.

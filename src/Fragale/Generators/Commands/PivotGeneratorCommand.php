@@ -11,7 +11,7 @@ class PivotGeneratorCommand extends BaseGeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'generate:pivot';
+    protected $name = 'makefast:pivot';
 
     /**
      * The console command description.
@@ -25,7 +25,7 @@ class PivotGeneratorCommand extends BaseGeneratorCommand {
         $tables = $this->sortDesiredTables();
 
         $this->call(
-            'generate:migration',
+            'makefast:migration',
             array(
                 'name'      => "pivot_{$tables[0]}_{$tables[1]}_table",
                 '--fields'  => implode(', ', array(

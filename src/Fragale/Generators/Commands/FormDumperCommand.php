@@ -15,7 +15,7 @@ class FormDumperCommand extends BaseGeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'generate:form';
+    protected $name = 'makefast:form';
 
     /**
      * The console command description.

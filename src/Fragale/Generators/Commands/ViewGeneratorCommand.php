@@ -12,7 +12,7 @@ class ViewGeneratorCommand extends BaseGeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'generate:view';
+    protected $name = 'makefast:view';
 
     /**
      * The console command description.

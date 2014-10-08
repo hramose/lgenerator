@@ -12,7 +12,7 @@ class ControllerGeneratorCommand extends BaseGeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'generate:controller';
+    protected $name = 'makefast:controller';
 
     /**
      * The console command description.

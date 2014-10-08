@@ -12,7 +12,7 @@ class SeedGeneratorCommand extends BaseGeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'generate:seed';
+    protected $name = 'makefast:seed';
 
     /**
      * The console command description.

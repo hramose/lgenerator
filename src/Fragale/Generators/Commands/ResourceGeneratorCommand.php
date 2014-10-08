@@ -16,7 +16,7 @@ class ResourceGeneratorCommand extends Command {
      *
      * @var string
      */
-    protected $name = 'generate:resource';
+    protected $name = 'makefast:resource';
 
     /**
      * The console command description.
@@ -127,7 +127,7 @@ class ResourceGeneratorCommand extends Command {
     }
 
     /**
-     * Call generate:model
+     * Call makefast:model
      *
      * @return void
      */
@@ -135,7 +135,7 @@ class ResourceGeneratorCommand extends Command {
     {
         // For now, this is just the regular model template
         $this->call(
-            'generate:model',
+            'makefast:model',
             array(
                 'name' => $this->model,
                 '--template' => $this->getModelTemplatePath()
@@ -144,7 +144,7 @@ class ResourceGeneratorCommand extends Command {
     }
 
     /**
-     * Call generate:controller
+     * Call makefast:controller
      *
      * @return void
      */
@@ -153,7 +153,7 @@ class ResourceGeneratorCommand extends Command {
         $name = Pluralizer::plural($this->model);
 
         $this->call(
-            'generate:controller',
+            'makefast:controller',
             array(
                 'name' => "{$name}Controller",
                 '--template' => $this->getControllerTemplatePath()
@@ -162,7 +162,7 @@ class ResourceGeneratorCommand extends Command {
     }
 
     /**
-     * Call generate:test
+     * Call makefast:test
      *
      * @return void
      */
@@ -174,7 +174,7 @@ class ResourceGeneratorCommand extends Command {
         }
 
         $this->call(
-            'generate:test',
+            'makefast:test',
             array(
                 'name' => Pluralizer::plural(strtolower($this->model)) . 'Test',
                 '--template' => $this->getTestTemplatePath(),
@@ -184,7 +184,7 @@ class ResourceGeneratorCommand extends Command {
     }
 
     /**
-     * Call generate:views
+     * Call makefast:views
      *
      * @return void
      */
@@ -226,7 +226,7 @@ class ResourceGeneratorCommand extends Command {
     protected function generateView($view, $path)
     {
         $this->call(
-            'generate:view',
+            'makefast:view',
             array(
                 'name'       => $view,
                 '--path'     => $path,
@@ -236,7 +236,7 @@ class ResourceGeneratorCommand extends Command {
     }
 
     /**
-     * Call generate:migration
+     * Call makefast:migration
      *
      * @return void
      */
@@ -245,7 +245,7 @@ class ResourceGeneratorCommand extends Command {
         $name = 'create_' . Pluralizer::plural($this->model) . '_table';
 
         $this->call(
-            'generate:migration',
+            'makefast:migration',
             array(
                 'name'      => $name,
                 '--fields'  => $this->option('fields')
@@ -256,7 +256,7 @@ class ResourceGeneratorCommand extends Command {
     protected function generateSeed()
     {
         $this->call(
-            'generate:seed',
+            'makefast:seed',
             array(
                 'name' => Pluralizer::plural(strtolower($this->model))
             )

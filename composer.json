@@ -1,11 +1,11 @@
 {
-    "name": "way/generators",
-    "description": "Laravel 4 Generators",
+    "name": "fragale/l4generators",
+    "description": "Laravel 4 Generators, basado en la version 1.1 de J.Way",
     "keywords": ["laravel", "generators", "artisan"],
     "authors": [
         {
-            "name": "Jeffrey Way",
-            "email": "jeffrey@jeffrey-way.com"
+            "name": "Maximiliano fragale",
+            "email": "fragale@gmail.com"
         }
     ],
     "require": {
@@ -20,10 +20,10 @@
     },
     "autoload": {
         "psr-0": {
-            "Way\\Generators": "src/"
+            "Fragale\\Generators": "src/"
         },
         "classmap": [
-            "src/Way/Generators/Generators"
+            "src/Fragale/Generators/Generators"
         ]
     },
      "extra": {
