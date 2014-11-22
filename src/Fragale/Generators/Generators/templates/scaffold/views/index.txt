@@ -5,7 +5,7 @@
 /*------------------------------------------------------------*/
 $viewName="index";
 $modelo="{{models}}";
-include_once(app_path().'/views/system/header_CRUD.php');
+include_once(app_path().'/views/system/header_CRUD.php'); 
 /*------------------------------------------------------------*/
 ?>
 		<!-- begin #content -->
@@ -31,12 +31,12 @@ include_once(app_path().'/views/system/header_CRUD.php');
                         </div>
                         <div class="panel-body">                        
 							<div class="row-fluid">
+								@if ($lc->master_record_template)
 								<div class="{{$col_full}}" id="crud-background">
 									<p class="divider"></p>
-									@if ($lc->master_record_template)
-										@include ($lc->master_record_template)
-									@endif		
+									@include ($lc->master_record_template)
 								</div>		
+								@endif		
 								@include('layouts.kyronindexheader') 
 							</div>
 							<div class="row-fluid">
