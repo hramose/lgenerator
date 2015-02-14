@@ -1,6 +1,6 @@
 {
-    "name": "fragale/l4generators",
-    "description": "Laravel 4 Generators, basado en la version 1.1 de J.Way",
+    "name": "fragale/lgenerators",
+    "description": "Laravel 5 Generators, basado en la version 1.1 de J.Way",
     "keywords": ["laravel", "generators", "artisan"],
     "authors": [
         {

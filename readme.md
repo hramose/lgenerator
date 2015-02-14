@@ -1,4 +1,4 @@
-This Laravel 4 package provides a variety of generators to speed up your development process. These generators include:
+This Laravel 5 package provides a variety of generators to speed up your development process. These generators include:
 
 - `makefast:model`
 - `makefast:controller`
@@ -21,11 +21,11 @@ Si Ud. esta buscando un generador "generico" es recomendable usar way/generators
 
 ## Installation
 
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `fragale/l4generators`.
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `fragale/lgenerators`.
 
 	"require": {
 		"laravel/framework": "4.0.*",
-		"fragale/l4generators": "1.0.*"
+		"fragale/lgenerators": "1.0.*"
 	},
 	"minimum-stability" : "dev"
 
@@ -37,7 +37,7 @@ Once this operation completes, the final step is to add the service provider. Op
 
     'Fragale\Generators\GeneratorsServiceProvider'
 
-That's it! You're all set to go. Run the `artisan` command from the Terminal to see the new `generate` commands.
+That's it! You're all set to go. Run the `artisan` command from the Terminal to see the new `makefast` commands.
 
     php artisan
 
