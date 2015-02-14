@@ -23,24 +23,24 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	{
 		$this->registerModelGenerator();
 		$this->registerControllerGenerator();
-		$this->registerTestGenerator();
+		//$this->registerTestGenerator();
 		$this->registerResourceGenerator();
 		$this->registerScaffoldGenerator();
 		$this->registerViewGenerator();
-		$this->registerMigrationGenerator();
+		//$this->registerMigrationGenerator();
 		$this->registerPivotGenerator();
-		$this->registerSeedGenerator();
+		//$this->registerSeedGenerator();
 		$this->registerFormDumper();
 
 		$this->commands(
 			'generate.model',
 			'generate.controller',
-			'generate.test',
+			//'generate.test',
 			'generate.scaffold',
 			'generate.resource',
 			'generate.view',
-			'generate.migration',
-			'generate.seed',
+			//'generate.migration',
+			//'generate.seed',
 			'generate.form',
 			'generate.pivot'
 		);
@@ -83,6 +83,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 *
 	 * @return Commands\TestGeneratorCommand
 	 */
+	/*
 	protected function registerTestGenerator()
 	{
 		$this->app['generate.test'] = $this->app->share(function($app)
@@ -93,6 +94,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 			return new Commands\TestGeneratorCommand($generator);
 		});
 	}
+	*/
 
 	/**
 	 * Register generate:view
@@ -127,9 +129,9 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Register generate:scaffold
+	 * Register generate:resource
 	 *
-	 * @return Commands\ScaffoldGeneratorCommand
+	 * @return Commands\ResourceGeneratorCommand
 	 */
 	protected function registerResourceGenerator()
 	{
@@ -147,6 +149,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 *
 	 * @return Commands\MigrationGeneratorCommand
 	 */
+	/*
 	protected function registerMigrationGenerator()
 	{
 		$this->app['generate.migration'] = $this->app->share(function($app)
@@ -157,7 +160,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 			return new Commands\MigrationGeneratorCommand($generator);
 		});
 	}
-
+*/
 	/**
 	 * Register generate:pivot
 	 *
@@ -176,6 +179,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 *
 	 * @return Commands\MigrationGeneratorCommand
 	 */
+	/*
 	protected function registerSeedGenerator()
 	{
 		$this->app['generate.seed'] = $this->app->share(function($app)
@@ -186,7 +190,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 			return new Commands\SeedGeneratorCommand($generator);
 		});
 	}
-
+*/
 	/**
 	 * Register generate:migration
 	 *

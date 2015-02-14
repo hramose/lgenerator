@@ -48,7 +48,7 @@ class ViewGeneratorCommand extends BaseGeneratorCommand {
     protected function getArguments()
     {
         return array(
-            array('name', InputArgument::REQUIRED, 'Name of the view to generate.'),
+            array('name', InputArgument::REQUIRED, 'Name of the view to generate.'), 
         );
     }
 
@@ -59,8 +59,11 @@ class ViewGeneratorCommand extends BaseGeneratorCommand {
      */
     protected function getOptions()
     {
+        $path=Config::get('view.paths');
+        $path_views=$path[0];
         return array(
-           array('path', null, InputOption::VALUE_OPTIONAL, 'Path to views directory.', app_path() . '/views'),
+           //array('path', null, InputOption::VALUE_OPTIONAL, 'Path to views directory.', app_path() . '/views'),
+           array('path', null, InputOption::VALUE_OPTIONAL, 'Path to views directory.', $path_views),
            array('template', null, InputOption::VALUE_OPTIONAL, 'Path to template.', __DIR__.'/../Generators/templates/view.txt'),
         );
     }
