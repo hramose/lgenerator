@@ -4,6 +4,7 @@ use Fragale\Generators\Generators\ViewGenerator;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Support\Facades\Config;
 
 class ViewGeneratorCommand extends BaseGeneratorCommand {
 
