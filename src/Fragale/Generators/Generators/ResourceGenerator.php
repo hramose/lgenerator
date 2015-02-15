@@ -26,7 +26,7 @@ class ResourceGenerator {
     }
 
     /**
-     * Update app/routes.php
+     * Update app/Http/routes.php
      *
      * @param  string $name
      * @return void
@@ -34,7 +34,7 @@ class ResourceGenerator {
     public function updateRoutesFile($name)
     {
         $name = strtolower(Pluralizer::plural($name));
-        $path = app_path() . '/routes.php';
+        $path = app_path() . '/Http/routes.php';
         $file=new File();
 
         $append="Route::resource('" . $name . "', '" . ucwords($name) . "Controller');";

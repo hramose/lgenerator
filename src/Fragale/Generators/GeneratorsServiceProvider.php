@@ -21,26 +21,26 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		//$this->registerTestGenerator();
+		//$this->registerMigrationGenerator();
+		//$this->registerSeedGenerator();
 		$this->registerModelGenerator();
 		$this->registerControllerGenerator();
-		//$this->registerTestGenerator();
 		$this->registerResourceGenerator();
 		$this->registerScaffoldGenerator();
 		$this->registerViewGenerator();
-		//$this->registerMigrationGenerator();
 		$this->registerPivotGenerator();
-		//$this->registerSeedGenerator();
 		$this->registerFormDumper();
 
 		$this->commands(
+			//'generate.test',
+			//'generate.migration',
+			//'generate.seed',
 			'generate.model',
 			'generate.controller',
-			//'generate.test',
 			'generate.scaffold',
 			'generate.resource',
 			'generate.view',
-			//'generate.migration',
-			//'generate.seed',
 			'generate.form',
 			'generate.pivot'
 		);
@@ -78,23 +78,6 @@ class GeneratorsServiceProvider extends ServiceProvider {
 		});
 	}
 
-	/**
-	 * Register generate:test
-	 *
-	 * @return Commands\TestGeneratorCommand
-	 */
-	/*
-	protected function registerTestGenerator()
-	{
-		$this->app['generate.test'] = $this->app->share(function($app)
-		{
-			$cache = new Cache($app['files']);
-			$generator = new Generators\TestGenerator($app['files'], $cache);
-
-			return new Commands\TestGeneratorCommand($generator);
-		});
-	}
-	*/
 
 	/**
 	 * Register generate:view
@@ -145,23 +128,6 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Register generate:migration
-	 *
-	 * @return Commands\MigrationGeneratorCommand
-	 */
-	/*
-	protected function registerMigrationGenerator()
-	{
-		$this->app['generate.migration'] = $this->app->share(function($app)
-		{
-			$cache = new Cache($app['files']);
-			$generator = new Generators\MigrationGenerator($app['files'], $cache);
-
-			return new Commands\MigrationGeneratorCommand($generator);
-		});
-	}
-*/
-	/**
 	 * Register generate:pivot
 	 *
 	 * @return Commands\PivotGeneratorCommand
@@ -175,9 +141,41 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	}
 
 	/**
+	 * Register generate:migration
+	 *
+	 * @return Commands\FormDumperCommand
+	 */
+	protected function registerFormDumper()
+	{
+		$this->app['generate.form'] = $this->app->share(function($app)
+		{
+			$gen = new Generators\FormDumperGenerator($app['files'], new \Mustache_Engine);
+
+			return new Commands\FormDumperCommand($gen);
+		});
+	}
+
+	/**
+	 * Register generate:test
+	 *
+	 * @return Commands\TestGeneratorCommand
+	 */
+	/*
+	protected function registerTestGenerator()
+	{
+		$this->app['generate.test'] = $this->app->share(function($app)
+		{
+			$cache = new Cache($app['files']);
+			$generator = new Generators\TestGenerator($app['files'], $cache);
+
+			return new Commands\TestGeneratorCommand($generator);
+		});
+	}
+	*/
+	/**
 	 * Register generate:seed
 	 *
-	 * @return Commands\MigrationGeneratorCommand
+	 * @return Commands\SeedGeneratorCommand
 	 */
 	/*
 	protected function registerSeedGenerator()
@@ -196,14 +194,17 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 *
 	 * @return Commands\MigrationGeneratorCommand
 	 */
-	protected function registerFormDumper()
+	/*
+	protected function registerMigrationGenerator()
 	{
-		$this->app['generate.form'] = $this->app->share(function($app)
+		$this->app['generate.migration'] = $this->app->share(function($app)
 		{
-			$gen = new Generators\FormDumperGenerator($app['files'], new \Mustache_Engine);
+			$cache = new Cache($app['files']);
+			$generator = new Generators\MigrationGenerator($app['files'], $cache);
 
-			return new Commands\FormDumperCommand($gen);
+			return new Commands\MigrationGeneratorCommand($generator);
 		});
 	}
-
+*/
+	
 }

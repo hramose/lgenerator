@@ -9,6 +9,11 @@ class ViewGenerator extends Generator {
 
     public $viewName = '';
 
+    protected function pathViews($name){
+      $path=Config::get('view.paths');
+      return $path[0];
+    }
+
     /**
      * Fetch the compiled template for a view
      *
@@ -144,7 +149,7 @@ EOT;
 
         $fields = $this->cache->getFields();
 
-        $path=app_path()."/views/$models/customs/formfields_layout.php";
+        $path=$this->pathViews($models)."/customs/formfields_layout.php";
         if (file_exists($path))
         {
             $file=new File();
@@ -171,7 +176,7 @@ EOT;
         $name=$this->viewName;
         $readonly = array();
 
-        $path=app_path()."/views/$models/customs/formfields_layout.php";
+        $path=$this->pathViews($models)."/customs/formfields_layout.php";
         if (file_exists($path))
         {
             $file=new File();
@@ -194,7 +199,7 @@ EOT;
         $models = Pluralizer::plural($model); // posts
         $extra = array();
 
-        $path=app_path()."/views/$models/customs/formfields_layout.php";
+        $path=$this->pathViews($models)."/customs/formfields_layout.php";
         if (file_exists($path))
         {
             $file=new File();
@@ -217,7 +222,7 @@ EOT;
         $models = Pluralizer::plural($model); 
         $format = '';
 
-        $path=app_path()."/views/$models/customs/formfields_layout.php";
+        $path=$this->pathViews($models)."/customs/formfields_layout.php";
         if (file_exists($path))
         {
             $file=new File();
@@ -252,7 +257,7 @@ EOT;
         $formMethods = array();
 
         /*Verifica si hay navtabs definidos en la vista*/
-        $path=app_path()."/views/$models/customs/navtabs.php";
+        $path=$this->pathViews($models)."/customs/navtabs.php";
         if (file_exists($path))
         {
             /*Formulario con navtabs*/
@@ -339,7 +344,7 @@ EOT;
         $models = Pluralizer::plural($model);   // posts
 
         /*Verifica si hay campos personalizados*/
-        $path=app_path()."/views/$models/customs/formfields.php";
+        $path=$this->pathViews($models)."/customs/formfields.php";
         if (file_exists($path))
         {
             /*Levanta los campos personalizados*/

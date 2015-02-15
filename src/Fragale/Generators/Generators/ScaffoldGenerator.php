@@ -25,7 +25,7 @@ class ScaffoldGenerator {
     }
 
     /**
-     * Update app/routes.php
+     * Update app/Http/routes.php
      *
      * @param  string $name
      * @return void
@@ -33,7 +33,7 @@ class ScaffoldGenerator {
     public function updateRoutesFile($name)
     {
         $name = strtolower(Pluralizer::plural($name));
-        $path = app_path() . '/routes.php';
+        $path = app_path() . '/Http/routes.php';
         $file=new File();
 
         $append="\n\nRoute::resource('" . $name . "', '" . ucwords($name) . "Controller');";

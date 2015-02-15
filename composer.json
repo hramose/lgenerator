@@ -19,11 +19,12 @@
         "illuminate/filesystem": "~4"
     },
     "autoload": {
-        "psr-0": {
-            "Fragale\\Generators": "src/"
-        },
+        "psr-4": {
+            "Fragale\\": "src/Fragale/"
+        },        
         "classmap": [
-            "src/Fragale/Generators/Generators"
+            "src/Fragale/Generators/Generators",
+            "src/Fragale/Helpers"
         ]
     },
      "extra": {
