@@ -3,6 +3,7 @@ namespace Fragale\Generators\Generators;
 
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem as File;
+use Fragale\Helpers\PathsInfo;
 
 class ViewGenerator extends Generator {
 

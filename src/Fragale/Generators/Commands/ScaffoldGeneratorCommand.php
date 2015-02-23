@@ -2,6 +2,7 @@
 
 use Fragale\Generators\Generators\ResourceGenerator;
 use Fragale\Generators\Cache;
+use Fragale\Helpers\PathsInfo;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -31,14 +32,12 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
      * @return string
      */
     protected function getModelTemplatePath()
-    {
-        $filename=__DIR__.'/../Generators/templates/scaffold/model.txt';
+    {                
         $models = Pluralizer::plural($this->model);
-        $customFile=app_path().'/views/'.$models.'/customs/model_scaffold.php';
-        if (file_exists($customFile)){
-            $filename=$customFile;
-            $this->info('Using custom file :'.$customFile);
-        }
+        $p=new PathsInfo();
+        $filename=$p->testAndSwapFileName(__DIR__.'/../Generators/templates/scaffold/model.php', $p->fileModelTemplate());
+        $filename=$p->testAndSwapFileName($filename, $p->fileCustomModel($models));
+        $this->info('Template model file for this object: '.$filename);
         return $filename;        
     }
 
@@ -49,14 +48,12 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
      */
     protected function getControllerTemplatePath()
     {
-        $filename=__DIR__.'/../Generators/templates/scaffold/controller.txt';
         $models = Pluralizer::plural($this->model);
-        $customFile=app_path().'/views/'.$models.'/customs/controller_scaffold.php';
-        if (file_exists($customFile)){
-            $filename=$customFile;
-            $this->info('Using custom file :'.$customFile);
-        }
-        return $filename;
+        $p=new PathsInfo();
+        $filename=$p->testAndSwapFileName(__DIR__.'/../Generators/templates/scaffold/controller.php', $p->fileControllerTemplate());
+        $filename=$p->testAndSwapFileName($filename, $p->fileCustomController($models));
+        $this->info('Template controller file for this object: '.$filename);
+        return $filename;        
     }
 
 
@@ -75,9 +72,18 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
      *
      * @return string
      */
-    protected function getViewTemplatePath($view = 'view')
+    protected function getViewTemplatePath($view = 'view') /*CONTINUAR AQUI crear el metodo en $p */
     {
         return __DIR__."/../Generators/templates/scaffold/views/{$view}.txt";
+
+        $models = Pluralizer::plural($this->model);
+        $p=new PathsInfo();
+        $filename=$p->testAndSwapFileName(__DIR__."/../Generators/templates/scaffold/views/{$view}.txt", $p->fileControllerTemplate());
+        $filename=$p->testAndSwapFileName($filename, $p->fileCustomController($models));
+        $this->info('Template controller file for this object: '.$filename);
+        return $filename;     
+
+
     }
 
 }
