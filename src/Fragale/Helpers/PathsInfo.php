@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Config;
   /templates
     /cruds                            pathTemplates()
       /model                          pathTemplatesModel()
-          model.php                   fileModelTemplate()                      
+          model.template.php          fileModelTemplate()                      
       /controller                     pathTemplatesController()
-          controller.php              fileControllerTemplate()                
+          controller.template.php     fileControllerTemplate()                
       /views                          pathTemplatesViews()          
       /customs
         /objectname
           /model                      pathCustomModel($objectname)
-            model.php                 fileCustomModel($objectname)            
-            rules.php                 fileCustomRules($objectname)
+            model.template.php        fileCustomModel($objectname)            
+            rules.template.php        fileCustomRules($objectname)
           /controller                 pathCustomController($objectname)
-            controller.php            fileCustomController($objectname)          
+            controller.template.php   fileCustomController($objectname)          
           /forms                      pathCustomForms($objectname)
             aditionalFormFields.php   fileAditionalFormsFields($objectname)
             navtabs.php               fileFormNavtabs($objectname)
@@ -54,7 +54,7 @@ class PathsInfo{
 
     /*file con el template general de modelos*/
     public function fileModelTemplate(){ 
-      return $this->pathTemplatesModel().'/model.php';
+      return $this->pathTemplatesModel().'/model.template.php';
     }
 
     /*path al template general de controladores*/
@@ -64,7 +64,7 @@ class PathsInfo{
 
     /*file con el template general de controladores*/
     public function fileControllerTemplate(){ 
-      return $this->pathTemplatesController().'/controller.php';
+      return $this->pathTemplatesController().'/controller.template.php';
     }     
 
     /*path al template personalizado de modelos para un objeto $name*/
@@ -74,12 +74,12 @@ class PathsInfo{
 
     /*archivo con el template personalizado del modelo para un objeto $name*/
     public function fileCustomModel($name){       
-      return $this->pathCustomModel($name)."/model.php";
+      return $this->pathCustomModel($name)."/model.template.php";
     }
 
     /*archivo con el template personalizado para las rules de un objeto $name*/
     public function fileCustomRules($name){       
-      return $this->pathCustomModel($name)."/rules.php";
+      return $this->pathCustomModel($name)."/rules.template.php";
     }
 
     /*path al template personalizado de controlador para un objeto $name*/
@@ -89,7 +89,7 @@ class PathsInfo{
 
     /*archivo con el template personalizado del controlador para un objeto $name*/
     public function fileCustomController($name){       
-      return $this->pathCustomController($name)."/controller.php";
+      return $this->pathCustomController($name)."/controller.template.php";
     }
 
     /*path al template personalizado de formularios para un objeto $name*/

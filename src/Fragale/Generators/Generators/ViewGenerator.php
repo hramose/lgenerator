@@ -1,6 +1,7 @@
 <?php
 namespace Fragale\Generators\Generators;
 
+use Fragale\Helpers\PathsInfo;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem as File;
 use Fragale\Helpers\PathsInfo;
@@ -9,11 +10,6 @@ class ViewGenerator extends Generator {
 
 
     public $viewName = '';
-
-    protected function pathViews($name){
-      $path=Config::get('view.paths');
-      return $path[0];
-    }
 
     /**
      * Fetch the compiled template for a view
@@ -145,12 +141,13 @@ EOT;
      */
     public function purgedFields($model)
     {
+        $p=new PathsInfo();
         $models = Pluralizer::plural($model); // posts
         $name=$this->viewName;
 
         $fields = $this->cache->getFields();
 
-        $path=$this->pathViews($models)."/customs/formfields_layout.php";
+        $path=$p->fileFormFieldsLayout($models); // /resources/templates/cruds/$models/customs/forms/formFiedsLayout.php
         if (file_exists($path))
         {
             $file=new File();
@@ -173,11 +170,12 @@ EOT;
      */
     public function readonlyFields($model)
     {
+        $p=new PathsInfo();
         $models = Pluralizer::plural($model); // posts
         $name=$this->viewName;
         $readonly = array();
 
-        $path=$this->pathViews($models)."/customs/formfields_layout.php";
+        $path=$p->fileFormFieldsLayout($models); 
         if (file_exists($path))
         {
             $file=new File();
@@ -197,10 +195,11 @@ EOT;
      */
     public function extraFields($model)
     {
+        $p=new PathsInfo();
         $models = Pluralizer::plural($model); // posts
         $extra = array();
 
-        $path=$this->pathViews($models)."/customs/formfields_layout.php";
+        $path=$p->fileFormFieldsLayout($models); 
         if (file_exists($path))
         {
             $file=new File();
@@ -220,10 +219,11 @@ EOT;
      */
     public function formatField($model,$field)
     {
+        $p=new PathsInfo();
         $models = Pluralizer::plural($model); 
         $format = '';
 
-        $path=$this->pathViews($models)."/customs/formfields_layout.php";
+        $path=$p->fileFormFieldsLayout($models); 
         if (file_exists($path))
         {
             $file=new File();
@@ -258,7 +258,8 @@ EOT;
         $formMethods = array();
 
         /*Verifica si hay navtabs definidos en la vista*/
-        $path=$this->pathViews($models)."/customs/navtabs.php";
+        $p=new PathsInfo();
+        $path=$p->fileFormNavtabs($models); // /resources/templates/cruds/$models/customs/forms/navtabs.php
         if (file_exists($path))
         {
             /*Formulario con navtabs*/
@@ -345,7 +346,8 @@ EOT;
         $models = Pluralizer::plural($model);   // posts
 
         /*Verifica si hay campos personalizados*/
-        $path=$this->pathViews($models)."/customs/formfields.php";
+        $p=new PathsInfo();
+        $path=$p->fileAditionalFormsFields($models); // /resources/templates/cruds/$models/customs/forms/aditionalFormFields.php        
         if (file_exists($path))
         {
             /*Levanta los campos personalizados*/
