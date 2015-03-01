@@ -32,18 +32,57 @@ class GeneratorsServiceProvider extends ServiceProvider {
 		$this->registerPivotGenerator();
 		$this->registerFormDumper();
 
+		$this->registerNavtabsGenerator();
+		$this->registerCrudStructureGenerator();
+		$this->registerCrudRemoveCommand();
+
 		$this->commands(
-			//'generate.test',
-			//'generate.migration',
-			//'generate.seed',
-			'generate.model',
-			'generate.controller',
-			'generate.scaffold',
-			'generate.resource',
-			'generate.view',
-			'generate.form',
-			'generate.pivot'
+			//'makefast.test',
+			//'makefast.migration',
+			//'makefast.seed',
+			'makefast.navtabs',
+			'makefast.remove',
+			'makefast.crudstructure',
+			'makefast.model',
+			'makefast.controller',
+			'makefast.scaffold',
+			'makefast.resource',
+			'makefast.view',
+			'makefast.form',
+			'makefast.pivot'
 		);
+	}
+
+
+	/**
+	 * Register generate:navtabs
+	 *
+	 * @return Commands\NavtabsGeneratorCommand;
+	 */
+	protected function registerNavtabsGenerator()
+	{
+		$this->app['makefast.navtabs'] = $this->app->share(function($app)
+		{
+			return new Commands\NavtabsGeneratorCommand;
+		});
+	}
+
+
+	protected function registerCrudRemoveCommand()
+	{
+		$this->app['makefast.remove'] = $this->app->share(function($app)
+		{
+			return new Commands\CrudRemoveCommand;
+		});
+	}
+
+	protected function registerCrudStructureGenerator()
+	{
+		$this->app['makefast.crudstructure'] = $this->app->share(function($app)
+		{
+
+			return new Commands\CrudStructureGeneratorCommand;
+		});
 	}
 
 	/**
@@ -53,7 +92,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	protected function registerModelGenerator()
 	{
-		$this->app['generate.model'] = $this->app->share(function($app)
+		$this->app['makefast.model'] = $this->app->share(function($app)
 		{
 			$cache = new Cache($app['files']);
 			$generator = new Generators\ModelGenerator($app['files'], $cache);
@@ -69,7 +108,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	protected function registerControllerGenerator()
 	{
-		$this->app['generate.controller'] = $this->app->share(function($app)
+		$this->app['makefast.controller'] = $this->app->share(function($app)
 		{
 			$cache = new Cache($app['files']);
 			$generator = new Generators\ControllerGenerator($app['files'], $cache);
@@ -86,7 +125,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	protected function registerViewGenerator()
 	{
-		$this->app['generate.view'] = $this->app->share(function($app)
+		$this->app['makefast.view'] = $this->app->share(function($app)
 		{
 			$cache = new Cache($app['files']);
 			$generator = new Generators\ViewGenerator($app['files'], $cache);
@@ -102,7 +141,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	protected function registerScaffoldGenerator()
 	{
-		$this->app['generate.scaffold'] = $this->app->share(function($app)
+		$this->app['makefast.scaffold'] = $this->app->share(function($app)
 		{
 			$generator = new Generators\ResourceGenerator($app['files']);
 			$cache = new Cache($app['files']);
@@ -118,7 +157,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	protected function registerResourceGenerator()
 	{
-		$this->app['generate.resource'] = $this->app->share(function($app)
+		$this->app['makefast.resource'] = $this->app->share(function($app)
 		{
 			$cache = new Cache($app['files']);
 			$generator = new Generators\ResourceGenerator($app['files'], $cache);
@@ -134,7 +173,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	protected function registerPivotGenerator()
 	{
-		$this->app['generate.pivot'] = $this->app->share(function($app)
+		$this->app['makefast.pivot'] = $this->app->share(function($app)
 		{
 			return new Commands\PivotGeneratorCommand;
 		});
@@ -147,7 +186,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	 */
 	protected function registerFormDumper()
 	{
-		$this->app['generate.form'] = $this->app->share(function($app)
+		$this->app['makefast.form'] = $this->app->share(function($app)
 		{
 			$gen = new Generators\FormDumperGenerator($app['files'], new \Mustache_Engine);
 
@@ -163,7 +202,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	/*
 	protected function registerTestGenerator()
 	{
-		$this->app['generate.test'] = $this->app->share(function($app)
+		$this->app['makefast.test'] = $this->app->share(function($app)
 		{
 			$cache = new Cache($app['files']);
 			$generator = new Generators\TestGenerator($app['files'], $cache);
@@ -180,7 +219,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	/*
 	protected function registerSeedGenerator()
 	{
-		$this->app['generate.seed'] = $this->app->share(function($app)
+		$this->app['makefast.seed'] = $this->app->share(function($app)
 		{
 			$cache = new Cache($app['files']);
 			$generator = new Generators\SeedGenerator($app['files'], $cache);
@@ -197,7 +236,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 	/*
 	protected function registerMigrationGenerator()
 	{
-		$this->app['generate.migration'] = $this->app->share(function($app)
+		$this->app['makefast.migration'] = $this->app->share(function($app)
 		{
 			$cache = new Cache($app['files']);
 			$generator = new Generators\MigrationGenerator($app['files'], $cache);

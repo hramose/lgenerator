@@ -12,8 +12,12 @@ use Illuminate\Support\Facades\Config;
           model.template.php          fileModelTemplate()                      
       /controller                     pathTemplatesController()
           controller.template.php     fileControllerTemplate()                
-      /views                          pathTemplatesViews()          
-      /customs
+      /views                          pathTemplatesViews() 
+          index.template.blade.php    fileViewTemplate('index')                 
+          create.template.blade.php   fileViewTemplate('create')                 
+          edit.template.blade.php     fileViewTemplate('edit')                 
+          delete.template.blade.php   fileViewTemplate('delete')                                               
+      /customs                        pathTemplatesCustoms()
         /objectname
           /model                      pathCustomModel($objectname)
             model.template.php        fileCustomModel($objectname)            
@@ -51,6 +55,11 @@ class PathsInfo{
     public function pathTemplatesViews(){ 
       return $this->pathTemplates().'/views';
     }    
+
+    /*path al template general de customs*/
+    public function pathTemplatesCustoms(){ 
+      return $this->pathTemplates().'/customs';
+    }       
 
     /*file con el template general de modelos*/
     public function fileModelTemplate(){ 
@@ -96,6 +105,15 @@ class PathsInfo{
     public function pathCustomForms($name){       
       return $this->pathTemplates()."/customs/$name/forms";
     }
+
+    /*path al template de vistas*/
+    public function fileViewTemplate($name,$onlyFileName = false){       
+      $path='';
+      if(!$onlyFileName){
+        $path=$this->pathTemplatesViews().'/';
+      }
+      return $path."$name.template.blade.php";
+    }    
 
     /*archivo con el template personalizado de campos adicionales en los formularios para un objeto $name*/
     /* Ej:    

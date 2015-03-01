@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Support\Pluralizer;
+use Fragale\Helpers\PathsInfo;
 
 class MissingFieldsException extends \Exception {}
 
@@ -79,8 +80,8 @@ class ResourceGeneratorCommand extends Command {
         $this->generateModel();
         $this->generateController();
         $this->generateViews();
-        $this->generateMigration();
-        $this->generateSeed();
+        //$this->generateMigration();
+        //$this->generateSeed();
 
         if (get_called_class() === 'Fragale\\Generators\\Commands\\ScaffoldGeneratorCommand')
         {
@@ -190,7 +191,8 @@ class ResourceGeneratorCommand extends Command {
      */
     protected function generateViews()
     {
-        $viewsDir = app_path().'/views';
+        $p=new PathsInfo;
+        $viewsDir = $p->pathViews().'/cruds';
         $container = $viewsDir . '/' . Pluralizer::plural($this->model);
         $layouts = $viewsDir . '/layouts';
         $views = array('index', 'show', 'create', 'edit');
@@ -242,6 +244,7 @@ class ResourceGeneratorCommand extends Command {
      */
     protected function generateMigration()
     {
+        /*
         $name = 'create_' . Pluralizer::plural($this->model) . '_table';
 
         $this->call(
@@ -251,16 +254,19 @@ class ResourceGeneratorCommand extends Command {
                 '--fields'  => $this->option('fields')
             )
         );
+        */
     }
 
     protected function generateSeed()
     {
+        /*
         $this->call(
             'makefast:seed',
             array(
                 'name' => Pluralizer::plural(strtolower($this->model))
             )
         );
+        */
     }
 
     /**
@@ -284,7 +290,9 @@ class ResourceGeneratorCommand extends Command {
     {
         return array(
             array('path', null, InputOption::VALUE_OPTIONAL, 'The path to the migrations folder', app_path() . '/database/migrations'),
-            array('fields', null, InputOption::VALUE_OPTIONAL, 'Table fields', null)
+            array('fields', null, InputOption::VALUE_OPTIONAL, 'Table fields', null),
+            array('purge', null, InputOption::VALUE_OPTIONAL, 'First remove the actual scaffold for this resource', null)
+
         );
     }
 

@@ -5,6 +5,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Support\Facades\Config;
+use Fragale\Helpers\PathsInfo;
 
 class ViewGeneratorCommand extends BaseGeneratorCommand {
 
@@ -60,8 +61,8 @@ class ViewGeneratorCommand extends BaseGeneratorCommand {
      */
     protected function getOptions()
     {
-        $path=Config::get('view.paths');
-        $path_views=$path[0];
+        $p=new PathsInfo;
+        $path_views=$p->pathViews().'/cruds';
         return array(
            //array('path', null, InputOption::VALUE_OPTIONAL, 'Path to views directory.', app_path() . '/views'),
            array('path', null, InputOption::VALUE_OPTIONAL, 'Path to views directory.', $path_views),

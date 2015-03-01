@@ -21,6 +21,8 @@ class ModelGenerator extends Generator {
         if ($this->needsScaffolding($template))
         {
             $this->template = $this->getScaffoldedModel($className);
+        } else {
+            echo "no necesita scaffold !!! \n";
         }
 
         return str_replace('{{className}}', $className, $this->template);

@@ -42,7 +42,7 @@ class BaseGeneratorCommand extends Command {
      * @return string
      */
     protected function getPath()
-    {
+    {       
        return $this->option('path') . '/' . strtolower($this->argument('name')) . '.blade.php';
     }
 

@@ -83,7 +83,8 @@ abstract class Generator {
      */
     protected function needsScaffolding($template)
     {
-        return str_contains($template, 'scaffold');
+        
+        return str_contains($template, '.template.');
     }
 
     /**

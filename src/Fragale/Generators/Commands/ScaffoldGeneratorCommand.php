@@ -35,8 +35,7 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
     {                
         $models = Pluralizer::plural($this->model);
         $p=new PathsInfo();
-        $filename=$p->testAndSwapFileName(__DIR__.'/../Generators/templates/scaffold/model.template.php', $p->fileModelTemplate());
-        $filename=$p->testAndSwapFileName($filename, $p->fileCustomModel($models));
+        $filename=$p->testAndSwapFileName($p->fileModelTemplate(), $p->fileCustomModel($models));
         $this->info('Template model file for this object: '.$filename);
         return $filename;        
     }
@@ -50,8 +49,7 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
     {
         $models = Pluralizer::plural($this->model);
         $p=new PathsInfo();
-        $filename=$p->testAndSwapFileName(__DIR__.'/../Generators/templates/scaffold/controller.template.php', $p->fileControllerTemplate());
-        $filename=$p->testAndSwapFileName($filename, $p->fileCustomController($models));
+        $filename=$p->testAndSwapFileName($p->fileControllerTemplate(), $p->fileCustomController($models));
         $this->info('Template controller file for this object: '.$filename);
         return $filename;        
     }
@@ -76,9 +74,9 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
     {
         $models = Pluralizer::plural($this->model);
         $p=new PathsInfo();
-        $templateFile=$p->pathTemplatesViews().$view.'.template.blade.php';
-        $filename=$p->testAndSwapFileName(__DIR__."/../Generators/templates/scaffold/views/{$view}.template.blade.php", $templateFile);
-        $filename=$p->testAndSwapFileName($filename, $p->fileCustomController($models));
+        $templateFile=$p->pathTemplatesViews().'/'.$view.'.template.blade.php';
+        //$filename=$p->testAndSwapFileName(__DIR__."/../Generators/templates/scaffold/views/{$view}.template.blade.php", $templateFile);
+        $filename=$p->testAndSwapFileName($templateFile, $p->fileCustomController($models));
         $this->info("Template view $view file for this object: ".$filename);
         return $filename;     
     }
