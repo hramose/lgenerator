@@ -4,7 +4,6 @@ use Illuminate\Filesystem\Filesystem as File;
 use App\Http\Controllers\cruds\BaseCRUDController;
 use App\cruds\{{Model}};
 
-use Illuminate\Filesystem\Filesystem as File;
 class {{className}} extends BaseCRUDController {
 
 	/**
