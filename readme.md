@@ -24,7 +24,7 @@ Si Ud. esta buscando un generador "generico" es recomendable usar way/generators
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `fragale/lgenerators`.
 
 	"require": {
-		"laravel/framework": "4.0.*",
+		"laravel/framework": "5.0.*",
 		"fragale/lgenerators": "1.0.*"
 	},
 	"minimum-stability" : "dev"

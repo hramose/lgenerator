@@ -2,6 +2,7 @@
     "name": "fragale/lgenerators",
     "description": "Laravel 5 Generators, basado en la version 1.1 de J.Way",
     "keywords": ["laravel", "generators", "artisan"],
+    "license": "MIT",    
     "authors": [
         {
             "name": "Maximiliano fragale",
@@ -10,7 +11,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "mustache/mustache": "2.4.*"
+        "mustache/mustache": "2.4.*",
+        "laravelcollective/html": "~5.0"
     },
     "require-dev": {
         "mockery/mockery": "0.8.*",
