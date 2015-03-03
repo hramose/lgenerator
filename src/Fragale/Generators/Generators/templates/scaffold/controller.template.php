@@ -29,7 +29,7 @@ class {{className}} extends BaseCRUDController {
 
 		${{models}} = $this->doUserFilter(); // construye la coleccion de datos
 
-		return View::make('{{models}}.index', $this->masterRecordArray())->with('{{models}}', ${{models}}); 
+		return view('cruds.{{models}}.index', $this->masterRecordArray())->with('{{models}}', ${{models}}); 
 	}
 
 	/*---------------*/
@@ -37,7 +37,7 @@ class {{className}} extends BaseCRUDController {
 	{
 		$this->setMmasterRecordInfo();
 
-		return View::make('{{models}}.create', $this->masterRecordArray());
+		return view('cruds.{{models}}.create', $this->masterRecordArray());
 	}
 
 
@@ -46,7 +46,7 @@ class {{className}} extends BaseCRUDController {
 	{
 		${{model}} = $this->{{model}}->findOrFail($id);
 
-		return View::make('{{models}}.show', compact('{{model}}'));
+		return view('cruds.{{models}}.show', compact('{{model}}'));
 	}
 
 
@@ -62,7 +62,7 @@ class {{className}} extends BaseCRUDController {
 			return Redirect::route('{{models}}.index',$this->masterRecordArray());
 		}
 
-		return View::make('{{models}}.edit', array_merge(compact('{{model}}'), $this->masterRecordArray() ));		
+		return view('cruds.{{models}}.edit', array_merge(compact('{{model}}'), $this->masterRecordArray() ));		
 	}
 
 	/*---------------*/

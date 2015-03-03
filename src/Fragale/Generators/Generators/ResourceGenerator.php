@@ -37,7 +37,7 @@ class ResourceGenerator {
         $path = app_path() . '/Http/routes.php';
         $file=new File();
 
-        $append="Route::resource('" . $name . "', '" . ucwords($name) . "Controller');";
+        $append="Route::resource('" . $name . "', 'cruds\\" . ucwords($name) . "Controller');";
         $buffer=$file->get($path);
 
         if ( !Str::contains( $buffer, $append) ) {       

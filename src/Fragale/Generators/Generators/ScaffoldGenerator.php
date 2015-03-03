@@ -25,24 +25,26 @@ class ScaffoldGenerator {
     }
 
     /**
-     * Update app/Http/routes.php
+     * Update app/Http/routes.php  ESTE METODO APARENTEMENTE NO ESTA FUNCIONANDO xQ SE ESTA USANDO EL DE ResourceGenerator.php
      *
      * @param  string $name
      * @return void
      */
+    /*
     public function updateRoutesFile($name)
     {
         $name = strtolower(Pluralizer::plural($name));
         $path = app_path() . '/Http/routes.php';
         $file=new File();
 
-        $append="\n\nRoute::resource('" . $name . "', '" . ucwords($name) . "Controller');";
+        $append="\n\nRoute::resource('" . $name . "', 'cruds\\" . ucwords($name) . "Controller');";
         $buffer=$file->get($path);
 
         if ( !Str::contains( $buffer, $append) ) {       
             $this->file->append($path, $append);
         }
     }
+    */
 
     /**
      * Create any number of folders
