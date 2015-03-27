@@ -91,8 +91,29 @@ To declare fields, use a comma-separated list of key:value:option sets, where `k
 - `--fields="name:string:default('John'), email:string:unique:nullable"`
 - `--fields="username:string[30]:unique, age:integer:nullable"`
 
-
 ```
+
+
+#### Scaffolding models
+
+##### Adding aditional code
+All models are extending the class BaseCRUDModel defined in file `/app/cruds/BaseCRUDModel.php`
+
+Also you should append code to your models:
+for this you may create a file in `/app/resources/templates/cruds/customs/OBJECTNAME/append_to_model.php`
+
+the code included in this file will be appended to the model for the OBJECTNAME.
+
+##### Adding rules
+
+You can add customized rules to your model validation simply adding code into `/app/resources/templates/cruds/customs/OBJECTNAME/rules.php`
+
+
+
+
+
+
+
 
 PLEASE NOTE THAT I AM CURRENTLY DEVELOPING THIS PACKAGE.
 THE TIME THAT I'M DEDICATING THIS PROJECT IS CONDITIONED BY MY DAILY DUTIES, IF YOU WANT, YOU CAN CONTACT ME IN fragale@gmail.com
