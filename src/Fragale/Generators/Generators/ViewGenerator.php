@@ -90,14 +90,13 @@ class ViewGenerator extends Generator {
     {
         $models = Pluralizer::plural($model); // posts
 
-        //$fields = $this->cache->getFields();
         $fields = $this->purgedFields($model);
 
       	if($name==='index.blade'){
       	  /*crea las cabeceras de la tabla*/
       	  $ih=0; //print_r($fields);exit();
       	  foreach (array_keys($fields) as $field) {
-            $headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','asc'))}}\"><span class=\"{{Config::get('kyron.icon_sort-up')}}\"></span></a>"."<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','desc'))}}\"><span class=\"{{Config::get('kyron.icon_sort-down')}}\"></span></a>"."</th>";      
+            $headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}</th>";                  
       	    $ih++;
       	  }
       	}else{
@@ -115,7 +114,6 @@ class ViewGenerator extends Generator {
             if ($format!=""){
               $value="sprintf('$format', $value)";
             }           
-            //return "<td>{{{ \$$model->$field }}}</td>";
             return "<td>{{{ $value }}}</td>";
         }, array_keys($fields));
 
@@ -125,7 +123,7 @@ class ViewGenerator extends Generator {
 	   //Modificacion, apertura de los links para show, edit y delete (Mayo 2014 se eliminan los links de edit y delete de la vista index)
 
       $showLink = <<<EOT
-                    <td>{{ link_to_route('{$models}.show', trans('forms.Show'), \$lc->showArgs(\${$model}->id), array('class' => 'btn btn-info btn-xs')) }}</td>
+                                            <td>{!! link_to_route('{$models}.show', trans('forms.Show'), \$lc->showArgs(\${$model}->id), array('class' => 'btn btn-info btn-xs')) !!}</td>
 EOT;
       $deleteLink = "";
       $editLink = "";

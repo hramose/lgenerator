@@ -1,6 +1,5 @@
 <?php namespace Fragale\Generators\Commands;
 
-
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -53,17 +52,31 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->tryToCreateDir($file, $pathToCrudsControllers);
 		$this->tryToCreateDir($file, $pathToCrudsModels);
 
+		$this->info('Copying the BaseCRUD model and controller ...');
 		//Copia la clase Base para los modelos de los CRUDS
 		$this->tryToCopyFile($file, $templateVendorPath.'BaseCRUDModel.php', $pathToCrudsModels );
 
 		//Copia la clase Base para los controladores de los CRUDS
-		$this->tryToCopyFile($file, $templateVendorPath.'BaseCRUDController.php', $pathToCrudsControllers );		
+		$this->tryToCopyFile($file, $templateVendorPath.'BaseCRUDController.php', $pathToCrudsControllers );	
 
+		$this->info('Setting up the namespaces for BaseCRUD classes ...');
+		$buffer=str_replace('/*{namespace}*/', 'namespace App\cruds;', $file->get($pathToCrudsModels.'/BaseCRUDModel.php'));
+		$result=$file->put($pathToCrudsModels.'/BaseCRUDModel.php',$buffer);
+		$buffer=str_replace('/*{namespace}*/', 'namespace App\Http\Controllers\cruds;', $file->get($pathToCrudsControllers.'BaseCRUDController.php'));
+		$result=$file->put($pathToCrudsControllers.'BaseCRUDController.php',$buffer);
+		
+
+		$this->info('Generating the directory structure for working views ...');
 		//directorio para las vistas
 		$this->tryToCreateDir($file, $p->pathViews().'/cruds');
+		$this->tryToCreateDir($file, $p->pathViews().'/system');
+		$this->tryToCreateDir($file, $p->pathViews().'/system/cruds');
 
-		$this->info('Generating the directory structure on /resources ...');
+		$this->info('Generating the directory structure for comfig files ...');
+		$path_config=str_replace('/app', '', app_path()).'/config/cruds';
+		$this->tryToCreateDir($file, $path_config);
 
+		$this->info('Generating the directory structure for templates ...');
 		$path=str_replace('/cruds', '', $p->pathTemplates());
 		$this->tryToCreateDir($file, $path);
 
@@ -73,7 +86,8 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->tryToCreateDir($file, $p->pathTemplatesViews());
 		$this->tryToCreateDir($file, $p->pathTemplatesCustoms());
 
-
+		
+		$this->info('Copying files ...');
 		//Copia el template para los modelos
 		$templateFileName=$file->name($p->fileModelTemplate()).'.'.$file->extension($p->fileModelTemplate());
 		$this->tryToCopyFile($file, $templateVendorPath.$templateFileName, $p->pathTemplatesModel());
@@ -82,12 +96,17 @@ class CrudStructureGeneratorCommand extends Command {
 		$templateFileName=$file->name($p->fileControllerTemplate()).'.'.$file->extension($p->fileControllerTemplate());
 		$this->tryToCopyFile($file, $templateVendorPath.$templateFileName, $p->pathTemplatesController());
 
-
 		//Copia los templates de las vistas
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('create',true), $p->pathTemplatesViews());
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('edit',true), $p->pathTemplatesViews());
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('index',true), $p->pathTemplatesViews());
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('show',true), $p->pathTemplatesViews());
+
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_cruds.php', $p->pathViews().'/system/cruds');
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/footer_cruds.php', $p->pathViews().'/system/cruds');
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_toolbar_cruds.php', $p->pathViews().'/system/cruds');
+
+		$this->tryToCopyFile($file, $templateVendorPath.'/config/settings.php', $path_config);		
 
 	}
 
@@ -162,15 +181,14 @@ class CrudStructureGeneratorCommand extends Command {
 		}
 
 		if($continue){
-			$this->info(" ---Source > $fileToCopy");			
-			$this->info(" ---Target > $fileTarget");			
-			
-				if($file->copy($fileToCopy,$fileTarget)){
-					$this->info(' ---> done.');			
-				}else{
-					$this->info(' ---> something is wrong, check if you have write permisions on '.$path);	
-					$continue=false;		
-				}
+			//$this->info(" ---Source > $fileToCopy");			
+			//$this->info(" ---Target > $fileTarget");			
+			if($file->copy($fileToCopy,$fileTarget)){
+				$this->info(' ---> done.');			
+			}else{
+				$this->info(' ---> something is wrong, check if you have write permisions on '.$path);	
+				$continue=false;		
+			}
 		}else{
 			$this->info(' ---> nothing was done.');			
 		}

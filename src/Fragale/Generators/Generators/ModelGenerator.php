@@ -4,6 +4,7 @@ namespace Fragale\Generators\Generators;
 
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem as File;
+use Fragale\Helpers\PathsInfo;
 
 class ModelGenerator extends Generator {
 
@@ -42,13 +43,16 @@ class ModelGenerator extends Generator {
         $Models = ucwords($models);             // Posts
         $Model = Pluralizer::singular($Models); // Post
 
+        $file=new File();
+        $p=new PathsInfo;
+        $templateCustomsPath=$p->pathTemplatesCustoms()."/$models";
+
         /*Crea las reglas*/
         /*Verifica si hay reglas definidas por el usuarios*/
-        $path=app_path()."/views/$models/customs/rules.php";
+        $path="$templateCustomsPath/rules.php";
         if (file_exists($path))
         {
             /*si existen las reglas de usuario entones la importa */
-            $file=new File();
             $rules =$file->get($path);
             $this->template = str_replace('{{rules}}', $rules, $this->template);
 
@@ -67,8 +71,18 @@ class ModelGenerator extends Generator {
             }
         }
 
+
+        /*hay algo que agregar al modelo?*/
+        $path="$templateCustomsPath/append_to_model.template.php";
+        $append_to_model="";
+        if (file_exists($path))
+        {
+            $append_to_model =PHP_EOL.$file->get($path).PHP_EOL;
+        }
+
+
         /*cambia el resto del template*/
-        foreach(array('model', 'models', 'Models', 'Model') as $var)
+        foreach(array('model', 'models', 'Models', 'Model', 'append_to_model') as $var)
         {
             $this->template = str_replace('{{'.$var.'}}', $$var, $this->template);
         }
