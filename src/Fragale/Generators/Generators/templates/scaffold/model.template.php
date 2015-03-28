@@ -21,4 +21,6 @@ class {{className}} extends BaseCRUDModel {
 							{{rules}}
 							);
 
+	{{append_to_model}}
+
 }

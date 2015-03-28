@@ -5,7 +5,7 @@
 | como un include
 |
 */
-$filename=$p->pathViews()."/cruds/$modelo/customs/$viewName"."_footer.php";
+$filename=$p->pathViews()."/cruds/$modelName/customs/$viewName"."_footer.php";
 if (file_exists($filename)){include_once($filename);}
 
 /*----------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-<?php /*{namespace}*/
+<?php namespace App\cruds;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 

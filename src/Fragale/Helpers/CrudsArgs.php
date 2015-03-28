@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Fragale\Helpers\PathsInfo;
 
 class CrudsArgs 
 {
@@ -15,6 +16,8 @@ class CrudsArgs
     
     public function __construct($models)
     {
+
+        $p=new PathsInfo();
 
         $this->models=$models;
 
@@ -43,7 +46,8 @@ class CrudsArgs
 
         /*template para el master record*/
         $template="/$models/customs/master_record";
-        $filename=app_path().'/views'.$template.'.blade.php';
+        $filename=$p->pathViews().$template.'.blade.php';
+        //dd($filename);
         if (!file_exists($filename)){
             $template='';
         }

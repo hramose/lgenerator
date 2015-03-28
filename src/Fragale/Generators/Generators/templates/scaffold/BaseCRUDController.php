@@ -1,4 +1,4 @@
-<?php /*{namespace}*/
+<?php namespace App\Http\Controllers\cruds; 
 
 use Illuminate\Filesystem\Filesystem as File;
 use Illuminate\Routing\Controller as BaseController;
@@ -69,26 +69,28 @@ class BaseCRUDController extends BaseController {
 			$whereF.="$orPrefix"."where('$field','LIKE','$filter')";
 	      } 
 	    };
+
 	    /*ordena*/
 	    $orderBy="->orderBy('$sort', '$order')";
-	    /*registros para la paginacion
+	    /*registros para la paginacion*/
 	    if ($records*1<=0){
 	      $paginacion="->paginate(1000);";
 	    }else{
 	      $paginacion="->paginate(\$records);";
 	    }
-*/
-	    $paginacion="->paginate(1000);";
-	    $Master = $this->Master;
-	    $master_id = $this->master_id;	    
 
-	   	if ($Master!=''){
+	   	if ($this->Master!=''){
+
+		    $Master = "App\\cruds\\".$this->Master;
+		    $master_id = $this->master_id;	    
+
 	   		if (!class_exists($Master)){
-				echo trans('froms.ModelNotFound');exit();
+				echo trans('froms.ModelNotFound');
 	   		}
-	   		if ($Master::find($master_id)){
-	   			$sentencia="\$result = $Master::find($master_id)->$models_name()->".$whereF.$orderBy.$paginacion;
-	   		}else{
+	   		if ($Master::find($master_id)){	  
+	   			eval('$MasterModel = new '.$Master.';'); 	
+	   			$sentencia="\$result = \$MasterModel::find($master_id)->$models_name()->".$whereF.$orderBy.$paginacion;
+	   		}else{	   			
 	   			$sentencia="\$result = $Model_name::where('id','=','0');";
 	   		}	   		
 	   	}else{
@@ -99,12 +101,8 @@ class BaseCRUDController extends BaseController {
 	    $sentencia=str_replace('::->', '::', $sentencia);
 	    $sentencia=str_replace('->->', '->', $sentencia);
 
-	    /*arna la coleccion de datos*/
-	    //echo $sentencia.' master='.$Master.' JEJEJ master_id='.$master_id;
-	    //dd($sentencia);
+	    /*arna la coleccion de datos*/ 
 	    eval($sentencia);
-	    //var_dump($result);
-	    //exit();
 	    return $result;
 	}
 
