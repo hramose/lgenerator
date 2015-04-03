@@ -9,6 +9,8 @@ class ViewGenerator extends Generator {
 
 
     public $viewName = '';
+    public $viewDefinitions;
+    public $templateCustomsPath;
 
     /**
      * Fetch the compiled template for a view
@@ -19,6 +21,20 @@ class ViewGenerator extends Generator {
      */
     protected function getTemplate($template, $name)
     {
+
+        $model = $this->cache->getModelName();  // post
+        $models = Pluralizer::plural($model);   // posts
+
+        $p=new PathsInfo();    
+        $file=new File();
+        $this->templateCustomsPath=$p->pathTemplatesCustoms()."/$models/views_definitions.json";
+
+        $path=$this->templateCustomsPath; 
+        if (file_exists($path))
+        {
+            $this->viewDefinitions = json_decode($file->get($path), true);
+        }
+
         $this->template = $this->file->get($template);
 
         if ($this->needsScaffolding($template))
@@ -110,7 +126,7 @@ class ViewGenerator extends Generator {
         // And then the rows, themselves
         $fields = array_map(function($field) use ($model) {
             $value="\$$model->$field";
-            $format=$this->formatField($model,$field);
+            $format=$this->formatField($field);
             if ($format!=""){
               $value="sprintf('$format', $value)";
             }           
@@ -138,21 +154,13 @@ EOT;
      */
     public function purgedFields($model)
     {
-        $p=new PathsInfo();
-        $models = Pluralizer::plural($model); // posts
         $name=$this->viewName;
-
         $fields = $this->cache->getFields();
 
-        $path=$p->fileFormFieldsLayout($models); // /resources/templates/cruds/$models/customs/forms/formFiedsLayout.php
-        if (file_exists($path))
-        {
-            $file=new File();
-            $invalidFields = json_decode($file->get($path), true);
-            $key=str_replace('.blade', '', $name).'_disallowed';
-            if (array_key_exists($key, $invalidFields)) {
-              $disallowed=explode(',',$invalidFields[$key]);
-            }
+        $key=str_replace('.blade', '', $name).'_disallowed';
+        if(isset($this->viewDefinitions['field_definitions'][$key])){
+
+            $disallowed=explode(',',$this->viewDefinitions['field_definitions'][$key]);
             $fields = array_except($fields, $disallowed);
         }
         
@@ -167,21 +175,15 @@ EOT;
      */
     public function readonlyFields($model)
     {
-        $p=new PathsInfo();
-        $models = Pluralizer::plural($model); // posts
         $name=$this->viewName;
         $readonly = array();
 
-        $path=$p->fileFormFieldsLayout($models); 
-        if (file_exists($path))
-        {
-            $file=new File();
-            $readonlyFields = json_decode($file->get($path), true);
-            $key=str_replace('.blade', '', $name).'_readonly';
-            if (array_key_exists($key, $readonlyFields)) {
-              $readonly=explode(',',$readonlyFields[$key]);
-            }
-        }        
+        $key=str_replace('.blade', '', $name).'_readonly';
+        if(isset($this->viewDefinitions['field_definitions'][$key])){
+
+          $readonly=explode(',',$this->viewDefinitions['field_definitions'][$key]);
+        }
+
         return $readonly;
     }
 
@@ -192,20 +194,14 @@ EOT;
      */
     public function extraFields($model)
     {
-        $p=new PathsInfo();
-        $models = Pluralizer::plural($model); // posts
         $extra = array();
 
-        $path=$p->fileFormFieldsLayout($models); 
-        if (file_exists($path))
-        {
-            $file=new File();
-            $extraFields = json_decode($file->get($path), true);
-            $key='fields_extra';
-            if (array_key_exists($key, $extraFields)) {
-              $extra=explode(',',$extraFields[$key]);
-            }
-        }        
+        $key='fields_extra';
+        if(isset($this->viewDefinitions['field_definitions'][$key])){
+
+          $extra=explode(',',$this->viewDefinitions['field_definitions'][$key]);
+        }
+
         return $extra;
     }    
 
@@ -214,24 +210,27 @@ EOT;
      * solo aplica para las vistas show e index
      * @return string
      */
-    public function formatField($model,$field)
+    public function formatField($field)
     {
-        $p=new PathsInfo();
-        $models = Pluralizer::plural($model); 
         $format = '';
 
-        $path=$p->fileFormFieldsLayout($models); 
-        if (file_exists($path))
-        {
-            $file=new File();
-            $formats = json_decode($file->get($path), true);
-            $key=$field.'_format';
-            if (array_key_exists($key, $formats)) {
-              $format=$formats[$key];
-            }
-        }        
+        $key=$field.'_format';
+        if(isset($this->viewDefinitions['field_definitions'][$key])){
+
+          $format=$this->viewDefinitions['field_definitions'][$key];
+        }
+
         return $format;
     }    
+
+    /**
+     * Remove the php tags from a text
+     *
+     * @return string
+     */
+    public function purgePHPTags($text){
+      return str_replace('<?php', '', $text);
+    }
 
 
     /**
@@ -243,7 +242,6 @@ EOT;
     public function makeFormElements()
     {
         $model = $this->cache->getModelName();  // post
-        $models = Pluralizer::plural($model);   // posts
 
         $fields = $this->purgedFields($model);  
 
@@ -255,14 +253,11 @@ EOT;
         $formMethods = array();
 
         /*Verifica si hay navtabs definidos en la vista*/
-        $p=new PathsInfo();
-        $path=$p->fileFormNavtabs($models); // /resources/templates/cruds/$models/customs/forms/navtabs.php
-        if (file_exists($path))
+
+        if (isset($this->viewDefinitions['navtab_definitions']))
         {
             /*Formulario con navtabs*/
-            $file=new File();
-            $arrayTabs = json_decode($file->get($path), true);
-            //$fields = $this->cache->getFields();
+            $arrayTabs = $this->viewDefinitions['navtab_definitions'];
 
             $formMethods[] =<<<EOT
             <!-- Nav tabs -->
@@ -289,13 +284,12 @@ EOT;
               <!-- Nav tabs contents for tab $tab -->
               <div class="tab-pane fade $class" id="$tab">
 EOT;
-              //var_dump($fields);
+              
               $formMethods[] =<<<EOT
                           <fieldset $fieldset_status>
 EOT;
               foreach ($fieldgroup as $id => $name) {
-                $type=$fields[$name];
-                //echo "name= $name type=$type";
+                $type=$fields[$name];                
                 $element=$this->makeFormField($name,$fields[$name]);
                 $formMethods[] = $this->makeFormGroup($name, $element,$type);                
               }
@@ -340,19 +334,11 @@ EOT;
     {
 
         $model = $this->cache->getModelName();  // post
-        $models = Pluralizer::plural($model);   // posts
 
         /*Verifica si hay campos personalizados*/
-        $p=new PathsInfo();
-        $path=$p->fileAditionalFormsFields($models); // /resources/templates/cruds/$models/customs/forms/aditionalFormFields.php        
-        if (file_exists($path))
-        {
-            /*Levanta los campos personalizados*/
-            $file=new File();
-            $customFields = json_decode($file->get($path), true);
-            if (array_key_exists($name, $customFields)) {
-              $custom=$customFields[$name];
-            }
+        if(isset($this->viewDefinitions['customized_fields'][$name])){
+
+          $custom=$this->viewDefinitions['customized_fields'][$name];
         }
 
         /*Pone el valor que leyó en cada campo*/
@@ -364,7 +350,7 @@ EOT;
 
         /*Pone un formato si corresponde*/
         if($this->viewName=='show.blade' or $this->viewName=='index.blade') {
-          $format=$this->formatField($model,$name);
+          $format=$this->formatField($name);
           if ($format!=""){
             $value="sprintf('$format', $value)";
           } 
@@ -380,18 +366,18 @@ EOT;
         switch($type)
         {
             case 'integer':
-               $element = "{{ Form::input('number', '$name', $value, array('class' => 'form-control' $readonlyClass )) }}";
+               $element = "{!! Form::input('number', '$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
                 break;
             case 'text':
-                $element = "{{ Form::textarea('$name', $value, array('class' => 'form-control' $readonlyClass )) }}";
+                $element = "{!! Form::textarea('$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
                 break;
             case 'boolean':
-                $element = "{{ Form::checkbox('$name', $value, array('class' => 'form-control' $readonlyClass )) }}";
+                $element = "{!! Form::checkbox('$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
                 break;
             case 'date':
             case 'time':
             case 'datetime':                        
-                $element = "{{ Form::text('$name', $value, array('class' => 'form-control', 'size' => '16' $readonlyClass )) }}";
+                $element = "{!! Form::text('$name', $value, array('class' => 'form-control', 'size' => '16' $readonlyClass )) !!}";
                 break;                
             case 'custom':
                 $element = str_replace('{{value}}', $value, $custom);
@@ -400,7 +386,7 @@ EOT;
                 $element = "<input name=\"$name\" type=\"hidden\" value=\"{{\$lc->master_id}}\">";
                 break;               
             default:
-                $element = "{{ Form::text('$name', $value, array('class' => 'form-control' $readonlyClass )) }}";
+                $element = "{!! Form::text('$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
                 break;
         }
         return $element;
@@ -427,7 +413,7 @@ EOT;
             $frag = <<<EOT
                 <!-- $name -->
                 <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
-                    {{ Form::label('$name', $formalName,array( 'class'=> 'control-label')) }}
+                    {!! Form::label('$name', $formalName,array( 'class'=> 'control-label')) !!}
                     <div class="input-group col-md-4 date $name">
                       $element
                       <span class="input-group-addon"><span class="glyphicon $dateicon"></span></span>
@@ -456,7 +442,7 @@ EOT;
             $frag = <<<EOT
                 <!-- $name -->
                 <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
-                    {{ Form::label('$name', $formalName,array( 'class'=> 'control-label')) }}
+                    {!! Form::label('$name', $formalName,array( 'class'=> 'control-label')) !!}
                     <div class="controls">
                     $element
                     {{{ \$errors->first('$name') }}}

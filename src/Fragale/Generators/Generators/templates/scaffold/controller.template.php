@@ -3,6 +3,9 @@
 use Illuminate\Filesystem\Filesystem as File;
 use App\Http\Controllers\cruds\BaseCRUDController;
 use App\cruds\{{Model}};
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class {{className}} extends BaseCRUDController {
 

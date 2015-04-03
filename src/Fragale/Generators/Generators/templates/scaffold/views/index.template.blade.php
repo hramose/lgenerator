@@ -12,26 +12,24 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 		<!-- begin #content -->
 		<div id="content" class="content">
 			<!-- begin page-header -->
-			<h1 class="page-header">{{$titulo}} <small>{{$subtitulo}}</small></h1>
+			<h1 class="page-header">{!!$icon_title!!} {!!$form_title!!} <small>{!!$form_subtitle!!}</small></h1>
 			<!-- end page-header -->
 
 			<!-- begin row -->
 			<div class="row">
 			    <!-- begin col-12 -->
 			    <div class="{{$col_full}}">
-				    <div class="panel panel-default">
-						<!--<div class="row-fluid">-->
-						<div class="panel-heading">
-							@if ($lc->master_record_template)
-							<div class="{{$col_full}}" id="crud-background">
-								<p class="divider"></p>
-								@include ($lc->master_record_template)
-							</div>		
-							@endif		
-							@include('layouts.kyronindexheader') 
-						</div>
-						<!--<div class="row-fluid">-->
+			    	<!-- begin panel -->
+				    <div class="panel {{Config::get('cruds.settings.panel_class', 'panel-primary')}}">
+                       	<div class="panel-heading">
+                            <h4 class="panel-title">{{trans('forms.'.$viewName)}}</h4>
+                        </div>				    
 						<div class="panel-body">					
+							@include('system.cruds.partial_header_cruds') 
+							<div class="row">
+								@include('system.cruds.header_index_panel') 
+							</div>
+							<div class="row">
 							@if (${{models}}->count())
 		                        <!--<table id="data-table" class="table table-striped table-hover table-bordered">	-->
 		                        <table class="table table-striped">	
@@ -48,6 +46,7 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 										@endforeach
 									<!--</tbody>-->
 								</table>
+								{!! ${{models}}->render() !!}
 							@else
 								<?php
 								$noRecords=true;
@@ -56,8 +55,10 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 								?>
 								{{$messaje}} {{$table}}
 							@endif
+							</div>
 						</div>							
 					</div>
+					<!-- end panel -->
                 </div>
                 <!-- end col-12 -->			    				
             </div>

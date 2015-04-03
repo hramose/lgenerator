@@ -37,11 +37,13 @@ $lc=new Fragale\Helpers\CrudsArgs($modelName);
 | Prepara el titulo y el subtitulo del formulario
 |
 */
-$titulo=trans('forms.'.$modelName);
-$subtitulo=trans('forms.view_'.$viewName);
-if ($viewName!='index'){
-	$titulo=$lc->doTitle($titulo,'3');
+$form_title=trans('forms.'.$modelName);
+$form_subtitle=trans('forms.view_'.$viewName);
+/*if ($viewName!='index'){
+	$form_title=$lc->doTitle($form_title,'3');
 }
+*/
+$icon_title	= Config::get("cruds.settings.icon_title_$viewName", '');
 
 /*----------------------------------------------------------------------------
 | Algunos seteos complementarios

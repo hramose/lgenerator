@@ -24,10 +24,6 @@ use Illuminate\Support\Facades\Config;
             rules.template.php        fileCustomRules($objectname)
           /controller                 pathCustomController($objectname)
             controller.template.php   fileCustomController($objectname)          
-          /forms                      pathCustomForms($objectname)
-            aditionalFormFields.php   fileAditionalFormsFields($objectname)
-            navtabs.php               fileFormNavtabs($objectname)
-            formFiedsLayout.php       fileFormFieldsLayout($objectname)
 */
 
 class PathsInfo{
@@ -101,11 +97,6 @@ class PathsInfo{
       return $this->pathCustomController($name)."/controller.template.php";
     }
 
-    /*path al template personalizado de formularios para un objeto $name*/
-    public function pathCustomForms($name){       
-      return $this->pathTemplates()."/customs/$name/forms";
-    }
-
     /*path al template de vistas*/
     public function fileViewTemplate($name,$onlyFileName = false){       
       $path='';
@@ -115,48 +106,6 @@ class PathsInfo{
       return $path."$name.template.blade.php";
     }    
 
-    /*archivo con el template personalizado de campos adicionales en los formularios para un objeto $name*/
-    /* Ej:    
-    {
-      "type":"{{ Form::select('type', array('bug'=>'Bug', 'function'=>'Funcionalidad','develop'=>'Desarrollo'), {{value}}, array('class' => 'form-control')) }}",
-      "status":"{{ Form::select('status', array('open'=>'Open', 'solved'=>'Solved','closed'=>'Closed','closed_unsolved'=>'Closed_Unsolved'), {{value}}, array('class' => 'form-control')) }}"
-    }
-    */    
-    public function fileAditionalFormsFields($name){       
-      return $this->pathCustomForms($name)."/aditionalFormFields.php";
-    }
-
-    /*archivo con el template personalizado de la distribucion de navtabs en los formularios para un objeto $name*/
-    /* Ej:    
-    {
-     "general":["table_type_id","code","description","comments"],
-     "extras":["txt_value_1","txt_value_2","num_value_1","num_value_2","date_value_1","date_value_2","bool_value_1","bool_value_2"]
-    }    
-    */
-    public function fileFormNavtabs($name){       
-      return $this->pathCustomForms($name)."/navtabs.php";
-    }
-
-    /*archivo con el template personalizado de la distribucion de campos en los formularios para un objeto $name*/
-    /* Ej:
-    {
-      "_all":"id,type,description,user_id,status,from_issue_id",
-      "_comment":"indicar los campos no se deben generar en los formularios",
-      "index_disallowed":"user_id,from_issue_id",
-      "edit_disallowed":"user_id,from_issue_id",
-      "create_disallowed":"id,user_id,from_issue_id",
-      "show_disallowed":"id,user_id,from_issue_id",
-      "_comment":"indicar los campos que son de solo lectura",
-      "edit_readonly":"id",
-      "_comment":"campos con formato especial en index y en show",
-      "id_format":"#%d"
-    }
-    */    
-    public function fileFormFieldsLayout($name){       
-      return $this->pathCustomForms($name)."/formFieldsLayout.php";
-    }    
-
-    
     public function testAndSwapFileName($defaultFilename,$alternativeFilename){       
         $filename=$defaultFilename;
         if (file_exists($alternativeFilename)){

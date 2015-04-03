@@ -1,6 +1,7 @@
 <?php namespace App\cruds;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Support\Facades\Input;
 
 class BaseCRUDModel extends Eloquent {
 

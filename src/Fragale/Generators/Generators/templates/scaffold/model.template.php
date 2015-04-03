@@ -17,9 +17,7 @@ class {{className}} extends BaseCRUDModel {
 
 	/* The validation rules 
 	*/
-	public static $rules = array(
-							{{rules}}
-							);
+	{{model_rules}}
 
 	{{append_to_model}}
 

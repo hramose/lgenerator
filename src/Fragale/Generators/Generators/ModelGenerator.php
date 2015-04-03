@@ -50,26 +50,26 @@ class ModelGenerator extends Generator {
         /*Crea las reglas*/
         /*Verifica si hay reglas definidas por el usuarios*/
         $path="$templateCustomsPath/rules.php";
+        $model_rules='';
         if (file_exists($path))
         {
-            /*si existen las reglas de usuario entones la importa */
-            $rules =$file->get($path);
-            $this->template = str_replace('{{rules}}', $rules, $this->template);
+            $model_rules = $this->purgePHPTags(PHP_EOL.$file->get($path).PHP_EOL);
 
         }else{
             /*si no existen entonces las crea*/
             if (! $fields = $this->cache->getFields())
             {
-                $this->template = str_replace('{{rules}}', '', $this->template);
+                $model_rules ='/*no rules*/';
             } else {
 
                 $rules = array_map(function($field) {
                     return "'$field' => 'required'";
                 }, array_keys($fields));
 
-                $this->template = str_replace('{{rules}}', PHP_EOL."\t\t".implode(','.PHP_EOL."\t\t", $rules) . PHP_EOL."\t", $this->template);
+                $model_rules = $this->makeRules($rules);
             }
         }
+
 
 
         /*hay algo que agregar al modelo?*/
@@ -77,17 +77,39 @@ class ModelGenerator extends Generator {
         $append_to_model="";
         if (file_exists($path))
         {
-            $append_to_model =PHP_EOL.$file->get($path).PHP_EOL;
+            $append_to_model = $this->purgePHPTags(PHP_EOL.$file->get($path).PHP_EOL);
         }
 
 
         /*cambia el resto del template*/
-        foreach(array('model', 'models', 'Models', 'Model', 'append_to_model') as $var)
+        foreach(array('model', 'models', 'Models', 'Model', 'append_to_model', 'model_rules') as $var)
         {
             $this->template = str_replace('{{'.$var.'}}', $$var, $this->template);
         }
 
         return $this->template;
+    }
+
+    /**
+     * Remove the php tags from a text
+     *
+     * @return string
+     */
+    public function purgePHPTags($text){
+      return str_replace('<?php', '', $text);
+    }
+
+
+    /**
+     * Make de static rules section for the model
+     *
+     * @return string
+     */
+    public function makeRules($rules){
+
+      return 'public static $rules = array('.PHP_EOL."\t\t".implode(','.PHP_EOL."\t\t", $rules) . PHP_EOL."\t);";
+                            
+      
     }
 
 }
