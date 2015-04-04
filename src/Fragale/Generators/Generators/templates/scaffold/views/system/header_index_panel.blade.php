@@ -6,9 +6,7 @@
 ?>
 <div class="row">
 <div class="{{$col_full}}" align="right">
-  {!! link_to_route($routeBtnAdd,  trans('forms.addnew'), $lc->basicArgs(), array('class' => 'btn btn-primary'))!!}</li>
-
-
+  {!! $lc->toolButton('create',0) !!}</li>
   
   <div class="btn-group m-r-5 m-b-5">
     <a href="javascript:;" class="btn btn-default">{{trans('forms.export')}}</a>
