@@ -11,6 +11,10 @@ This is a derivative of the original version of J. Way, this includes the adapta
 If you are looking for a "generic" generator is recommended to use way/generators
 
 
+## Requirements
+
+IMPORTANT !!!
+This package requires Twitter Bootstrap 3
 
 
 ## Installation
@@ -35,6 +39,7 @@ That's it! You're all set to go. Run the `artisan` command from the Terminal to 
 
     php artisan
 
+Note that the package use psr-4
 
 ## Usage
 
@@ -71,17 +76,18 @@ The scaffolding is an skeleton for a serie of classes relatives to a resourse
 php artisan makefast:scaffold tweet --fields="author:string, body:text"
 ```
 
-The only difference is that it will handle all of the boilerplate. This can be particularly useful for prototyping - or even learning how to do basic things, such as delete a record from a database table, or build a form, or perform validation on that form.
+Note that the generator works on a existing table, then you must create the migration first if the table not exist.
 
 
 ```
 
 Nice! A few things to notice here:
 
-- The generator will automatically set the `id` as the primary key.
-- It also will add the timestamps, as that's more common than not.
-- It parsed the `fields` options, and added those fields.
-- The drop method is smart enough to realize that, in reverse, the table should be dropped entirely.
+- The controller for the object is created in app/Http/cruds
+- The model for the object is created in app/cruds
+- The generator will automatically create the views for this object in app/resources/views/cruds
+- The templates for the controller, model and views, are located in app/resources/templates/cruds
+- The generator will automatically asume the `id` as the primary key.
 
 To declare fields, use a comma-separated list of key:value:option sets, where `key` is the name of the field, `value` is the [column type](http://four.laravel.com/docs/schema#adding-columns), and `option` is a way to specify indexes and such, like `unique` or `nullable`. Here are some examples:
 
@@ -109,9 +115,47 @@ the code included in this file will be appended to the model for the OBJECTNAME.
 You can add customized rules to your model validation simply adding code into `/app/resources/templates/cruds/customs/OBJECTNAME/rules.php`
 
 
+##### Customizing the views generation
+
+
+You must customize the view generation for your model, just adding a .json file in `/app/resources/templates/cruds/customs/OBJECTNAME/views_definition.json`
+
+the file structure is:
+
+{
+	"description": "Employee slave records",
+    "field_definitions": 
+	    {
+	      "_comment":"indicar los campos no se deben generar en los formularios",
+	      "index_disallowed":"user_id,from_issue_id",
+	      "edit_disallowed":"user_id,from_issue_id",
+	      "create_disallowed":"id,user_id,from_issue_id",
+	      "show_disallowed":"id,user_id,from_issue_id",
+	      "_comment":"indicar los campos que son de solo lectura",
+	      "edit_readonly":"id",
+	      "_comment":"campos con formato especial en index y en show",
+	      "id_format":"#%d",
+	      "fields_extra":"somefield"
+	    }
+	,
+    "customized_fields": 
+	    {
+	      "type":"{{ Form::select('type', array('bug'=>'Bug', 'function'=>'Funcionalidad','develop'=>'Desarrollo'), {{value}}, array('class' => 'form-control')) }}",
+	      "status":"{{ Form::select('status', array('open'=>'Open', 'solved'=>'Solved','closed'=>'Closed','closed_unsolved'=>'Closed_Unsolved'), {{value}}, array('class' => 'form-control')) }}"
+	    }
+    ,
+    "detail_records": [
+        {
+            "description": "Families table",
+            "model": "families"
+        }
+    ]
+}
 
 
 
+
+I am writing the documentation... please be patient
 
 
 
