@@ -122,6 +122,7 @@ You must customize the view generation for your model, just adding a .json file 
 
 the file structure is:
 
+```
 {
 	"description": "Employee slave records",
     "field_definitions": 
@@ -151,6 +152,8 @@ the file structure is:
         }
     ]
 }
+
+```
 
 
 

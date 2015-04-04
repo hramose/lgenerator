@@ -51,6 +51,14 @@ $icon_title	= Config::get("cruds.settings.icon_title_$viewName", '');
 */
 $noRecords=false; // establece en falso en indicador de falta de registros
 
+/*links botones*/
+$routeBtnIndex		=$modelName.'.index';
+$routeBtnAdd		=$modelName.'.create';
+$routeBtnEdit		=$modelName.'.edit';
+$routeBtnShow		=$modelName.'.show';
+$routeBtnDelete	='#DeleteModal';
+$btnGoBack		=link_to_route($routeBtnIndex, trans('forms.goBack'), $lc->basicArgs(), array('class' => 'btn btn-success'));
+
 /*habilitar o deshabilitar botones ''/'disabled' */
 $classBtnIndex		='';
 $classBtnEdit		='';
