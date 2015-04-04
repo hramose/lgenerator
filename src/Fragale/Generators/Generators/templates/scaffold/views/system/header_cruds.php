@@ -20,7 +20,7 @@ if (file_exists($filename)){include_once($filename);}
 $col_0_visible 	= Config::get("cruds.$modelName.settings.col_0_visible", Config::get('cruds.settings.col_0_visible'));
 $col_1_visible 	= Config::get("cruds.$modelName.settings.col_1_visible", Config::get('cruds.settings.col_1_visible'));
 $col_2_visible 	= Config::get("cruds.$modelName.settings.col_2_visible", Config::get('cruds.settings.col_2_visible'));
-$col_2_temlpate = Config::get("cruds.$modelName.settings.col_2_template", Config::get('cruds.settings.col_2_template'));
+$col_2_template = Config::get("cruds.$modelName.settings.col_2_template", Config::get('cruds.settings.col_2_template'));
 $col_0_width 	= Config::get("cruds.$modelName.settings.col_0_width", Config::get('cruds.settings.col_0_width'));
 $col_1_width 	= Config::get("cruds.$modelName.settings.col_1_width", Config::get('cruds.settings.col_1_width'));
 $col_2_width 	= Config::get("cruds.$modelName.settings.col_2_width", Config::get('cruds.settings.col_2_width'));

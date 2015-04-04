@@ -88,6 +88,7 @@ class ViewGenerator extends Generator {
       	if($name === 'index.blade'){
       	  $editLink="";
       	  $deleteLink="";
+          $this->makeMaster($model);
       	}
 
         $this->template = str_replace('{{headings}}', implode(PHP_EOL."\t\t\t\t", $headings), $this->template);
@@ -96,10 +97,34 @@ class ViewGenerator extends Generator {
         return $this->template;
     }
 
+
+    /**
+     * Create the master detail record if needed
+     *
+     * @param  string $model
+     * @return Array
+     */
+    protected function makeMaster($model)
+    {
+        if (isset($this->viewDefinitions['detail_tables'])){
+          /*
+          foreach ($this->viewDefinitions['detail_tables'] as $table) {
+            echo 'detail table='.$table['description'].' model='.$table['model'];
+            $file->makeDirectory($path);
+          }
+          */
+          $models=basename(dirname($this->path));
+          echo dirname($this->path)."/master-detail/$models".'_master_record.blade.php';
+
+        }
+    }
+
+
     /**
      * Create the table rows
      *
      * @param  string $model
+     * @param  string $name     
      * @return Array
      */
     protected function makeTableRows($model,$name)

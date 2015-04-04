@@ -58,14 +58,9 @@ class CrudRemoveCommand extends Command {
 		$controlador=app_path().'/Http/Controllers/cruds/'.$Models.'Controller.php';
 		$vistas=$p->pathViews()."/cruds/$model";
 
-		//$migracion="app/database/migrations/*_create_".$resource."_table.php";
-		//$seeds="app/database/seeds/".ucfirst($resource)."*.php";
-
 		$this->info("I will delete the model $modelo");
 		$this->info("I will delete the controller $controlador");
 		$this->info("I will delete the views $vistas ");
-		//$this->info("Voy a eliminar la migracion $migracion");
-		//$this->info("Voy a eliminar la seeds $seeds");
 
 		$continue=false;
 		if ($this->option('auto')){
