@@ -40,8 +40,7 @@ class CrudStructureGeneratorCommand extends Command {
 	 */
 	public function fire()
 	{
-		//$resource = $this->argument('resource');
-		//$tabdef= $this->option('tabdef');
+
 		$p=new PathsInfo();
 		$file=new File();
 		$continue=false;
@@ -104,8 +103,7 @@ class CrudStructureGeneratorCommand extends Command {
 
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_cruds.php', $p->pathViews().'/system/cruds');
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/footer_cruds.php', $p->pathViews().'/system/cruds');
-		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_index_panel.php', $p->pathViews().'/system/cruds');
-		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_toolbar_cruds.blade.php', $p->pathViews().'/system/cruds');
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_index_panel.blade.php', $p->pathViews().'/system/cruds');
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/partial_header_cruds.blade.php', $p->pathViews().'/system/cruds');		
 
 		$this->tryToCopyFile($file, $templateVendorPath.'/config/settings.php', $path_config);		

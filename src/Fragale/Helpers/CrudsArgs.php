@@ -181,17 +181,6 @@ function toolBar($record){
     if ($currentKeyId==$nextKeyId){$classD3='disabled'; }
     if ($currentKeyId==$lastKeyId){$classD4='disabled'; }
 
-/*
-    $linkL0=link_to_route($this->models.'.index', '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-list-alt '));
-    $linkL1=link_to_route($this->models.'.create', '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-plus '));
-    $linkL2=link_to_route($this->models.'.edit', '', $this->editArgs($currentKeyId), array('class' => 'btn btn-info glyphicon glyphicon-edit '));
-    $linkL3=link_to_route($this->models.'.edit', '', $this->editArgs($currentKeyId), array('class' => 'btn btn-info  glyphicon glyphicon-duplicate disabled'));
-    $linkL4=Form::open(array('route' => array($route, $rid), 'method' => 'delete'));
-    $linkL4=$linkL4."<button type=\"submit\" class=\"btn btn-danger glyphicon glyphicon-trash\" onclick=\"".$confirmation."\" title=\"Delete this Item\" ></button>";
-    $linkL4=$linkL4.Form::close();
-*/
-
-
     $linkL0=$this->toolButton('index',$record->id);
     $linkL1=$this->toolButton('create',$record->id);
     $linkL2=$this->toolButton('edit',$record->id);
