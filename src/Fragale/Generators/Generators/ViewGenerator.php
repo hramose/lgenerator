@@ -106,17 +106,52 @@ class ViewGenerator extends Generator {
      */
     protected function makeMaster($model)
     {
+        $result=false;
         if (isset($this->viewDefinitions['detail_tables'])){
-          /*
-          foreach ($this->viewDefinitions['detail_tables'] as $table) {
-            echo 'detail table='.$table['description'].' model='.$table['model'];
-            $file->makeDirectory($path);
-          }
-          */
+          $p=new PathsInfo();
+          $file=new File(); 
+
           $models=basename(dirname($this->path));
-          echo dirname($this->path)."/master-detail/$models".'_master_record.blade.php';
+          $Model=ucwords($model);
+          if (isset($this->viewDefinitions['master_record_field'][0]['display'])){
+            $display=$this->viewDefinitions['master_record_field'][0]['display'];
+          }else{
+            $display='$lc->master_record->id';
+          }        
+          
+          $directory=dirname($this->path).'/master-detail';
+          $file->makeDirectory($directory);
+
+
+          /*make the master record access*/
+          $file_path=$directory."/$models".'_master_record.blade.php';
+          $buffer=$file->get($p->pathTemplatesViews().'/master-detail/master_record.template.blade.php');
+          // Replace template vars in view
+          foreach(array('Model', 'display') as $var){
+              $buffer = str_replace('{{'.$var.'}}', $$var, $buffer);
+          }  
+          $result=$file->put($file_path, $buffer);
+
+          /*make the detail tables access*/
+          $file_path=$directory."/$models".'_detail_tables.blade.php';
+          $bufferZ='';
+          $buffer=$file->get($p->pathTemplatesViews().'/master-detail/detail_tables_item.template.blade.php');
+          foreach ($this->viewDefinitions['detail_tables'] as $detail) {
+            $bufferY=$buffer;
+            $model_detail=$detail['model'];
+            $display="{{route('$model_detail.index',['master' => '".strtolower($Model)."', 'master_id' => \$currentRecord->id ])}}";
+            $description=$detail['description'];
+            foreach(array('Model', 'display','description') as $var){
+              $bufferY = str_replace('{{'.$var.'}}', $$var, $bufferY);
+            }  
+            $bufferZ=$bufferZ.$bufferY.PHP_EOL;
+          }
+          $buffer=$file->get($p->pathTemplatesViews().'/master-detail/detail_tables.template.blade.php');
+          $buffer = str_replace('{{details}}', $bufferZ, $buffer);
+          $result=$file->put($file_path, $buffer);
 
         }
+        return $result;
     }
 
 

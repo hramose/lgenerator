@@ -105,11 +105,13 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_cruds.php', $p->pathViews().'/system/cruds');
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/footer_cruds.php', $p->pathViews().'/system/cruds');
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_index_panel.blade.php', $p->pathViews().'/system/cruds');
-		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/partial_header_cruds.blade.php', $p->pathViews().'/system/cruds');		
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/partial_header_cruds.blade.php', $p->pathViews().'/system/cruds');
 
-		$this->tryToCopyFile($file, $templateVendorPath.'/views/master-detail/master_record.template.blade.php', $p->pathTemplatesViews()).'/master-detail');		
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/master-detail/master_record.template.blade.php', $p->pathTemplatesViews().'/master-detail');		
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/master-detail/detail_tables.template.blade.php', $p->pathTemplatesViews().'/master-detail');	
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/master-detail/detail_tables_item.template.blade.php', $p->pathTemplatesViews().'/master-detail');
 
-		$this->tryToCopyFile($file, $templateVendorPath.'/config/settings.php', $path_config);		
+		$this->tryToCopyFile($file, $templateVendorPath.'/config/settings.php', $path_config);
 
 	}
 

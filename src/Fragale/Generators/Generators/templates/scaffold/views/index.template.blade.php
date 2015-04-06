@@ -12,6 +12,7 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 		<!-- begin #content -->
 		<div id="content" class="content">
 			<!-- begin page-header -->
+			@include('system.cruds.partial_header_cruds')
 			<h1 class="page-header">{!!$icon_title!!} {!!$form_title!!} <small>{!!$form_subtitle!!}</small></h1>
 			<!-- end page-header -->
 
@@ -25,7 +26,6 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
                             <h4 class="panel-title">{{trans('forms.'.$viewName)}}</h4>
                         </div>				    
 						<div class="panel-body">					
-							@include('system.cruds.partial_header_cruds') 
 							<div class="row">
 								@include('system.cruds.header_index_panel') 
 							</div>

@@ -5,14 +5,18 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Fragale\Helpers\PathsInfo;
 use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Pluralizer;
 
 class CrudsArgs 
 {
-    public $Master;
-    public $master_id;
     public $master_record_col2_template;
     public $detail_records_col2_definitions;
+    
+    public $Master;
+    public $master_id;
     public $master_record_template;
+    public $master_record;
+    public $master_record_models;
     public $models;
     
     public function __construct($models)
@@ -39,17 +43,22 @@ class CrudsArgs
 
         $this->Master=ucwords(trim($master));       
         $this->master_id=$master_id;
+        $Master='App\\cruds\\'.$this->Master;
 
-        if(class_exists($this->Master)){
-            $Master=$this->Master;
+
+        if(class_exists($Master)){            
             $models=$Master::MODELS;                    
+            $object=new $Master;
+            $this->master_record=$object->find($master_id);
+            $this->master_record_models=$models;
         }
 
         /*template para el master record*/
-        $template="/$models/customs/master_record";
+        $master_models = strtolower(Pluralizer::plural($this->Master));   // el directorio del master record
+        $template="/cruds/$master_models/master-detail/".$master_models."_master_record";
         $filename=$p->pathViews().$template.'.blade.php';
-        //dd($filename);
-        if (!file_exists($filename)){
+        
+        if (!file_exists($p->pathViews().$template.'.blade.php')){
             $template='';
         }
         $this->master_record_template = $template;   // template para el master record  
@@ -113,7 +122,7 @@ class CrudsArgs
         /*establece su propia URI request*/
         $models=$this->models;
         //echo($models.'.request_uri'.' '.$_SERVER['REQUEST_URI']);
-
+        //exit();
         Session::put($models.'.request_uri', $_SERVER['REQUEST_URI']);
         return true;
     }
@@ -122,18 +131,18 @@ class CrudsArgs
     {
         /*si tiene un master record entonces determina la URI del master (a la que tiene que retornar desde un detail) 
         si no tiene un master record devulve false */
-        if(class_exists($this->Master)){
-            $Master=$this->Master;
+        $Master='App\\cruds\\'.$this->Master;  
+        if(class_exists($Master)){
             $models=$Master::MODELS;                    
             return Session::get($models.'.request_uri', '');
         }
         return false;
     }
 
-    function getMasterName()
+    function getMasterName()    
     {
-        if(class_exists($this->Master)){
-            $Master=$this->Master;
+        $Master='App\\cruds\\'.$this->Master;        
+        if(class_exists($Master)){
             $models=$Master::MODELS;                    
             return trans('forms.backTo').' '.trans('forms.'.$models);
         }
@@ -142,7 +151,7 @@ class CrudsArgs
 
     function getMasterField($field)
     {
-        $Master=$this->Master;
+        $Master='App\\cruds\\'.$this->Master; 
         $record=$Master::find($this->master_id);
         eval("\$value=\$record->$field;");
         return $value;
@@ -150,11 +159,10 @@ class CrudsArgs
 
     function doTitle($title,$size='1')
     {
-                $title ="<h$size>$title</h$size>";
+        $title ="<h$size>$title</h$size>";
         return $title;
     }           
 
-    /*to be removed-------------------------------------------------------------------------------------------------*/
     function sortArgs($field,$order){       
         return array('sort' => $field, 'order' => $order, 'master' => $this->Master, 'master_id' => $this->master_id );
     }
@@ -218,39 +226,38 @@ function toolBar($record){
     </div> 
 EOT;
 
-return $toolbar;
-}
+    return $toolbar;
+    }
 
 function toolButton($action,$id,$disabled=''){ 
     $route=$this->models.'.'.$action;
-    switch ($action) {
-        case 'index':
-            $html=link_to_route($route, '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-list-alt '.$disabled));
-            break;
-        case 'create':
-            $html=link_to_route($route, '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-plus '.$disabled));
-            break;
-        case 'edit':        
-            $html=link_to_route($route, '', $this->editArgs($id), array('class' => 'btn btn-info glyphicon glyphicon-edit '.$disabled));
-            break;
-        case 'copy':        
-            $html=link_to_route($this->models.'.edit', '', $this->editArgs($id), array('class' => 'btn btn-info  glyphicon glyphicon-duplicate '.$disabled));
-            break;            
-        case 'show':
-            $html=link_to_route($route, '', $$this->showArgs($id), array('class' => 'btn btn-info glyphicon glyphicon-step-backward '.$disabled));
-            break;
-        case 'destroy':
-            $confirmation="if(!confirm('".trans('forms.AreSureToDelete')."?')){return false;};";
-            $html=Form::open(array('route' => array($route, $id), 'method' => 'delete'));
-            $html=$html."<button type=\"submit\" class=\"btn btn-danger glyphicon glyphicon-trash\" onclick=\"".$confirmation."\" title=\"Delete this Item\" ></button>";
-            $html=$html.Form::close();
-            break;
-        default:
-            $html='';
-            break;
+        switch ($action) {
+            case 'index':
+                $html=link_to_route($route, '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-list-alt '.$disabled));
+                break;
+            case 'create':
+                $html=link_to_route($route, '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-plus '.$disabled));
+                break;
+            case 'edit':        
+                $html=link_to_route($route, '', $this->editArgs($id), array('class' => 'btn btn-info glyphicon glyphicon-edit '.$disabled));
+                break;
+            case 'copy':        
+                $html=link_to_route($this->models.'.edit', '', $this->editArgs($id), array('class' => 'btn btn-info  glyphicon glyphicon-duplicate '.$disabled));
+                break;            
+            case 'show':
+                $html=link_to_route($route, '', $$this->showArgs($id), array('class' => 'btn btn-info glyphicon glyphicon-step-backward '.$disabled));
+                break;
+            case 'destroy':
+                $confirmation="if(!confirm('".trans('forms.AreSureToDelete')."?')){return false;};";
+                $html=Form::open(array('route' => array($route, $id), 'method' => 'delete'));
+                $html=$html."<button type=\"submit\" class=\"btn btn-danger glyphicon glyphicon-trash\" onclick=\"".$confirmation."\" title=\"Delete this Item\" ></button>";
+                $html=$html.Form::close();
+                break;
+            default:
+                $html='';
+                break;
+        }
+        return $html;
     }
-    return $html;
-
-}
 
 }
