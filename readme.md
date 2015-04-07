@@ -167,6 +167,8 @@ Just begin:
 
 ```
 
+	<?php
+
 	use Illuminate\Database\Schema\Blueprint;
 	use Illuminate\Database\Migrations\Migration;
 
@@ -241,7 +243,7 @@ then try to generate the CRUDs for the employees table, advance slowly, we use o
 Run this command:
 
 ```bash
-php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[64]"
+php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[1]"
 ```
 
 
@@ -346,6 +348,8 @@ for example to add code to our example model you can do this:
 
 ```
 
+	<?php
+
     public function getFullNameAttribute()
     {
     	return $this->first_name . ' ' . $this->last_name;
@@ -374,6 +378,8 @@ for example you can do this:
 * put this code into the file: (warning: add the PHP tag at the begin of the file)
 
 ```
+
+	<?php
 
 	public static $rules = array(
 							
@@ -471,6 +477,113 @@ Now you have two tables, employees and families.
 As you can see, families are related with employees table by the `employee_id` field, then you need to add the relationship at the model
 
 
+continue ...
+
+* modify the file `/app/resources/templates/cruds/customs/employees/append_to_model.php`
+* copy and paste this code :
+
+```
+
+	<?php
+
+	// the relationship with families table 
+	public function families()
+	{
+		return $this->hasMany('App\cruds\Family');
+	}
+
+	// the above example
+    public function getFullNameAttribute()
+    {
+    	return $this->first_name . ' ' . $this->last_name;
+    }	
+
+```
+With the above the relation from employees-families are created, now we need to create the relation families-employees
+
+* create a file in `/app/resources/templates/cruds/customs/families/` named `append_to_model.php`
+* put this code into the file: 
+
+```
+
+	<?php
+
+	// the relationship with employees table 
+	public function employee()
+	{
+		return $this->belogsTo('App\cruds\Employee');
+	}
+
+```
+
+* create a `.json` file in `/app/resources/templates/cruds/customs/employees/` named `views_definitions.json`
+* put this code into the file: 
+
+```
+
+	{
+		"description": "Employees table views definitions",
+	    "detail_tables": [
+	        {
+	            "description": "Families table",
+	            "model": "families"
+	        }
+	    ]    ,
+	    "master_record_field": [
+	        {
+	            "display": "$lc->master_record->fullname"
+	        }
+	    ]
+	}
+
+```
+
+* now remove the resource employes end re-generate it
+
+```bash
+php artisan makefast:remove employees --auto --dirs
+php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[1]"
+```
+
+* generate the families CRUD
+
+```bash
+php artisan makefast:scaffold families --fields="first_name:string[64],last_name:string[64]"
+```
+
+* check the results into the models `Employee.php` and `Family.php`
+
+* also two new files are created, you can check it on:
+
+```
+	application_instalation/	
+	├── ...
+	└── resources/
+		├── ...
+		└── views/					
+			├── ...		
+			└── cruds/
+				├── ...
+				└── employees/		
+					├── master-detail/						
+					│	├── employees_detail_tables.blade.php 
+					│	└── employees_master_records.blade.php 
+					└── ... 
+
+```
+
+
+###### To view the results at the browser ######
+
+* create some records in the employees table
+* go to show view
+* open the families relation link
+
+
+
+
+
+
 
 #### Customizing the views generation ####
 
@@ -493,7 +606,23 @@ the documentation is comming soon...
 #### Note ####
 
 
+**feel free to modify any template under `/resources/templates/cruds`, be carefully with the layouts**
+
+**make a backup of the project before install this lgenerator**
+
+
+
 I am writing the documentation... please be patient
+
+
+
+I need partners to contribute to this project in some respects:
+My native language is Spanish, then you might find some syntax errors in paragraphs that I wrote in English, if you want to contribute ... great.
+
+I also need :
+* to make video tutorials in English and Spanish.
+* check the code
+* check the performance
 
 
 
@@ -503,3 +632,5 @@ THE TIME THAT I'M DEDICATING THIS PROJECT IS CONDITIONED BY MY DAILY DUTIES, IF 
 DAILY I WILL UPLOAD NEW FEATURES,
 
 ACTUALLY THE PACKAGE IS NOT STABLE YET
+
+
