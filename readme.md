@@ -390,6 +390,88 @@ for example you can do this:
  **feel free to add your own rules in your models**
 
 
+#### Master-detail generation ####
+
+Master-detail presentations allow you to navigate a webpage based on a specific table, and at the same time for each selected record (master record) see the associated records from other related tables (details). 
+
+please let me continue with our example resource `employees`
+
+imagine now that the employees have family (his childrens, parents, brothers, etc.) and they are represented by the table families
+
+to continue learning how to generate this feature, please make this migration:
+
+* create a file into `database/migrarions` called `2015_04_01_000000_create_families_table.php`
+
+* copy and paste this code: (warning: add the php tag at the begin of the file)
+
+```
+
+	<?php
+
+	use Illuminate\Database\Schema\Blueprint;
+	use Illuminate\Database\Migrations\Migration;
+
+	class CreateFamiliesTable extends Migration {
+
+		/**
+		 * Run the migrations.
+		 *
+		 * @return void
+		 */
+		public function up()
+		{
+			Schema::create('families', function(Blueprint $table)
+			{
+				$table->increments('id');
+				$table->string('first_name');
+				$table->string('last_name');
+				$table->enum('gender', ['f', 'm']);
+
+				$table->date('date_of_birth');
+				$table->string('nacionality',3);
+				$table->string('city_of_birth');
+
+				$table->string('marital_status');			
+
+				$table->string('document_type');
+				$table->string('document_number');
+				$table->string('passport_number')->nullable();
+				$table->string('ss_number');
+
+				//Employees link
+				$table->integer('employee_id')->unsigned()->nullable();
+
+				$table->timestamps();
+
+				$table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+			});
+		}
+
+		/**
+		 * Reverse the migrations.
+		 *
+		 * @return void
+		 */
+		public function down()
+		{
+			Schema::drop('families');
+		}
+	}
+
+```
+
+* run the migration
+
+```bash
+php artisan migrate
+```
+
+Now you have two tables, employees and families.
+
+As you can see, families are related with employees table by the `employee_id` field, then you need to add the relationship at the model
+
+
+
 #### Customizing the views generation ####
 
 
