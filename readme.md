@@ -318,32 +318,6 @@ This occurs because the views are using a layout (you might change this later), 
 
 
 
-
-
-
-
-```
-
-
-Nice! A few things to notice here:
-
-- The controller for the object is created in app/Http/cruds
-- The model for the object is created in app/cruds
-- The generator will automatically create the views for this object in app/resources/views/cruds
-- The templates for the controller, model and views, are located in app/resources/templates/cruds
-- The generator will automatically asume the `id` as the primary key.
-
-To declare fields, use a comma-separated list of key:value:option sets, where `key` is the name of the field, `value` is the [column type](http://four.laravel.com/docs/schema#adding-columns), and `option` is a way to specify indexes and such, like `unique` or `nullable`. Here are some examples:
-
-- `--fields="first:string, last:string"`
-- `--fields="age:integer, yob:date"`
-- `--fields="username:string:unique, age:integer:nullable"`
-- `--fields="name:string:default('John'), email:string:unique:nullable"`
-- `--fields="username:string[30]:unique, age:integer:nullable"`
-
-```
-
-
 #### Scaffolding models
 
 ##### Adding aditional code
@@ -372,17 +346,51 @@ for example to add code to our example model you can do this:
 **feel free to add your own code in your models**
 
 
+
 ##### Adding rules
 
-You can add customized rules to your model validation simply adding code into `/app/resources/templates/cruds/customs/OBJECTNAME/rules.php`
+The rules for the field validation are defined in the model file at `app/cruds/Employee.php` (for our example resource)
+
+Also you should add your own validation rules.
+
+for example you can do this:
+
+* create a file in `/app/resources/templates/cruds/customs/employees/` named `rules.php`
+* put this code into the file: (warning: add the PHP tag at the begin of the file)
+
+```
+
+	public static $rules = array(
+							
+		'first_name' => 'required',
+		'last_name' => 'required',
+		'gender' => 'required'
+
+```
+
+* now remove the resource
+* run the generator again
+* check the results into the model `Employee.php`
+
+**feel free to add your own rules in your models**
 
 
-##### Customizing the views generation
+#### Customizing the views generation
 
 the documentation is comming soon...
 
 
-##### Note
+#### Excel and OpenOffice exportation
+
+the documentation is comming soon...
+
+
+#### PDF reports generation
+
+the documentation is comming soon...
+
+
+#### Note
 
 I am writing the documentation... please be patient
 
