@@ -321,7 +321,15 @@ This occurs because the views are using a layout (you might change this later), 
 
 
 
-#### Scaffolding models ####
+#### Removing a resource ####
+
+To remove a resource, simply run `makefast:remove`
+
+for example to remove the employees from your proyect just run:
+
+```bash
+php artisan makefast:remove employees --auto --dirs
+```
 
 
 ##### Adding aditional code #####
