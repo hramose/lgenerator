@@ -227,21 +227,66 @@ class CreateEmployeesTable extends Migration {
 php artisan migrate
 ```
 
-
+you are ready to try...
+let's go
 
 ### Scaffolding
 
 
-The scaffolding is an skeleton for a serie of classes relatives to a resourse
+The scaffolding is an skeleton for a serie of classes related to an resource, for our example the resource is the `employees` table
+
+then try to generate the CRUDs for the employees table, advance slowly, we use only some fields for now.
+
+Run this command:
 
 ```bash
-php artisan makefast:scaffold tweet --fields="author:string, body:text"
+php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[64]""
 ```
 
-Note that the generator works on a existing table, then you must create the migration first if the table not exist.
 
+after this, check what happened:
 
 ```
+
+The generator will be created some files and structures
+1. the controller
+2. the model
+3. the CRUD views
+
+	application_instalation/	
+	├── app/
+	│	├── ...											
+	│	├── Http/
+	│	│	└── Controllers/
+	│	│	    ├── ...
+	│	│		└── cruds/
+	│	│			├── ...
+	│	│	   	  	└── EmployeesController.php  (1)
+	│	├── ...
+	│	└── cruds/
+	│		├── ...
+	│	  	└── Employee.php  (2)
+	├── ...
+	└── resources/
+		├── ...
+		└── views/					
+			├── ...		
+			└── cruds/
+				├── ...
+				└── employees/			(3)			
+					├── create.blade.php 
+					├── edit.blade.php 
+					├── index.blade.php 
+					└── show.blade.php 
+
+4. also the `routes.php` will be modified adding the route to the new resource.
+
+
+
+
+
+
+
 
 Nice! A few things to notice here:
 
