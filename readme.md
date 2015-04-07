@@ -64,24 +64,29 @@ copy the entire dir: YOUR_INSTALATION_PATH/vendor/twbs/bootstrap/dist into YOUR_
 then you may see:
 
 ```
-YOUR_INSTALATION_PATH/public/assets/plugins/bootstrap/
-												└── bootstrap/
-													├── css/
-													│   ├── bootstrap.css
-													│   ├── bootstrap.css.map
-													│   ├── bootstrap.min.css
-													│   ├── bootstrap-theme.css
-													│   ├── bootstrap-theme.css.map
-													│   └── bootstrap-theme.min.css
-													├── js/
-													│   ├── bootstrap.js
-													│   └── bootstrap.min.js
-													└── fonts/
-													    ├── glyphicons-halflings-regular.eot
-													    ├── glyphicons-halflings-regular.svg
-													    ├── glyphicons-halflings-regular.ttf
-													    ├── glyphicons-halflings-regular.woff
-													    └── glyphicons-halflings-regular.woff2             		 		   			  
+
+	YOUR_INSTALATION_PATH/
+	└── public/
+		└── assets/
+			└── plugins/
+				└── bootstrap/
+					└── bootstrap/
+						├── css/
+						│   ├── bootstrap.css
+						│   ├── bootstrap.css.map
+						│   ├── bootstrap.min.css
+						│   ├── bootstrap-theme.css
+						│   ├── bootstrap-theme.css.map
+						│   └── bootstrap-theme.min.css
+						├── js/
+						│   ├── bootstrap.js
+						│   └── bootstrap.min.js
+						└── fonts/
+						    ├── glyphicons-halflings-regular.eot
+						    ├── glyphicons-halflings-regular.svg
+						    ├── glyphicons-halflings-regular.ttf
+						    ├── glyphicons-halflings-regular.woff
+						    └── glyphicons-halflings-regular.woff2             		 		   			  
 ```
 
 (for more info and docs see https://github.com/twbs/bootstrap)
@@ -108,37 +113,47 @@ This command will create a directory structure into your `/application_instalati
 
 After this creation, the artisan will copy a serie of templates into 
 
-									├── app/
-									│	├── ...											
-									│	├── Http/
-									│	│	└── Controllers/
-									│	│	    ├── ...
-									│	│		└── cruds/
-									│	│	   	  	└── BaseCRUDController.php
-									│	├── ...
-									│	└── cruds/
-									│	  	└── BaseCRUDModel.php
-									├── ...
-									└── resources/
-										├── ...
-										└── templates/
-											└── cruds/
-												├── controller/
-												│   └── controller.template.blade.php
-												├── customs/
-												├── model/
-												│   └── model.template.blade.php
-												└── views/
-													├── master-detail/
-													│   ├── detail_tables.template.blade.php
-													│   ├── detail_tables_item.template.blade.php
-													│   └── master_record.template.blade.php
-													├── create.template.blade.php 
-													├── edit.template.blade.php
-													├── show.template.blade.php
-													└── create.template.blade.php
-
-
+	application_instalation/	
+	├── app/
+	│	├── ...											
+	│	├── Http/
+	│	│	└── Controllers/
+	│	│	    ├── ...
+	│	│		└── cruds/
+	│	│	   	  	└── BaseCRUDController.php
+	│	├── ...
+	│	└── cruds/
+	│	  	└── BaseCRUDModel.php
+	├── ...
+	└── resources/
+		├── ...
+		├── templates/
+		│	└── cruds/
+		│		├── controller/
+		│		│   └── controller.template.blade.php
+		│		├── customs/
+		│		├── model/
+		│		│   └── model.template.blade.php
+		│		└── views/
+		│			├── master-detail/
+		│			│   ├── detail_tables.template.blade.php
+		│			│   ├── detail_tables_item.template.blade.php
+		│			│   └── master_record.template.blade.php
+		│			├── create.template.blade.php 
+		│			├── edit.template.blade.php
+		│			├── show.template.blade.php
+		│			└── create.template.blade.php
+		└── views/					
+			├── ...		
+			├── cruds/			
+			└── system/
+				├── ...			
+				└── cruds/
+					├── header_cruds.php 
+					├── footer_cruds.php
+					├── header_index_panel.blade.php
+					├── partial_header_cruds.blade.php					
+					└── second_column_cruds.blade.php				
 
 
 ### Scaffolding
