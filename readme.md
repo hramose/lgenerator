@@ -106,6 +106,8 @@ This command will create a directory structure into your `/application_instalati
 
 After this creation, the artisan will copy a serie of templates into 
 
+```
+
 	application_instalation/	
 	├── app/
 	│	├── ...											
@@ -147,7 +149,7 @@ After this creation, the artisan will copy a serie of templates into
 					├── header_index_panel.blade.php
 					├── partial_header_cruds.blade.php					
 					└── second_column_cruds.blade.php				
-
+```
 
 ## Usage
 
@@ -164,70 +166,70 @@ Just begin:
 * copy and paste this code: (warning: add the php tag at the begin of the file)
 
 ```
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
 
-class CreateEmployeesTable extends Migration {
+	use Illuminate\Database\Schema\Blueprint;
+	use Illuminate\Database\Migrations\Migration;
+
+	class CreateEmployeesTable extends Migration {
 
 	/**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
-		Schema::create('employees', function(Blueprint $table)
+		public function up()
 		{
-			$table->increments('id');
-			$table->string('first_name');
-			$table->string('last_name');
-			$table->enum('gender', ['f', 'm']);
+			Schema::create('employees', function(Blueprint $table)
+			{
+				$table->increments('id');
+				$table->string('first_name');
+				$table->string('last_name');
+				$table->enum('gender', ['f', 'm']);
 
-			$table->date('date_of_birth');
-			$table->string('nacionality',3);
-			$table->string('city_of_birth');
+				$table->date('date_of_birth');
+				$table->string('nacionality',3);
+				$table->string('city_of_birth');
 
-			$table->string('marital_status');			
+				$table->string('marital_status');			
 
-			$table->string('document_type');
-			$table->string('document_number');
-			$table->string('passport_number')->nullable();
-			$table->string('ss_number');
+				$table->string('document_type');
+				$table->string('document_number');
+				$table->string('passport_number')->nullable();
+				$table->string('ss_number');
 
-			$table->string('country_of_residence',3);
-			$table->string('city_of_residence');
-			$table->string('street_address');
-			$table->string('street_number');
-			$table->string('phone_number')->nullable();
-			$table->string('celular_number')->nullable();
-			$table->string('email_adress')->nullable();	
+				$table->string('country_of_residence',3);
+				$table->string('city_of_residence');
+				$table->string('street_address');
+				$table->string('street_number');
+				$table->string('phone_number')->nullable();
+				$table->string('celular_number')->nullable();
+				$table->string('email_adress')->nullable();	
 
-			$table->timestamps();
+				$table->timestamps();
 	
-		});
+			});
+		}
+
+		/**
+	 	* Reverse the migrations.
+	 	*
+	 	* @return void
+	 	*/
+		public function down()
+		{
+			Schema::drop('employees');
+		}
 	}
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('employees');
-	}
-
-}
 ```
 
-2) run the migration
+* run the migration
 
 ```bash
 php artisan migrate
 ```
 
-you are ready to try...
-let's go
+* you are ready to try... let's go
 
 ### Scaffolding
 
