@@ -291,25 +291,25 @@ This occurs because the views are using a layout (you might change this later), 
 * copy and paste this code into the file:
 
 ```
-<!DOCTYPE html>
-<html lang="en">
-	<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap-theme.min.css') }}" rel="stylesheet"> 
-    <body>		
-		<div id="page-container">
-			<div class="container-fluid">
-				<div class="row">
-				  	@if(isset($col_1_visible))
-				  	<div class="{{$col_full}}">
-						@yield('content')
-					</div> 
-					@endif		
+		<!DOCTYPE html>
+		<html lang="en">
+			<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+			<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap-theme.min.css') }}" rel="stylesheet"> 
+		    <body>		
+				<div id="page-container">
+					<div class="container-fluid">
+						<div class="row">
+						  	@if(isset($col_1_visible))
+						  	<div class="{{$col_full}}">
+								@yield('content')
+							</div> 
+							@endif		
+						</div>
+					</div>			
 				</div>
-			</div>			
-		</div>
-		<script src="{{ asset('assets/plugins/bootstrap/bootstrap/js/bootstrap.min.js') }}"></script>
-	</body>	
-</html>
+				<script src="{{ asset('assets/plugins/bootstrap/bootstrap/js/bootstrap.min.js') }}"></script>
+			</body>	
+		</html>
 ```
 
 6. save and try again going to http://www.yourapp.com/employees  
