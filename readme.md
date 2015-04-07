@@ -241,7 +241,7 @@ then try to generate the CRUDs for the employees table, advance slowly, we use o
 Run this command:
 
 ```bash
-php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[64]""
+php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[64]"
 ```
 
 
@@ -320,7 +320,10 @@ This occurs because the views are using a layout (you might change this later), 
 
 #### Scaffolding models
 
+
 ##### Adding aditional code
+
+
 All models are extending the class BaseCRUDModel defined in file `app/cruds/BaseCRUDModel.php`
 
 Also you should append code to your models.
@@ -343,11 +346,12 @@ for example to add code to our example model you can do this:
 * run the generator again
 * check the results into the model `Employee.php`
 
-**feel free to add your own code in your models**
+ **feel free to add your own code in your models**
 
 
 
 ##### Adding rules
+
 
 The rules for the field validation are defined in the model file at `app/cruds/Employee.php` (for our example resource)
 
@@ -372,20 +376,23 @@ for example you can do this:
 * run the generator again
 * check the results into the model `Employee.php`
 
-**feel free to add your own rules in your models**
+ **feel free to add your own rules in your models**
 
 
 #### Customizing the views generation
+
 
 the documentation is comming soon...
 
 
 #### Excel and OpenOffice exportation
 
+
 the documentation is comming soon...
 
 
 #### PDF reports generation
+
 
 the documentation is comming soon...
 
