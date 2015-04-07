@@ -10,7 +10,7 @@ This is a derivative of the original version of J. Way, this includes the adapta
 
 If you are looking for a "generic" generator is recommended to use way/generators
 
-## Installation
+## Installation ##
 
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `fragale/lgenerators`.
 
@@ -34,7 +34,7 @@ That's it! You're all set to go. Run the `artisan` command from the Terminal to 
 
 Note that the package use psr-4
 
-## Requirements
+## Requirements ##
 
 IMPORTANT !!!
 **This package requires Twitter Bootstrap 3**
@@ -94,7 +94,7 @@ then you may see:
 
 
 
-### Crud Structure
+### Crud Structure ###
 
 After installation, the first thing you have to do is generate the structure of work for the CRUDs generator .
 
@@ -151,7 +151,7 @@ After this creation, the artisan will copy a serie of templates into
 					└── second_column_cruds.blade.php				
 ```
 
-## Usage
+## Usage ###
 
 Of course, to have a CRUD, you should have a table in the database.
 
@@ -231,7 +231,7 @@ php artisan migrate
 
 * you are ready to try... let's go
 
-### Scaffolding
+### Scaffolding ###
 
 
 The scaffolding is an skeleton for a serie of classes related to an resource, for our example the resource is the `employees` table
@@ -247,13 +247,13 @@ php artisan makefast:scaffold employees --fields="first_name:string[64], last_na
 
 after this, check what happened:
 
-```
 
 The generator will be created some files and structures
 1. the controller
 2. the model
 3. the CRUD views
 
+```
 	application_instalation/	
 	├── app/
 	│	├── ...											
@@ -280,6 +280,8 @@ The generator will be created some files and structures
 					├── index.blade.php 
 					└── show.blade.php 
 
+```
+
 4. also the `routes.php` will be modified adding the route to the new resource.
 
 
@@ -293,6 +295,7 @@ This occurs because the views are using a layout (you might change this later), 
 * copy and paste this code into the file:
 
 ```
+
 		<!DOCTYPE html>
 		<html lang="en">
 			<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -318,10 +321,10 @@ This occurs because the views are using a layout (you might change this later), 
 
 
 
-#### Scaffolding models
+#### Scaffolding models ####
 
 
-##### Adding aditional code
+##### Adding aditional code #####
 
 
 All models are extending the class BaseCRUDModel defined in file `app/cruds/BaseCRUDModel.php`
@@ -350,7 +353,7 @@ for example to add code to our example model you can do this:
 
 
 
-##### Adding rules
+##### Adding rules #####
 
 
 The rules for the field validation are defined in the model file at `app/cruds/Employee.php` (for our example resource)
@@ -379,25 +382,26 @@ for example you can do this:
  **feel free to add your own rules in your models**
 
 
-#### Customizing the views generation
+#### Customizing the views generation ####
 
 
 the documentation is comming soon...
 
 
-#### Excel and OpenOffice exportation
+#### Excel and OpenOffice exportation ####
 
 
 the documentation is comming soon...
 
 
-#### PDF reports generation
+#### PDF reports generation ####
 
 
 the documentation is comming soon...
 
 
-#### Note
+#### Note ####
+
 
 I am writing the documentation... please be patient
 
