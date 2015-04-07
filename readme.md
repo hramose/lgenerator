@@ -10,13 +10,6 @@ This is a derivative of the original version of J. Way, this includes the adapta
 
 If you are looking for a "generic" generator is recommended to use way/generators
 
-
-## Requirements
-
-IMPORTANT !!!
-This package requires Twitter Bootstrap 3
-
-
 ## Installation
 
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `fragale/lgenerators`.
@@ -40,6 +33,59 @@ That's it! You're all set to go. Run the `artisan` command from the Terminal to 
     php artisan
 
 Note that the package use psr-4
+
+## Requirements
+
+IMPORTANT !!!
+*** This package requires Twitter Bootstrap 3 ***
+If your project still is not using Twitter Bootstrap 3 (TWBS), do not worry, the package includes the dependence necessary for Bootstrap is downloaded to your project.
+In this case after run *** composer update ** just make this to create an asset entry for TWBS in your /public directory:
+
+in the console:
+
+LINUX
+
+```bash
+cd YOUR_INSTALATION_PATH (where is your composer.json)
+mkdir public/assets/plugins
+mkdir public/assets/plugins/bootstrap
+cd public/assets/plugins/bootstrap/
+ln -s ../../../../vendor/twbs/bootstrap/dist ./bootstrap
+```
+
+WIN
+
+```bash
+create a directory into YOUR_INSTALATION_PATH/public/assets/plugins/bootstrap/bootstrap
+after
+copy the entire dir: YOUR_INSTALATION_PATH/vendor/twbs/bootstrap/dist into YOUR_INSTALATION_PATH/public/assets/plugins/bootstrap/bootstrap
+```
+
+then you may see:
+
+```
+YOUR_INSTALATION_PATH/public/assets/plugins/bootstrap/
+												└── bootstrap/
+													├── css/
+													│   ├── bootstrap.css
+													│   ├── bootstrap.css.map
+													│   ├── bootstrap.min.css
+													│   ├── bootstrap-theme.css
+													│   ├── bootstrap-theme.css.map
+													│   └── bootstrap-theme.min.css
+													├── js/
+													│   ├── bootstrap.js
+													│   └── bootstrap.min.js
+													└── fonts/
+													    ├── glyphicons-halflings-regular.eot
+													    ├── glyphicons-halflings-regular.svg
+													    ├── glyphicons-halflings-regular.ttf
+													    ├── glyphicons-halflings-regular.woff
+													    └── glyphicons-halflings-regular.woff2             		 		   			  
+```
+
+(for more info and docs see https://github.com/twbs/bootstrap)
+
 
 ## Usage
 
@@ -154,9 +200,6 @@ the file structure is:
 }
 
 ```
-
-
-
 
 I am writing the documentation... please be patient
 
