@@ -12,15 +12,21 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 			        
 		<!-- begin #content -->
 		<div id="content" class="content">
+		
 			<!-- begin page-header -->
-			@include('system.cruds.partial_header_cruds')
-			<h1 class="page-header">{!!$icon_title!!} {!!$form_title!!} </h1>
+            <div class="row">
+	            <div class="{{$col_full}}">		
+					@include('system.cruds.partial_header_cruds')
+					<h1 class="page-header">{!!$icon_title!!} {!!$form_title!!} </h1>
+				</div>
+			</div>			
 			<!-- end page-header -->
+
 
 			<!-- begin row -->
 			<div class="row">
-			    <!-- begin col-12 -->
-			    <div class="{{$col_full}}">
+			    <!-- begin first column -->
+			    <div class="{{$col_1_width}}">
 			        <!-- begin panel -->
                     <div class="panel {{Config::get('cruds.settings.panel_class', 'panel-primary')}}">
                         <div class="panel-heading">
@@ -47,7 +53,12 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
                     </div>
                     <!-- end panel -->  
                 </div>
-                <!-- end col-12 -->			    				
+                <!-- end first column -->			    				
+
+			    <!-- begin second column -->
+		    	@include('system.cruds.second_column_cruds')
+                <!-- end second column -->			    				                
+		    				
             </div>
             <!-- end row -->
 		</div>
