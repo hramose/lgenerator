@@ -104,11 +104,39 @@ After installation, the first thing you have to do is generate the structure of 
     php artisan makefast:crudstructure
 ```
 
-This command will create a directory structure into your `/app` directory
+This command will create a directory structure into your `/application_instalation` directory
 
-After this creation, the artisan will copy a serie of templates into `/app/resourses/templates`
+After this creation, the artisan will copy a serie of templates into 
 
-If we don't specify the `fields` option, the following file will be created within `app/database/migrations`.
+									├── app/
+									│	├── ...											
+									│	├── Http/
+									│	│	└── Controllers/
+									│	│	    ├── ...
+									│	│		└── cruds/
+									│	│	   	  	└── BaseCRUDController.php
+									│	├── ...
+									│	└── cruds/
+									│	  	└── BaseCRUDModel.php
+									├── ...
+									└── resources/
+										├── ...
+										└── templates/
+											└── cruds/
+												├── controller/
+												│   └── controller.template.blade.php
+												├── customs/
+												├── model/
+												│   └── model.template.blade.php
+												└── views/
+													├── master-detail/
+													│   ├── detail_tables.template.blade.php
+													│   ├── detail_tables_item.template.blade.php
+													│   └── master_record.template.blade.php
+													├── create.template.blade.php 
+													├── edit.template.blade.php
+													├── show.template.blade.php
+													└── create.template.blade.php
 
 
 
