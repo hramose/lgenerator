@@ -159,10 +159,9 @@ Then you can create this as an example to learn how to use the generator, of cou
 
 Just begin:
 
-1) 
-create a file into `database/migrarions` called `2015_04_01_000000_create_employees_table.php`
+* create a file into `database/migrarions` called `2015_04_01_000000_create_employees_table.php`
 
-copy and paste this code: (warning: add the php tag at the begin of the file)
+* copy and paste this code: (warning: add the php tag at the begin of the file)
 
 ```
 use Illuminate\Database\Schema\Blueprint;
@@ -282,10 +281,46 @@ The generator will be created some files and structures
 4. also the `routes.php` will be modified adding the route to the new resource.
 
 
+5. now you can check the results on the browser going to http://www.yourapp.com/employees  
+
+¿troubles?
+probably you are getting an error message at this point.
+This occurs because the views are using a layout (you might change this later), but if you do not have a defined layout might use this as an example:
+
+* create a file in `resources/views/layouts` with the name `default.blade.php`
+* copy and paste this code into the file:
+
+```
+<!DOCTYPE html>
+<html lang="en">
+	<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap-theme.min.css') }}" rel="stylesheet"> 
+    <body>		
+		<div id="page-container">
+			<div class="container-fluid">
+				<div class="row">
+				  	@if(isset($col_1_visible))
+				  	<div class="{{$col_full}}">
+						@yield('content')
+					</div> 
+					@endif		
+				</div>
+			</div>			
+		</div>
+		<script src="{{ asset('assets/plugins/bootstrap/bootstrap/js/bootstrap.min.js') }}"></script>
+	</body>	
+</html>
+```
+
+6. save and try again going to http://www.yourapp.com/employees  
 
 
 
 
+
+
+
+```
 
 
 Nice! A few things to notice here:
@@ -310,12 +345,30 @@ To declare fields, use a comma-separated list of key:value:option sets, where `k
 #### Scaffolding models
 
 ##### Adding aditional code
-All models are extending the class BaseCRUDModel defined in file `/app/cruds/BaseCRUDModel.php`
+All models are extending the class BaseCRUDModel defined in file `app/cruds/BaseCRUDModel.php`
 
-Also you should append code to your models:
-for this you may create a file in `/app/resources/templates/cruds/customs/OBJECTNAME/append_to_model.php`
+Also you should append code to your models.
 
-the code included in this file will be appended to the model for the OBJECTNAME.
+for example to add code to our example model you can do this:
+
+* create a file in `/app/resources/templates/cruds/customs/employees/` named `append_to_model.php`
+* put this code into the file: (warning: add the PHP tag at the begin of the file)
+
+```
+
+    public function getFullNameAttribute()
+    {
+    	return $this->first_name . ' ' . $this->last_name;
+    }
+
+```
+
+* now remove the resource
+* run the generator again
+* check the results into the model `Employee.php`
+
+**feel free to add your own code in your models**
+
 
 ##### Adding rules
 
@@ -324,43 +377,10 @@ You can add customized rules to your model validation simply adding code into `/
 
 ##### Customizing the views generation
 
+the documentation is comming soon...
 
-You must customize the view generation for your model, just adding a .json file in `/app/resources/templates/cruds/customs/OBJECTNAME/views_definition.json`
 
-the file structure is:
-
-```
-{
-	"description": "Employee slave records",
-    "field_definitions": 
-	    {
-	      "_comment":"indicar los campos no se deben generar en los formularios",
-	      "index_disallowed":"user_id,from_issue_id",
-	      "edit_disallowed":"user_id,from_issue_id",
-	      "create_disallowed":"id,user_id,from_issue_id",
-	      "show_disallowed":"id,user_id,from_issue_id",
-	      "_comment":"indicar los campos que son de solo lectura",
-	      "edit_readonly":"id",
-	      "_comment":"campos con formato especial en index y en show",
-	      "id_format":"#%d",
-	      "fields_extra":"somefield"
-	    }
-	,
-    "customized_fields": 
-	    {
-	      "type":"{{ Form::select('type', array('bug'=>'Bug', 'function'=>'Funcionalidad','develop'=>'Desarrollo'), {{value}}, array('class' => 'form-control')) }}",
-	      "status":"{{ Form::select('status', array('open'=>'Open', 'solved'=>'Solved','closed'=>'Closed','closed_unsolved'=>'Closed_Unsolved'), {{value}}, array('class' => 'form-control')) }}"
-	    }
-    ,
-    "detail_records": [
-        {
-            "description": "Families table",
-            "model": "families"
-        }
-    ]
-}
-
-```
+##### Note
 
 I am writing the documentation... please be patient
 
