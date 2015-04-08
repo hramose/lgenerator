@@ -5,7 +5,8 @@
     }
 ?>
 <div class="row">
-  <div class="{{$col_full}}" align="right">
+  <div class="{{$lc->config('col_full')}}">
+    <p class="divider"><p>
     {!! $lc->toolButton('create',0) !!}
     
     <!--

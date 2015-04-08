@@ -4,7 +4,7 @@
 |
 */
 
-$lc=new Fragale\Helpers\CrudsArgs($modelName);
+$lc=new Fragale\Helpers\CrudsArgs($modelName, $viewName);
 
 /*----------------------------------------------------------------------------
 | /resourses/views/cruds/objeto/customs/viewname_header.php
@@ -15,35 +15,6 @@ $lc=new Fragale\Helpers\CrudsArgs($modelName);
 
 $filename=$p->pathViews()."/$modelName/customs/".$viewName.'_header.php';
 if (file_exists($filename)){include_once($filename);}
-
-
-/*----------------------------------------------------------------------------
-| Configura el comportamiento general y las dimensiones 
-| de las columnas del | GRID de Boostrap 3.
-|
-*/
-
-$col_0_visible 	= $lc->config('col_0_visible');
-$col_1_visible 	= $lc->config('col_1_visible');
-$col_2_visible 	= $lc->config('col_2_visible');
-$col_2_template = $lc->config('col_2_template');
-$col_0_width 	= $lc->config('col_0_width');
-$col_1_width 	= $lc->config('col_1_width');
-$col_2_width 	= $lc->config('col_2_width');
-$col_full 		= $lc->config('col_full');
-
-
-/*----------------------------------------------------------------------------
-| Prepara el titulo y el subtitulo del formulario
-|
-*/
-$form_title=trans('forms.'.$modelName);
-$form_subtitle=trans('forms.view_'.$viewName);
-/*if ($viewName!='index'){
-	$form_title=$lc->doTitle($form_title,'3');
-}
-*/
-$icon_title	= Config::get("cruds.settings.icon_title_$viewName", '');
 
 /*----------------------------------------------------------------------------
 | Algunos seteos complementarios

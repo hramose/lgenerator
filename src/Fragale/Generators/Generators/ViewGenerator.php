@@ -171,13 +171,10 @@ class ViewGenerator extends Generator {
 
       	if($name==='index.blade'){
       	  /*crea las cabeceras de la tabla*/
-      	  $ih=0; //print_r($fields);exit();
+      	  $ih=0; 
           $iconUp="\$lc->config('icon_sort-up')";
           $iconDown="\$lc->config('icon_sort-down')";
       	  foreach (array_keys($fields) as $field) {
-            echo 'head='.$field;
-            //$headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}</th>";                  
-            //$headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','asc'))}}\"><span class=\"{{Config::get('kyron.icon_sort-up')}}\"></span></a>"."<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','desc'))}}\"><span class=\"{{Config::get('kyron.icon_sort-down')}}\"></span></a>"."</th>";      
             $headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','asc'))}}\">{!! $iconUp !!}</a>"."<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','desc'))}}\">{!! $iconDown !!}</a>"."</th>";
       	    $ih++;
       	  }
@@ -198,9 +195,6 @@ class ViewGenerator extends Generator {
             }           
             return "<td>{{{ $value }}}</td>";
         }, array_keys($fields));
-
-
-        // Now, we'll add the edit and delete buttons.
 
 	   //Modificacion, apertura de los links para show, edit y delete (Mayo 2014 se eliminan los links de edit y delete de la vista index)
 

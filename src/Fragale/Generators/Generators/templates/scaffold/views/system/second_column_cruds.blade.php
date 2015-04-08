@@ -6,8 +6,8 @@
         $have_detail_records=1;    
     }                    
 ?>
-            @if(isset($col_2_visible)) 
-                <div class="{{$col_2_width}}">
+            @if($lc->config('col_2_visible'))
+                <div class="{{$lc->config('col_2_width')}}">
 
                     @include('system.cruds.notifications_layout')
                     

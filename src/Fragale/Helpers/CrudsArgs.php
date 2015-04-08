@@ -17,13 +17,22 @@ class CrudsArgs
     public $master_record;
     public $master_record_models;
     public $models;
+    public $title;
+    public $subtitle;
+    public $icon_title;
+    public $viewname;
     
-    public function __construct($models)
+    public function __construct($models, $viewname)
     {
 
         $p=new PathsInfo();
 
         $this->models=$models;
+        $this->viewname=$viewname;
+
+        $this->title=$this->config('title');
+        $this->subtitle=$this->config('subtitle');
+        $this->icon_title=$this->config("icon_title_$viewname");        
 
         $this->setSessionVars();
 
@@ -250,10 +259,15 @@ EOT;
         $models=$this->models;
         $value = Config::get("cruds.$models.settings.$name", Config::get("cruds.settings.$name"));
 
-        if($extract_class){
-            $ini_pos=strpos($value, 'class=')+7;
-            $end_pos=strpos($value, '"',$ini_pos);
-            $value=substr($value, $ini_pos,$end_pos-$ini_pos);
+        /*if the value is a function translate then execute it*/
+        if (substr($value,0,6)=='trans(') {
+            eval('$value='.$value.';');
+        }else{
+            if($extract_class){
+                $ini_pos=strpos($value, 'class=')+7;
+                $end_pos=strpos($value, '"',$ini_pos);
+                $value=substr($value, $ini_pos,$end_pos-$ini_pos);
+            }            
         }
 
         return $value;
