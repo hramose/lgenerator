@@ -4,6 +4,7 @@ namespace Fragale\Generators\Generators;
 use Fragale\Helpers\PathsInfo;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem as File;
+use Illuminate\Support\Facades\Config;
 
 class ViewGenerator extends Generator {
 
@@ -171,8 +172,13 @@ class ViewGenerator extends Generator {
       	if($name==='index.blade'){
       	  /*crea las cabeceras de la tabla*/
       	  $ih=0; //print_r($fields);exit();
+          $iconUp=Config::get('cruds.settings.icon_sort-up');
+          $iconDown=Config::get('cruds.settings.icon_sort-down');
       	  foreach (array_keys($fields) as $field) {
-            $headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}</th>";                  
+            echo 'head='.$field;
+            //$headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}</th>";                  
+            //$headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','asc'))}}\"><span class=\"{{Config::get('kyron.icon_sort-up')}}\"></span></a>"."<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','desc'))}}\"><span class=\"{{Config::get('kyron.icon_sort-down')}}\"></span></a>"."</th>";      
+            $headings[$ih]="<th>{{trans('forms." . ucwords($field) . "')}}<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','asc'))}}\">$iconUp<</a>"."<a href=\"{{route('{$models}.index', \$lc->sortArgs('$field','desc'))}}\">$iconDown</a>"."</th>";      
       	    $ih++;
       	  }
       	}else{
