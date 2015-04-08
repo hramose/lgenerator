@@ -148,6 +148,8 @@ After this creation, the artisan will copy a serie of templates into
 					├── footer_cruds.php
 					├── header_index_panel.blade.php
 					├── partial_header_cruds.blade.php					
+					├── partial_notifications.blade.php					
+					├── notifications_layout.blade.php	
 					└── second_column_cruds.blade.php				
 ```
 
@@ -256,6 +258,7 @@ The generator will be created some files and structures
 3. the CRUD views
 
 ```
+
 	application_instalation/	
 	├── app/
 	│	├── ...											
@@ -556,6 +559,7 @@ php artisan makefast:scaffold families --fields="first_name:string[64],last_name
 * also two new files are created, you can check it on:
 
 ```
+
 	application_instalation/	
 	├── ...
 	└── resources/

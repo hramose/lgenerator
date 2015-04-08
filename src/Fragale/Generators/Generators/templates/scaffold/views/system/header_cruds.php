@@ -56,7 +56,6 @@ $routeBtnIndex		=$modelName.'.index';
 $routeBtnAdd		=$modelName.'.create';
 $routeBtnEdit		=$modelName.'.edit';
 $routeBtnShow		=$modelName.'.show';
-$routeBtnDelete	='#DeleteModal';
 $btnGoBack		=link_to_route($routeBtnIndex, trans('forms.goBack'), $lc->basicArgs(), array('class' => 'btn btn-success'));
 
 /*habilitar o deshabilitar botones ''/'disabled' */

@@ -9,9 +9,7 @@ use Illuminate\Support\Pluralizer;
 
 class CrudsArgs 
 {
-    public $master_record_col2_template;
-    public $detail_records_col2_definitions;
-    
+ 
     public $Master;
     public $master_id;
     public $master_record_template;
@@ -27,14 +25,6 @@ class CrudsArgs
         $this->models=$models;
 
         $this->setSessionVars();
-
-        /*template para la 2da columna*/        
-        $template='/'.$this->models.'/customs/detail_records_col2';
-        $filename=app_path().'/views'.$template.'.blade.php'; 
-        if (!file_exists($filename)){
-            $template='';
-        }
-        $this->detail_records_col2_definitions = $template; // template para los registros detalle si existen
 
         $master     = Input::get('master');
         $master_id  = Input::get('master_id');
@@ -56,20 +46,12 @@ class CrudsArgs
         /*template para el master record*/
         $master_models = strtolower(Pluralizer::plural($this->Master));   // el directorio del master record
         $template="/cruds/$master_models/master-detail/".$master_models."_master_record";
-        $filename=$p->pathViews().$template.'.blade.php';
-        
+        $filename=$p->pathViews().$template.'.blade.php';        
         if (!file_exists($p->pathViews().$template.'.blade.php')){
             $template='';
         }
         $this->master_record_template = $template;   // template para el master record  
 
-        /*template para la 2da columna*/
-        $template="/$models/customs/master_record_col2";
-        $filename=app_path().'/views'.$template.'.blade.php';
-        if (!file_exists($filename)){
-            $template='';
-        }
-        $this->master_record_col2_template = $template; // template para el master record si corresponde    
     }
 
 
@@ -172,7 +154,6 @@ class CrudsArgs
 function toolBar($record){ 
 
     /*links botones*/
-    $routeBtnDelete ='#DeleteModal';
     $btnGoBack      =link_to_route($this->models.'.index', trans('forms.goBack'), $this->basicArgs(), array('class' => 'btn btn-success'));
 
     $currentKeyId=$record->id;
