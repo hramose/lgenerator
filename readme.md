@@ -661,6 +661,7 @@ sudo chmod 755 makeapp
 
 then when you need to re-build the application, just run the makeapp script.   ;)
 
+(*for WIN users, it can be a `.bat` file*)
 
 #### Note ####
 

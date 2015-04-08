@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Fragale\Helpers\PathsInfo;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Pluralizer;
+use Illuminate\Support\Facades\Config;
 
 class CrudsArgs 
 {
@@ -210,28 +211,26 @@ EOT;
     return $toolbar;
     }
 
-function toolButton($action,$id,$disabled=''){ 
-    $route=$this->models.'.'.$action;
+    function toolButton($action,$id,$disabled=''){ 
+        $route=$this->models.'.'.$action;
         switch ($action) {
             case 'index':
-                $html=link_to_route($route, '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-list-alt '.$disabled));
-                break;
             case 'create':
-                $html=link_to_route($route, '', $this->basicArgs(), array('class' => 'btn btn-info glyphicon glyphicon-plus '.$disabled));
+                $html=link_to_route($route, '', $this->basicArgs(), array('class' => $this->config("btn_class_$action").' '.$disabled));
                 break;
             case 'edit':        
-                $html=link_to_route($route, '', $this->editArgs($id), array('class' => 'btn btn-info glyphicon glyphicon-edit '.$disabled));
+                $html=link_to_route($route, '', $this->editArgs($id), array('class' => $this->config("btn_class_$action").' '.$disabled));
                 break;
             case 'copy':        
-                $html=link_to_route($this->models.'.edit', '', $this->editArgs($id), array('class' => 'btn btn-info  glyphicon glyphicon-duplicate '.$disabled));
+                $html=link_to_route($this->models.'.edit', '', $this->editArgs($id), array('class' => $this->config("btn_class_$action").' '.$disabled));
                 break;            
             case 'show':
-                $html=link_to_route($route, '', $$this->showArgs($id), array('class' => 'btn btn-info glyphicon glyphicon-step-backward '.$disabled));
+                $html=link_to_route($route, '', $$this->showArgs($id), array('class' => $this->config("btn_class_$action").' '.$disabled));
                 break;
             case 'destroy':
                 $confirmation="if(!confirm('".trans('forms.AreSureToDelete')."?')){return false;};";
                 $html=Form::open(array('route' => array($route, $id), 'method' => 'delete'));
-                $html=$html."<button type=\"submit\" class=\"btn btn-danger glyphicon glyphicon-trash\" onclick=\"".$confirmation."\" title=\"Delete this Item\" ></button>";
+                $html=$html."<button type=\"submit\" class=\"".$this->config("btn_class_$action")."\" onclick=\"".$confirmation."\" title=\"Delete this Item\" ></button>";
                 $html=$html.Form::close();
                 break;
             default:
@@ -240,5 +239,24 @@ function toolButton($action,$id,$disabled=''){
         }
         return $html;
     }
+
+    /*
+    * Return the $value for $name entry in config/cruds/settings.php
+    * if $models is present then return the same entry but read from config/cruds/$models/settings.php 
+    */
+
+    function config($name,$extract_class=false){ 
+
+        $models=$this->models;
+        $value = Config::get("cruds.$models.settings.$name", Config::get("cruds.settings.$name"));
+
+        if($extract_class){
+            $ini_pos=strpos($value, 'class=')+7;
+            $end_pos=strpos($value, '"',$ini_pos);
+            $value=substr($value, $ini_pos,$end_pos-$ini_pos);
+        }
+
+        return $value;
+    }    
 
 }
