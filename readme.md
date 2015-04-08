@@ -120,6 +120,9 @@ After this creation, the artisan will copy a serie of templates into
 	│	└── cruds/
 	│	  	└── BaseCRUDModel.php
 	├── ...
+	├── config/
+	│	└── cruds/
+	│		└── settings.php	
 	└── resources/
 		├── ...
 		├── templates/
@@ -582,6 +585,32 @@ php artisan makefast:scaffold families --fields="first_name:string[64],last_name
 * create some records in the employees table
 * go to show view
 * open the families relation link
+
+
+
+#### Changing some settings ####
+
+Some behaviors and preferences as icons, classes, column sizes, etc. can be changed from:
+
+```
+
+	├── config/
+	│	└── cruds/
+	│		└── settings.php
+
+```
+
+Of course, also you can modify same preferences but for a resource only, in this case you may add for example:
+
+```
+
+	├── config/
+	│	└── cruds/
+	│		├── employees/	
+	│		│	└── settings.php		**employee resource settings only**
+	│		└── settings.php  			**general setting**
+
+```
 
 
 
