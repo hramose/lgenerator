@@ -61,8 +61,8 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->info('Setting up the namespaces for BaseCRUD classes ...');
 		$buffer=str_replace('/*{namespace}*/', 'namespace App\cruds;', $file->get($pathToCrudsModels.'/BaseCRUDModel.php'));
 		$result=$file->put($pathToCrudsModels.'/BaseCRUDModel.php',$buffer);
-		$buffer=str_replace('/*{namespace}*/', 'namespace App\Http\Controllers\cruds;', $file->get($pathToCrudsControllers.'BaseCRUDController.php'));
-		$result=$file->put($pathToCrudsControllers.'BaseCRUDController.php',$buffer);
+		$buffer=str_replace('/*{namespace}*/', 'namespace App\Http\Controllers\cruds;', $file->get($pathToCrudsControllers.'/BaseCRUDController.php'));
+		$result=$file->put($pathToCrudsControllers.'/BaseCRUDController.php',$buffer);
 		
 
 		$this->info('Generating the directory structure for working views ...');

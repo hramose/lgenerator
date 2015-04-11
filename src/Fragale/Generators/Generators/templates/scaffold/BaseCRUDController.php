@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\cruds; 
+<?php /*{namespace}*/ 
 
 use Illuminate\Filesystem\Filesystem as File;
 use Illuminate\Routing\Controller as BaseController;
