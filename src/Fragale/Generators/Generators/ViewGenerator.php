@@ -444,7 +444,7 @@ EOT;
                 break;
             case 'master':
                 $element = "<input name=\"$name\" type=\"hidden\" value=\"{{\$lc->master_id}}\">";
-                break;               
+                break;    
             default:
                 $element = "{!! Form::text('$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
                 break;

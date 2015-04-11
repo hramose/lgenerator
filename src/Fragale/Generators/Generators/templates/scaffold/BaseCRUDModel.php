@@ -1,4 +1,4 @@
-<?php /*{namespace}*/
+<?php //SETNAMESPACE App\cruds;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\Input;

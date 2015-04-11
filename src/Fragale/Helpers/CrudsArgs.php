@@ -272,4 +272,26 @@ EOT;
         return $value;
     }    
 
+
+    /*
+    * make an HTML radio button group
+    * options array example: ['f' => 'Female','m' => 'Male']
+    *
+    * return @string
+    */
+
+    function radio($name, $options,$current_value=''){
+        $result='';
+        foreach ($options as $option => $label) {
+            if($option==$current_value){
+
+                $checked='checked';
+            }else{
+                $checked='';
+            }
+            $result=$result."<label class=\"control-label\"><input $checked type=\"radio\" id=\"$name-$option\" name=\"$name\" value=\"$option\">$label</label>".PHP_EOL;
+        }
+        return $result;
+    }
+
 }
