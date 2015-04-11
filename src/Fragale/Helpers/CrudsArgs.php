@@ -149,12 +149,6 @@ class CrudsArgs
         return $value;
     }       
 
-    function doTitle($title,$size='1')
-    {
-        $title ="<h$size>$title</h$size>";
-        return $title;
-    }           
-
     function sortArgs($field,$order){       
         return array('sort' => $field, 'order' => $order, 'master' => $this->Master, 'master_id' => $this->master_id );
     }
@@ -242,6 +236,11 @@ EOT;
                 $html=$html."<button type=\"submit\" class=\"".$this->config("btn_class_$action")."\" onclick=\"".$confirmation."\" title=\"Delete this Item\" ></button>";
                 $html=$html.Form::close();
                 break;
+
+            case 'remove_filter':
+                $html=link_to_route($this->models.'.index', '', array_merge($this->basicArgs(), ['filter'=>'#reset#']), array('class' => $this->config('btn_class_remove_filter')));
+                break;
+
             default:
                 $html='';
                 break;

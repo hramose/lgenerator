@@ -18,14 +18,27 @@
 			            <div class="{{$lc->config('col_search_form')}}">		
 							{{-- if are in index view, then display the search box --}}			
 							@if ($viewName=='index')
-							<!-- begin search form -->
-							{!! Form::open(['route' => "$modelName.index",'method' => 'GET', 'class' => 'navbar-form navbar-left pull-right', 'role' =>'search']) !!}	
-							  <div class="form-group">
-							  	{!! Form::text('search', Request::old('search'), ['class' => 'form-control', 'placeholder' => 'Search']) !!}
-							  <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
-							  </div>
-							{!! Form::close() !!}	
-							<!-- end search form -->		
+							  <?php
+							  if (Session::get($lc->models.'.filter')){
+							  	$placeholder=Session::get($lc->models.'.filter');
+							  	$unset_filter=true;
+							  }else{
+							  	$placeholder=trans('forms.searchbtn');
+							  	$unset_filter=false;
+							  }
+							  ?>
+				              <!-- begin search form -->
+				              {!! Form::open(['route' => "$modelName.index", 'method' => 'GET'], ['class' => 'navbar-form navbar-left pull-right', 'role' => 'search']) !!}  
+				              <div class="form-group">
+				              {!! Form::text('filter', '', ['class' => 'form-control', 'placeholder'=>$placeholder]) !!}
+				              <button type="submit" class="{{$lc->config('btn_class_search')}}"></button>
+				              @if ($unset_filter)
+				              {!! $lc->toolButton('remove_filter',0) !!}
+				              @endif	
+				              </div>
+				              {!! $lc->inputsMaster() !!}
+				              {!! Form::close() !!}
+				              <!-- end search form --> 		
 							@endif	
 						</div>				
 					</div>

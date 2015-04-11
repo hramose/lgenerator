@@ -199,7 +199,7 @@ class ViewGenerator extends Generator {
 	   //Modificacion, apertura de los links para show, edit y delete (Mayo 2014 se eliminan los links de edit y delete de la vista index)
 
       $showLink = <<<EOT
-                                            <td>{!! link_to_route('{$models}.show', trans('forms.Show'), \$lc->showArgs(\${$model}->id), array('class' => 'btn btn-info btn-xs')) !!}</td>
+                                            <td>{!! link_to_route('{$models}.show', '', \$lc->showArgs(\${$model}->id), ['class' => \$lc->config('btn_class_view')] ) !!}</td>
 EOT;
       $deleteLink = "";
       $editLink = "";

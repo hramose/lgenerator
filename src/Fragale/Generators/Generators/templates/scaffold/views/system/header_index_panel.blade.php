@@ -5,10 +5,12 @@
     }
 ?>
 <div class="row">
-  <div class="{{$lc->config('col_full')}}">
+
+  <div class="{{$lc->config('col_full')}}"> 
+
     <p class="divider"><p>
     {!! $lc->toolButton('create',0) !!}
-    
+  
     <!--
     <div class="btn-group m-r-5 m-b-5">
       <a href="javascript:;" class="btn btn-default">{{trans('forms.export')}}</a>
@@ -37,5 +39,5 @@
       </ul>
     </div>
     -->
-  </div>
+  </div> 
 </div>

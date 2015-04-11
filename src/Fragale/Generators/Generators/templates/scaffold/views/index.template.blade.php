@@ -19,7 +19,7 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 			    <!-- begin first column -->
 			    <div class="{{$lc->config('col_1_width')}}">
 			    	<!-- begin panel -->
-				    <div class="panel {{Config::get('cruds.settings.panel_class', 'panel-primary')}}">
+				    <div class="panel {{$lc->config('panel_class')}}">
                        	<div class="panel-heading">
                             <h4 class="panel-title">{{trans('forms.'.$viewName)}}</h4>
                         </div>				    
@@ -30,7 +30,7 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 							<div class="row">
 							@if (${{models}}->count())
 		                        <!--<table id="data-table" class="table table-striped table-hover table-bordered">	-->
-		                        <table class="table table-striped">	
+		                        <table class="{{$lc->config('table_class')}}">	
 									<!--<thead>-->
 										<tr>
 											{{headings}}

@@ -4,6 +4,8 @@ use Illuminate\Filesystem\Filesystem as File;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB as DB;
+use Illuminate\Support\Facades\Schema;
 
 class BaseCRUDController extends BaseController {
 
@@ -51,7 +53,7 @@ class BaseCRUDController extends BaseController {
 		  $filter=$user_filter;
 		}
 
-		/*control de la paginacion*/
+		/*control de la paginacion*/ 
 		$records= Session::get($models_name.'.records', 25);
 		$user_records=Input::get('records');
 		if($user_records*1>0 or $user_records*1==-1){
@@ -66,7 +68,7 @@ class BaseCRUDController extends BaseController {
 	      $orPrefix="";
 	      foreach ($fields as $field) {
 			if ($whereF!=""){$orPrefix="->or";}
-			$whereF.="$orPrefix"."where('$field','LIKE','$filter')";
+			$whereF.="$orPrefix"."where('$field','LIKE','%$filter%')";
 	      } 
 	    };
 
@@ -88,7 +90,10 @@ class BaseCRUDController extends BaseController {
 				echo trans('froms.ModelNotFound');
 	   		}
 	   		if ($Master::find($master_id)){	  
-	   			eval('$MasterModel = new '.$Master.';'); 	
+	   			eval('$MasterModel = new '.$Master.';'); 
+	   			if ($whereF!=''){
+	   				$whereF='where(function($query) {$query->'.$whereF.';})';
+	   			}
 	   			$sentencia="\$result = \$MasterModel::find($master_id)->$models_name()->".$whereF.$orderBy.$paginacion;
 	   		}else{	   			
 	   			$sentencia="\$result = $Model_name::where('id','=','0');";
@@ -102,7 +107,9 @@ class BaseCRUDController extends BaseController {
 	    $sentencia=str_replace('->->', '->', $sentencia);
 
 	    /*arna la coleccion de datos*/ 
+	    //print_r($sentencia);
 	    eval($sentencia);
+	    //dd($result);
 	    return $result;
 	}
 
@@ -113,17 +120,17 @@ class BaseCRUDController extends BaseController {
 	 */
 	public function getFields()
 	{
-		$models_name=$this->models_name;
 
 	    $field_names = array();
 	    $disallowed = array('id', 'created_at', 'updated_at', 'deleted_at');
 
-	    $columns = DB::select('SHOW COLUMNS FROM '.$models_name);
+		$columns = Schema::getColumnListing($this->models_name);
+
 	    foreach ($columns as $c) {
-		$field = $c->Field;
-		if ( ! in_array($field, $disallowed)) {
-		    $field_names[$field] = $field;
-		}
+			$field = $c;;
+			if ( ! in_array($field, $disallowed)) {
+		    	$field_names[$field] = $field;
+			}
 	    }
 
 	    return $field_names;
@@ -161,7 +168,7 @@ class BaseCRUDController extends BaseController {
 	* @return string
 	*/
 
-	public function doExport($tipo)
+	public function doExport($tipo)    /*actually in the oven !!! */
 	{   
 	    $models_name=$this->models_name; 
 	    //$model_name=$this->model_name; 
