@@ -485,7 +485,7 @@ As you can see, families are related with employees table by the `employee_id` f
 
 continue ...
 
-* modify the file `/app/resources/templates/cruds/customs/employees/append_to_model.php`
+* modify the file `resources/templates/cruds/customs/employees/append_to_model.php`
 * copy and paste this code :
 
 ```
@@ -507,7 +507,7 @@ continue ...
 ```
 With the above, the relation from employees-families are created, now we need to create the relation families-employees
 
-* create a file in `/app/resources/templates/cruds/customs/families/` named `append_to_model.php`
+* create a file in `resources/templates/cruds/customs/families/` named `append_to_model.php`
 * put this code into the file: 
 
 ```
@@ -522,7 +522,7 @@ With the above, the relation from employees-families are created, now we need to
 
 ```
 
-* create a `.json` file in `/app/resources/templates/cruds/customs/employees/` named `views_definitions.json`
+* create a `.json` file in `resources/templates/cruds/customs/employees/` named `views_definitions.json`
 * put this code into the file: 
 
 ```
@@ -547,14 +547,16 @@ With the above, the relation from employees-families are created, now we need to
 * now remove the resource employes end re-generate it
 
 ```bash
-php artisan makefast:remove employees --auto --dirs
-php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[1]"
+
+	php artisan makefast:remove employees --auto --dirs
+	php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[1]"
 ```
 
 * generate the families CRUD
 
 ```bash
-php artisan makefast:scaffold families --fields="first_name:string[64],last_name:string[64]"
+
+	php artisan makefast:scaffold families --fields="first_name:string[64], last_name:string[64], employee_id:master"	
 ```
 
 * check the results into the models `Employee.php` and `Family.php`
@@ -618,10 +620,92 @@ Of course, also you can modify same preferences but for a resource only, in this
 
 
 
-#### Customizing the views generation ####
+#### Customizing the form's fields generation ####
+
+The generator should customize the field generation as you like.
+This feature is controlled in file `resources/templates/cruds/customs/RESOURCE/views_definitions.json`
+
+i.e.:
+
+For families resource the file is: `resources/templates/cruds/customs/families/views_definitions.json`
+
+##### Hide a field in a view #####
+
+i.e:
+To hide the `employee_id` field in the **index view** you must do the following:
+
+* just add:...
+
+```
+
+	{
+		"description": "Families",
+	    "field_definitions": 
+		    {
+		      "index_disallowed":"employee_id",
+		      "edit_disallowed":"",
+		      "create_disallowed":"",
+		      "show_disallowed":"",
+		      "edit_readonly":""
+		    }
+	}
+
+```
+
+* now run this:
+
+```bash
+
+	php artisan makefast:remove families --auto --dirs
+	php artisan makefast:scaffold families --fields="first_name:string[64], last_name:string[64], employee_id:master"	
+
+```
+
+* now check the results in your browser.
 
 
-the documentation is comming soon...
+
+##### Custom formats #####
+
+The custom formats are defined in the `"customized_fields":` section into the `views_definitions.json` file
+
+###### Radio buttons ######
+
+Add a radio buttons group to manage the 'gender' field
+
+* just add:...
+
+```
+
+	{
+		"description": "Families",
+	    "field_definitions": 
+		    {
+		      "index_disallowed":"employee_id",
+		      "edit_disallowed":"",
+		      "create_disallowed":"",
+		      "show_disallowed":"",
+		      "edit_readonly":""
+		    }
+		,
+	    "customized_fields": 
+		    {
+		      "gender":"{!! $lc->radio('gender',['f' => 'Female','m' => 'Male'], $family->gender ) !!}"
+		    }    
+	}
+
+```
+
+* now run this:
+
+```bash
+
+	php artisan makefast:remove families --auto --dirs
+	php artisan makefast:scaffold families --fields="first_name:string[64], last_name:string[64], employee_id:master, gender:custom"	
+
+```
+
+* now check the results in your browser!!.
 
 
 #### Excel and OpenOffice exportation ####
