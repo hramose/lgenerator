@@ -622,7 +622,7 @@ Of course, also you can modify same preferences but for a resource only, in this
 
 #### Customizing the form's fields generation ####
 
-The generator should customize the field generation as you like.
+The generator can customize the field generation as you like.
 This feature is controlled in file `resources/templates/cruds/customs/RESOURCE/views_definitions.json`
 
 i.e.:
