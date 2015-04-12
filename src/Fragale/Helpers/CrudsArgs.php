@@ -32,7 +32,11 @@ class CrudsArgs
 
         $this->title=$this->config('title');
         $this->subtitle=$this->config('subtitle');
-        $this->icon_title=$this->config("icon_title_$viewname");        
+        $this->icon_title=$this->config("icon_title_$viewname");  
+
+
+        $this->datepicker_file=$p->pathViews()."/cruds/$models/$viewname"."_datepicker.blade.php";      
+        $this->datepicker_template="cruds.$models.$viewname"."_datepicker";      
 
         $this->setSessionVars();
 

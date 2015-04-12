@@ -692,7 +692,7 @@ Add a radio buttons group to manage the 'gender' field
 		,
 	    "customized_fields": 
 		    {
-		      "gender":"{!! $lc->radio('gender',['f' => 'Female','m' => 'Male'], $family->gender ) !!}"
+		      "gender":"{!! $lc->radio('gender',['f' => 'Female','m' => 'Male'], (isset($family->gender)) ? $family->gender : '' ) !!}"
 		    }    
 	}
 
@@ -713,6 +713,23 @@ Add a radio buttons group to manage the 'gender' field
 ###### Date fields using datepicker ######
 
 First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](#datepicker)
+
+For example to add the **date of birth** at the families table:
+
+* just add the field date_of_birth:date and run 
+
+i.e.:
+
+```bash
+
+	php artisan makefast:remove families --auto --dirs
+	php artisan makefast:scaffold families --fields="first_name:string[64],last_name:string[64], gender:custom, employee_id:master, date_of_birth:date"
+
+```
+
+* now check the results in your browser!!.
+
+surprised?
 
 
 
@@ -817,7 +834,7 @@ After create de access to bootstrap-datepicker and jquery you must add the links
 		<html lang="en">
 			<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
 			<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap-theme.min.css') }}" rel="stylesheet"> 
-			<link href="{{ asset('assets/plugins/bootstrap/bootstrap-datepicker/css/datepicker3.css') }}" rel="stylesheet" />
+			<link href="{{ asset('assets/plugins/bootstrap/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}" rel="stylesheet" />
 		    <body>		
 				<div id="page-container">
 					<div class="container-fluid">
@@ -830,9 +847,11 @@ After create de access to bootstrap-datepicker and jquery you must add the links
 						</div>
 					</div>			
 				</div>
-    			<script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-    			<script src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js') }}"></script>
+				<script src="{{ asset('assets/plugins/jquery/jquery/jquery.min.js') }}"></script>
 				<script src="{{ asset('assets/plugins/bootstrap/bootstrap/js/bootstrap.min.js') }}"></script>
+				<script src="{{ asset('assets/plugins/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+				<script src="{{ asset('assets/plugins/bootstrap/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js') }}"></script>
+				@include('system.cruds.datepicker_loader')
 			</body>	
 		</html>
 ```

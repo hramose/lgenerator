@@ -12,6 +12,7 @@ class ViewGenerator extends Generator {
     public $viewName = '';
     public $viewDefinitions;
     public $templateCustomsPath;
+    public $datepicker_script;
 
     /**
      * Fetch the compiled template for a view
@@ -23,6 +24,7 @@ class ViewGenerator extends Generator {
     protected function getTemplate($template, $name)
     {
 
+        $this->datepicker_script='';
         $model = $this->cache->getModelName();  // post
         $models = Pluralizer::plural($model);   // posts
 
@@ -72,6 +74,8 @@ class ViewGenerator extends Generator {
 
             $this->template = str_replace('{{formElements}}', $formElements, $this->template);
         }
+
+        $datepicker_script=$this->writeDatepickerScript();
 
         // Replace template vars in view
         foreach(array('model', 'models', 'Models', 'Model') as $var)
@@ -438,6 +442,7 @@ EOT;
             case 'time':
             case 'datetime':                        
                 $element = "{!! Form::text('$name', $value, array('class' => 'form-control', 'size' => '16' $readonlyClass )) !!}";
+                $this->addDatepickerElement($name);
                 break;                
             case 'custom':
                 $element = str_replace('{{value}}', $value, $custom);
@@ -516,6 +521,86 @@ EOT;
 
             return $frag;     
 
+    }
+
+    /**
+     * @return string
+     */
+    public function addDatepickerElement($name)
+    {
+
+
+            $element = <<<EOT
+    \$('.$name').datepicker({
+        language:  '<?php echo \$set_lang;?>',
+        format: 'yyyy-mm-dd',        
+        todayBtn: 1,
+        todayHighlight: 1,
+        showMeridian: 1,
+        autoclose: 1
+    });
+
+EOT;
+        $this->datepicker_script=$this->datepicker_script.$element.PHP_EOL;
+        return true;
+
+    }
+
+    /**
+     * @return string
+     */
+    public function datepickerScript()
+    {
+      $script='';
+
+      if($this->datepicker_script!=''){
+        $header = <<<EOT
+
+<!--datepicker Script -->
+<?php
+\$set_lang=Lang::getLocale();
+if (\$set_lang=='ar'){\$set_lang='es';} 
+?>
+<script type="text/javascript">
+
+EOT;
+
+      $footer = <<<EOT
+
+</script>
+<!--end datepicker Script -->
+EOT;
+
+        $script=$header.$this->datepicker_script.$footer.PHP_EOL;
+      }
+
+      return $script;
+    }
+
+    /**
+     * @return string
+     */
+    public function writeDatepickerScript()
+    {
+
+        $viewName=str_replace('.blade', '', $this->viewName);
+        if($this->datepicker_script!='' and ($viewName=='create' or $viewName=='edit')){
+          $model = $this->cache->getModelName();  // post
+          $models = Pluralizer::plural($model);   // posts
+
+          $p=new PathsInfo();    
+          $file=new File();
+          $filename=$p->pathViews()."/cruds/$models/$viewName"."_datepicker.blade.php";
+
+          $result=$file->put($filename, $this->datepickerScript());        
+
+        }else{
+
+          $result=false;
+
+        }
+
+        return $result;
     }
 
 }
