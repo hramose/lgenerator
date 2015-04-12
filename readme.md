@@ -10,7 +10,8 @@ This is a derivative of the original version of J. Way, this includes the adapta
 
 If you are looking for a "generic" generator is recommended to use way/generators
 
-## Installation ##
+Installation
+============
 
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `fragale/lgenerators`.
 
@@ -711,7 +712,7 @@ Add a radio buttons group to manage the 'gender' field
 
 ###### Date fields using datepicker ######
 
-First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](#Enabling Datepicker and jquery access)
+First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](#datepicker)
 
 
 
@@ -758,6 +759,7 @@ then when you need to re-build the application, just run the makeapp script.   ;
 
 
 #### Enabling Datepicker and jquery access ####
+#### Datepicker ####
 
 If you want to add a datepicker control to your's cruds, first must add a asset in your `public/` directory.
 
