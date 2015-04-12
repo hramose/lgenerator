@@ -39,7 +39,7 @@ Note that the package use psr-4
 IMPORTANT !!!
 **This package requires Twitter Bootstrap 3**
 If your project still is not using Twitter Bootstrap 3 (TWBS), do not worry, the package includes the dependence necessary for Bootstrap is downloaded to your project.
-In this case after run *** composer update ** just make this to create an asset entry for TWBS in your /public directory:
+In this case after run **composer update** just make this to create an asset entry for TWBS in your /public directory:
 
 in the console:
 
@@ -50,7 +50,7 @@ cd application_instalation/ (**where is your composer.json**)
 mkdir public/assets/plugins
 mkdir public/assets/plugins/bootstrap
 cd public/assets/plugins/bootstrap/
-ln -s ../../../../vendor/twbs/bootstrap/dist ./bootstrap
+ln -s ../../../../components/bootstrap ./bootstrap
 ```
 
 WIN
@@ -58,7 +58,7 @@ WIN
 ```bash
 create a directory into `application_instalation/public/assets/plugins/bootstrap/bootstrap`
 after
-copy the entire dir: `application_instalation/vendor/twbs/bootstrap/dist` into `application_instalation/public/assets/plugins/bootstrap/bootstrap`
+copy the entire dir: `application_instalation/components/bootstrap` into `application_instalation/public/assets/plugins/bootstrap/bootstrap`
 ```
 
 then you may see:
@@ -312,11 +312,11 @@ This occurs because the views are using a layout (you might change this later), 
 				<div id="page-container">
 					<div class="container-fluid">
 						<div class="row">
-						  	@if(isset($col_1_visible))
-						  	<div class="{{$col_full}}">
-								@yield('content')
-							</div> 
-							@endif		
+					  	@if($lc->config('col_1_visible'))
+					  	<div class="{{$lc->config('col_full')}}">
+							@yield('content')
+						</div> 
+						@endif		
 						</div>
 					</div>			
 				</div>
@@ -667,7 +667,8 @@ To hide the `employee_id` field in the **index view** you must do the following:
 
 ##### Custom formats #####
 
-The custom formats are defined in the `"customized_fields":` section into the `views_definitions.json` file
+The custom formats are defined in the `"customized_fields":` section into the `views_definitions.json` file.
+
 
 ###### Radio buttons ######
 
@@ -706,6 +707,13 @@ Add a radio buttons group to manage the 'gender' field
 ```
 
 * now check the results in your browser!!.
+
+
+###### Date fields using datepicker ######
+
+First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](#Enabling Datepicker and jquery access)
+
+
 
 
 #### Excel and OpenOffice exportation ####
@@ -747,6 +755,89 @@ then when you need to re-build the application, just run the makeapp script.   ;
 
 (*for WIN users, it can be a `.bat` file*)
 
+
+
+#### Enabling Datepicker and jquery access ####
+
+If you want to add a datepicker control to your's cruds, first must add a asset in your `public/` directory.
+
+If you are using LINUX
+
+* make the access to bootstrap-datepicker
+```bash
+cd application_instalation/ (**where is your composer.json**)
+cd public/assets/plugins/bootstrap/
+ln -s ../../../../components/bootstrap-datepicker ./bootstrap-datepicker
+```
+
+* make the access to jquery
+```bash
+cd application_instalation/ (**where is your composer.json**)
+
+mkdir public/assets/plugins/jquery
+cd public/assets/plugins/jquery	
+ln -s ../../../../components/jquery ./jquery
+```
+
+If you are using WIN (my condolences!!!)
+
+* just copy the entire directories `components/bootstrap-datepiker` into `public/assets/plugins/bootstrap`
+* just copy the entire directories `components/jquery` into `public/assets/plugins/jquery`
+
+
+
+then you may see:
+
+```
+
+	application_instalation/
+	├── ...	
+	└── public/
+		└── assets/
+			└── plugins/
+				├── ...							
+				├── bootstrap-/
+				│	├── ...					
+				│	└── bootstrap-datepicker/
+				└── jqyery/
+					└── jqyery/				
+
+```
+
+After create de access to bootstrap-datepicker and jquery you must add the links into your blade-template.
+
+* open the file `resources/views/layouts/default.blade.php`
+* copy and paste this code into the file:
+
+```
+
+		<!DOCTYPE html>
+		<html lang="en">
+			<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+			<link href="{{ asset('assets/plugins/bootstrap/bootstrap/css/bootstrap-theme.min.css') }}" rel="stylesheet"> 
+			<link href="{{ asset('assets/plugins/bootstrap/bootstrap-datepicker/css/datepicker3.css') }}" rel="stylesheet" />
+		    <body>		
+				<div id="page-container">
+					<div class="container-fluid">
+						<div class="row">
+						  	@if($lc->config('col_1_visible'))
+						  	<div class="{{$lc->config('col_full')}}">
+								@yield('content')
+							</div> 
+							@endif		
+						</div>
+					</div>			
+				</div>
+    			<script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    			<script src="{{ asset('assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js') }}"></script>
+				<script src="{{ asset('assets/plugins/bootstrap/bootstrap/js/bootstrap.min.js') }}"></script>
+			</body>	
+		</html>
+```
+
+it's all.
+
+
 #### Note ####
 
 
@@ -776,5 +867,3 @@ THE TIME THAT I'M DEDICATING THIS PROJECT IS CONDITIONED BY MY DAILY DUTIES, IF 
 DAILY I WILL UPLOAD NEW FEATURES,
 
 ACTUALLY THE PACKAGE IS NOT STABLE YET
-
-
