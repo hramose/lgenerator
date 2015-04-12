@@ -1,7 +1,7 @@
 {
     "name": "fragale/lgenerators",
-    "description": "Laravel 5 Generators, basado en la version 1.1 de J.Way",
-    "keywords": ["laravel", "generators", "artisan"],
+    "description": "Laravel 5 CRUDs Generators, basado en la version 1.1 de J.Way",
+    "keywords": ["laravel", "generators", "artisan", "CRUD", "laravel 5.0"],
     "license": "MIT",    
     "authors": [
         {
@@ -13,7 +13,8 @@
         "php": ">=5.3.0",
         "mustache/mustache": "2.4.*",
         "twbs/bootstrap": "dev-master",         
-        "laravelcollective/html": "~5.0"
+        "laravelcollective/html": "~5.0",
+        "eternicode/bootstrap-datepicker": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "0.8.*",
