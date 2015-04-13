@@ -10,6 +10,12 @@ This is a derivative of the original version of J. Way, this includes the adapta
 
 If you are looking for a "generic" generator is recommended to use way/generators
 
+**this package is to be included in an existing Laravel project, if you still do not have one, then you can install it from scratch:**
+
+*composer create-project laravel/laravel yourprojectname dev-develop --prefer-dist*
+
+**then proceeds with the installation**
+
 Installation
 ============
 

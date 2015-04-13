@@ -71,8 +71,8 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->tryToCreateDir($file, $p->pathViews().'/system');
 		$this->tryToCreateDir($file, $p->pathViews().'/system/cruds');
 
-		$this->info('Generating the directory structure for comfig files ...');
-		$path_config=str_replace('/app', '', app_path()).'/config/cruds';
+		$path_config=base_path().'/config/cruds';		
+		$this->info('Generating the directory structure for config files at '.$path_config.' ...');
 		$this->tryToCreateDir($file, $path_config);
 
 		$this->info('Generating the directory structure for templates ...');
