@@ -70,6 +70,7 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->tryToCreateDir($file, $p->pathViews().'/cruds');
 		$this->tryToCreateDir($file, $p->pathViews().'/system');
 		$this->tryToCreateDir($file, $p->pathViews().'/system/cruds');
+		$this->tryToCreateDir($file, $p->pathViews().'/layouts');
 
 		$path_config=base_path().'/config/cruds';		
 		$this->info('Generating the directory structure for config files at '.$path_config.' ...');
@@ -101,6 +102,8 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('edit',true), $p->pathTemplatesViews());
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('index',true), $p->pathTemplatesViews());
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('show',true), $p->pathTemplatesViews());
+
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/layouts/example_default.blade.php', $p->pathViews().'/layouts/default.blade.php');
 
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_cruds.php', $p->pathViews().'/system/cruds');
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/footer_cruds.php', $p->pathViews().'/system/cruds');

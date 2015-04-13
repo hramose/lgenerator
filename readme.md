@@ -169,6 +169,7 @@ After this creation, the artisan will copy a serie of templates into
 					├── header_cruds.php 
 					├── footer_cruds.php
 					├── header_index_panel.blade.php
+					├── datepicker_loader.blade.php					
 					├── partial_header_cruds.blade.php					
 					├── partial_notifications.blade.php					
 					├── notifications_layout.blade.php	
@@ -431,7 +432,7 @@ imagine now that the employees have family (his childrens, parents, brothers, et
 
 to continue learning how to generate this feature, please make this migration:
 
-* create a file into `database/migrarions` called `2015_04_01_000000_create_families_table.php`
+* create a file into `database/migrations` called `2015_04_01_000000_create_families_table.php`
 
 * copy and paste this code: (warning: add the php tag at the begin of the file)
 
