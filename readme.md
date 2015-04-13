@@ -189,7 +189,7 @@ Just begin:
 
 * copy and paste this code: (warning: add the php tag at the begin of the file)
 
-```
+```php
 
 	<?php
 
@@ -321,7 +321,7 @@ This occurs because the views are using a layout (you might change this later), 
 * create a file in `resources/views/layouts` with the name `default.blade.php`
 * copy and paste this code into the file:
 
-```
+```php
 
 		<!DOCTYPE html>
 		<html lang="en">
@@ -371,7 +371,7 @@ for example to add code to our example model you can do this:
 * create a file in `/app/resources/templates/cruds/customs/employees/` named `append_to_model.php`
 * put this code into the file: (warning: add the PHP tag at the begin of the file)
 
-```
+```php
 
 	<?php
 
@@ -402,7 +402,7 @@ for example you can do this:
 * create a file in `/app/resources/templates/cruds/customs/employees/` named `rules.php`
 * put this code into the file: (warning: add the PHP tag at the begin of the file)
 
-```
+```php
 
 	<?php
 
@@ -435,7 +435,7 @@ to continue learning how to generate this feature, please make this migration:
 
 * copy and paste this code: (warning: add the php tag at the begin of the file)
 
-```
+```php
 
 	<?php
 
@@ -507,7 +507,7 @@ continue ...
 * modify the file `resources/templates/cruds/customs/employees/append_to_model.php`
 * copy and paste this code :
 
-```
+```php
 
 	<?php
 
@@ -529,7 +529,7 @@ With the above, the relation from employees-families are created, now we need to
 * create a file in `resources/templates/cruds/customs/families/` named `append_to_model.php`
 * put this code into the file: 
 
-```
+```php
 
 	<?php
 
@@ -544,7 +544,7 @@ With the above, the relation from employees-families are created, now we need to
 * create a `.json` file in `resources/templates/cruds/customs/employees/` named `views_definitions.json`
 * put this code into the file: 
 
-```
+```php
 
 	{
 		"description": "Employees table views definitions",
@@ -846,7 +846,7 @@ After create de access to bootstrap-datepicker and jquery you must add the links
 * open the file `resources/views/layouts/default.blade.php`
 * copy and paste this code into the file:
 
-```
+```php
 
 		<!DOCTYPE html>
 		<html lang="en">
