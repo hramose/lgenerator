@@ -27,15 +27,21 @@ Begin by installing this package through Composer. Edit your project's `composer
 	},
 	"minimum-stability" : "dev"
 
-Next, update Composer from the Terminal:
+* Next, update Composer from the Terminal:
 
     composer update
 
-Once this operation completes, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
+* Once this operation completes, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
-    'Fragale\Generators\GeneratorsServiceProvider'
+    'Fragale\Generators\GeneratorsServiceProvider',
+    'Collective\Html\HtmlServiceProvider',     			/*<--------- Laravel Collective*/
 
-That's it! You're all set to go. Run the `artisan` command from the Terminal to see the new `makefast` commands.
+and add the aliases for Laravel Collective
+
+		'Form' => 'Collective\Html\FormFacade',
+		'Html' => 'Collective\Html\HtmlFacade',	
+
+* That's it! You're all set to go. Run the `artisan` command from the Terminal to see the new `makefast` commands.
 
     php artisan
 
