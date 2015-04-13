@@ -315,9 +315,12 @@ The generator will be created some files and structures
 
 5. now you can check the results on the browser going to http://www.yourapp.com/employees  
 
-¿troubles?
+**¿troubles?**
 probably you are getting an error message at this point.
-This occurs because the views are using a layout (you might change this later), but if you do not have a defined layout might use this as an example:
+This occurs because the views are using a layout (you might change this later), but if you do not have a defined layout 
+use the example provided whith this package, simply rename `resources/views/layouts/example_default.blade.php` to `resources/views/layouts/default.blade.php`
+
+*or maybe you preffer create one using this as an example:*
 
 * create a file in `resources/views/layouts` with the name `default.blade.php`
 * copy and paste this code into the file:
@@ -731,7 +734,7 @@ Add a radio buttons group to manage the 'gender' field
 
 ###### Date fields using datepicker ######
 
-First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](#datepicker)
+First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](doc/enable_datepicker.md)
 
 For example to add the **date of birth** at the families table:
 
@@ -842,7 +845,7 @@ then you may see:
 
 ```
 
-After create de access to bootstrap-datepicker and jquery you must add the links into your blade-template.
+After create de access to bootstrap-datepicker and jquery you must add the links into your blade-template (see example_default.blade.php )
 
 * open the file `resources/views/layouts/default.blade.php`
 * copy and paste this code into the file:
