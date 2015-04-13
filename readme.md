@@ -249,7 +249,7 @@ then try to generate the CRUDs for the employees table, advance slowly, we use o
 Run this command:
 
 ```bash
-php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[1]"
+php artisan makefast:scaffold employees --fields="first_name:string(64), last_name:string(64), gender:string(1)"
 ```
 
 
@@ -550,14 +550,14 @@ With the above, the relation from employees-families are created, now we need to
 ```bash
 
 	php artisan makefast:remove employees --auto --dirs
-	php artisan makefast:scaffold employees --fields="first_name:string[64], last_name:string[64], gender:string[1]"
+	php artisan makefast:scaffold employees --fields="first_name:string(64), last_name:string(64), gender:string(1)"
 ```
 
 * generate the families CRUD
 
 ```bash
 
-	php artisan makefast:scaffold families --fields="first_name:string[64], last_name:string[64], employee_id:master"	
+	php artisan makefast:scaffold families --fields="first_name:string(64), last_name:string(64), employee_id:master"	
 ```
 
 * check the results into the models `Employee.php` and `Family.php`
@@ -658,7 +658,7 @@ To hide the `employee_id` field in the **index view** you must do the following:
 ```bash
 
 	php artisan makefast:remove families --auto --dirs
-	php artisan makefast:scaffold families --fields="first_name:string[64], last_name:string[64], employee_id:master"	
+	php artisan makefast:scaffold families --fields="first_name:string(64), last_name:string(64), employee_id:master"	
 
 ```
 
@@ -703,7 +703,7 @@ Add a radio buttons group to manage the 'gender' field
 ```bash
 
 	php artisan makefast:remove families --auto --dirs
-	php artisan makefast:scaffold families --fields="first_name:string[64], last_name:string[64], employee_id:master, gender:custom"	
+	php artisan makefast:scaffold families --fields="first_name:string(64), last_name:string(64), employee_id:master, gender:custom"	
 
 ```
 
@@ -723,7 +723,7 @@ i.e.:
 ```bash
 
 	php artisan makefast:remove families --auto --dirs
-	php artisan makefast:scaffold families --fields="first_name:string[64],last_name:string[64], gender:custom, employee_id:master, date_of_birth:date"
+	php artisan makefast:scaffold families --fields="first_name:string(64),last_name:string(64), gender:custom, employee_id:master, date_of_birth:date"
 
 ```
 
@@ -756,10 +756,10 @@ to generate and regenerate your application CRUDs, you can write a bash file wit
 	echo "Generando los CRUDs de la aplicacion ..."
 
 	php artisan makefast:remove employees --auto --dirs
-	php artisan makefast:scaffold employees --fields="first_name:string[64],last_name:string[64],gender:string[1]"
+	php artisan makefast:scaffold employees --fields="first_name:string(64),last_name:string(64),gender:string(1)"
 
 	php artisan makefast:remove families --auto --dirs
-	php artisan makefast:scaffold families --fields="first_name:string[64],last_name:string[64]"
+	php artisan makefast:scaffold families --fields="first_name:string(64),last_name:string(64)"
 
 ```
 

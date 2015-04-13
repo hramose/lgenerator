@@ -23,7 +23,6 @@ class ViewGenerator extends Generator {
      */
     protected function getTemplate($template, $name)
     {
-
         $this->datepicker_script='';
         $model = $this->cache->getModelName();  // post
         $models = Pluralizer::plural($model);   // posts
@@ -388,6 +387,30 @@ EOT;
     }
 
 
+
+    /**
+     * 
+     * 
+     *
+     * @return string
+     */
+    public function fieldAttributes($name, $type)
+    {
+        
+        preg_match('/\(([^)]+)\)/', $type, $lensinfo);
+
+        $type_pure=$type;
+        $field_detail['name']=$name;
+        if (isset($lensinfo[0])){
+          $type_pure=str_replace($lensinfo[0], '', $type);
+          $field_detail['len']=$lensinfo[1];
+        }
+        $field_detail['type']=$type_pure;
+
+        return $field_detail;
+    }
+
+
     /**
      * 
      * 
@@ -396,12 +419,12 @@ EOT;
      */
     public function makeFormField($name, $type)
     {
-
         $model = $this->cache->getModelName();  // post
+
+        $attributes=$this->fieldAttributes($name, $type);
 
         /*Verifica si hay campos personalizados*/
         if(isset($this->viewDefinitions['customized_fields'][$name])){
-
           $custom=$this->viewDefinitions['customized_fields'][$name];
         }
 
@@ -427,16 +450,24 @@ EOT;
           $readonlyClass = "";
         }
 
-        switch($type)
+        /*determina si el campo es de solo lectura*/
+        if(isset($attributes['len'])){
+          $size=$attributes['len'];
+          $size = ", 'size' => '$size', 'maxlength' => '$size' ";
+        }else{
+          $size = "";
+        }        
+
+        switch($attributes['type'])
         {
             case 'integer':
-               $element = "{!! Form::input('number', '$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
+               $element = "{!! Form::input('number', '$name', $value, array('class' => 'form-control' $readonlyClass $size )) !!}";
                 break;
             case 'text':
-                $element = "{!! Form::textarea('$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
+                $element = "{!! Form::textarea('$name', $value, array('class' => 'form-control' $readonlyClass $size )) !!}";
                 break;
             case 'boolean':
-                $element = "{!! Form::checkbox('$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
+                $element = "{!! Form::checkbox('$name', $value, array('class' => 'form-control' $readonlyClass $size )) !!}";
                 break;
             case 'date':
             case 'time':
@@ -451,7 +482,7 @@ EOT;
                 $element = "<input name=\"$name\" type=\"hidden\" value=\"{{\$lc->master_id}}\">";
                 break;    
             default:
-                $element = "{!! Form::text('$name', $value, array('class' => 'form-control' $readonlyClass )) !!}";
+                $element = "{!! Form::text('$name', $value, array('class' => 'form-control' $readonlyClass $size )) !!}";
                 break;
         }
         return $element;
