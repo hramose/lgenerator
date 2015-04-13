@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Fragale\Helpers\PathsInfo;
 use Illuminate\Support\Pluralizer;
+use Illuminate\Filesystem\Filesystem as File;
 
 class CrudRemoveCommand extends Command {
 
@@ -40,6 +41,7 @@ class CrudRemoveCommand extends Command {
 	public function fire()
 	{
 		$p=new PathsInfo();
+		$file=new File();
 
 		$this->info('Now, I will drop this resource from the App');
 		$resource = $this->argument('resource');
@@ -72,30 +74,24 @@ class CrudRemoveCommand extends Command {
 		if ($continue)
 		{
 					$this->info("rm $modelo");
-					shell_exec("rm $modelo");
+					$file->delete($modelo);
 					$this->info("rm $controlador");
-					shell_exec("rm $controlador");
+					$file->delete($controlador);
 					if($dirs){
 						$this->info("Se elimina completamente el directorio $vistas ");
 						$this->info("rm $vistas -rf");
-						shell_exec("rm $vistas -rf");
+						$file->deleteDirectory($vistas);
 					}else{
 						$this->info("Se eliminan solo las vistas del directorio $vistas pero no el directorio ");
 						$this->info("rm $vistas/create.blade.php");
 						$this->info("rm $vistas/edit.blade.php");
 						$this->info("rm $vistas/show.blade.php");
 						$this->info("rm $vistas/index.blade.php");
-						shell_exec("rm $vistas/create.blade.php");
-						shell_exec("rm $vistas/edit.blade.php");
-						shell_exec("rm $vistas/show.blade.php");
-						shell_exec("rm $vistas/index.blade.php");
+						$file->delete("$vistas/create.blade.php");
+						$file->delete("$vistas/edit.blade.php");
+						$file->delete("$vistas/show.blade.php");
+						$file->delete("$vistas/index.blade.php");
 					}
-					/*
-					$this->info("rm $migracion");    		
-					shell_exec("rm $migracion"); 
-					$this->info("rm $seeds");    		
-					shell_exec("rm $seeds"); 
-					*/
 
 		}
 
