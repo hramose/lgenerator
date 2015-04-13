@@ -17,7 +17,7 @@ Begin by installing this package through Composer. Edit your project's `composer
 
 	"require": {
 		"laravel/framework": "5.0.*",
-		"fragale/lgenerators": "1.0.*"
+		"fragale/lgenerators": "1.0.*@dev"
 	},
 	"minimum-stability" : "dev"
 
