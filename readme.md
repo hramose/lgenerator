@@ -33,13 +33,19 @@ Begin by installing this package through Composer. Edit your project's `composer
 
 * Once this operation completes, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
+```php
+
     'Fragale\Generators\GeneratorsServiceProvider',
-    'Collective\Html\HtmlServiceProvider',     			/*<--------- Laravel Collective*/
+    'Collective\Html\HtmlServiceProvider',     			/*<- Laravel Collective*/
+```    
 
 and add the aliases for Laravel Collective
 
+```php
+
 		'Form' => 'Collective\Html\FormFacade',
 		'Html' => 'Collective\Html\HtmlFacade',	
+```		
 
 * That's it! You're all set to go. Run the `artisan` command from the Terminal to see the new `makefast` commands.
 
