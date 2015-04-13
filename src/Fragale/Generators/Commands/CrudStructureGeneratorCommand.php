@@ -103,7 +103,7 @@ class CrudStructureGeneratorCommand extends Command {
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('index',true), $p->pathTemplatesViews());
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/'.$p->fileViewTemplate('show',true), $p->pathTemplatesViews());
 
-		$this->tryToCopyFile($file, $templateVendorPath.'/views/layouts/example_default.blade.php', $p->pathViews().'/layouts/default.blade.php');
+		$this->tryToCopyFile($file, $templateVendorPath.'/views/layouts/example_default.blade.php', $p->pathViews().'/layouts');
 
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/header_cruds.php', $p->pathViews().'/system/cruds');
 		$this->tryToCopyFile($file, $templateVendorPath.'/views/system/footer_cruds.php', $p->pathViews().'/system/cruds');
