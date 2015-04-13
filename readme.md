@@ -31,7 +31,7 @@ Begin by installing this package through Composer. Edit your project's `composer
 
     composer update
 
-* Once this operation completes, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
+* Once this operation completes, the final step is to add the service provider. Open `config/app.php`, and add a new item to the providers array.
 
 ```php
 
@@ -368,7 +368,7 @@ Also you should append code to your models.
 
 for example to add code to our example model you can do this:
 
-* create a file in `/app/resources/templates/cruds/customs/employees/` named `append_to_model.php`
+* create a file in `resources/templates/cruds/customs/employees/` named `append_to_model.php`
 * put this code into the file: (warning: add the PHP tag at the begin of the file)
 
 ```php
@@ -399,7 +399,7 @@ Also you should add your own validation rules.
 
 for example you can do this:
 
-* create a file in `/app/resources/templates/cruds/customs/employees/` named `rules.php`
+* create a file in `resources/templates/cruds/customs/employees/` named `rules.php`
 * put this code into the file: (warning: add the PHP tag at the begin of the file)
 
 ```php
