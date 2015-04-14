@@ -1,6 +1,6 @@
 ###### Date fields using datepicker ######
 
-First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](doc/enable_datepicker.md)
+First, you must enabled the bootstrap-datepicker, if it are not enabled yet, see how at the footer of this doc in the section [Enabling Datepicker and jquery access](./enable_datepicker.md)
 
 For example to add the **date of birth** at the families table:
 
