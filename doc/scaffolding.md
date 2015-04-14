@@ -90,6 +90,8 @@ use the example provided whith this package, simply rename `resources/views/layo
 
 6. save and try again going to http://www.yourapp.com/employees  
 
+*IMPORTANT if are having troubles with Bootstrap?* [Check your Bootstrap installation](doc/checkbootstrap.md)  
+
 
 
 [home](../readme.md)

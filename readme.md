@@ -26,6 +26,7 @@ If you are looking for a "generic" generator is recommended to use way/generator
 * 1. [Installation ](doc/installation.md)
 * 2. [Create the CRUD structure for the generator ](doc/crudstructure.md)
 * 3. [Enable Bootstrap 3.0 ](doc/bootstrap.md)
+* 3.1. [Check your Bootstrap installation](doc/checkbootstrap.md)
 * 4. [Usage ](#)
 * 4.1. [You need a table ](doc/youneedatable.md)
 * 4.2. [Scaffolding the CRUDs ](doc/scaffolding.md)
@@ -82,9 +83,7 @@ I also need :
 
 
 
-PLEASE NOTE THAT I AM CURRENTLY DEVELOPING THIS PACKAGE.
-THE TIME THAT I'M DEDICATING THIS PROJECT IS CONDITIONED BY MY DAILY DUTIES, IF YOU WANT, YOU CAN CONTACT ME IN fragale@gmail.com
+PLEASE NOTE THAT I AM CURRENTLY DEVELOPING THIS PACKAGE. 
+THE TIME THAT I'M DEDICATING TO THIS PROJECT IS CONDITIONED BY MY DAILY DUTIES, IF YOU WANT, YOU CAN CONTACT ME IN fragale@gmail.com
 
 DAILY I WILL UPLOAD NEW FEATURES,
-
-ACTUALLY THE PACKAGE IS NOT STABLE YET
