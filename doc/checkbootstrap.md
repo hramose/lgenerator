@@ -8,7 +8,7 @@ To check if Bootstrap are running ok, first [Enable Bootstrap 3.0 ](doc/bootstra
 	{
 	    return view('layouts.checkbootstrap');
 	});
-```php
+```
 
 * save and try it going to http://www.yourapp.com/testbootstrap 
 
