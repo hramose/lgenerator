@@ -1,6 +1,6 @@
 ##### Grouping fields in navs #####
 
-* To add navs in the families views just modify the file: `resources/templates/cruds/customs/families/views_definitions.json`
+* To add [navs](http://getbootstrap.com/components/#nav) in the families views just modify the file: `resources/templates/cruds/customs/families/views_definitions.json`
 
 ```php
 
