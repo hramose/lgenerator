@@ -1,5 +1,7 @@
 ##### Grouping fields in navs #####
 
+* To add navs in the families views just modify the file: `resources/templates/cruds/customs/families/views_definitions.json`
+
 ```php
 
 	{
@@ -30,6 +32,16 @@
 	}
 
 ```
+
+* now run this:
+
+```bash
+
+	php artisan makefast:remove families --auto --dirs
+	php artisan makefast:scaffold families --fields="first_name:string(64),last_name:string(64), gender:custom, employee_id:master, date_of_birth:date, nacionality:string(64), city_of_birth:string(48), marital_status:string(3), document_type:string(3), document_number:string(20), passport_number:string(20), ss_number:string(20)"
+```
+
+* finally, check the results in your browser!!.
 
 
 [home](../readme.md)
