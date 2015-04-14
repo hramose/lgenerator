@@ -12,11 +12,15 @@ To check if Bootstrap are running ok, first [Enable Bootstrap 3.0 ](doc/bootstra
 
 * save and try it going to http://www.yourapp.com/testbootstrap 
 
-if you have Bootstrap running, then will see a 
+if you have Bootstrap running, then will see:
+
+
 ![Correct Button](https://github.com/fragale/lgenerator/blob/master/doc/correct_button.png)
 
 
 if you have Bootstrap wrong, then will see:
+
+
 ![Inorrect Button](https://github.com/fragale/lgenerator/blob/master/doc/incorrect_button.png)
 
 
