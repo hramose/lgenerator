@@ -23,57 +23,32 @@ If you are looking for a "generic" generator is recommended to use way/generator
 
 
 
-1. [Installation ](doc/installation.md)
-
-2. [Create the CRUD structure for the generator ](doc/crudstructure.md)
-
-3. [Enable Bootstrap 3.0 ](doc/bootstrap.md)
-
-4. [Usage ](#)
-
-4.1. [You need a table ](doc/youneedatable.md)
-
-4.2. [Scaffolding the CRUDs ](doc/scaffolding.md)
-
-4.2.1. [Field types ](#)
-
-4.2.1.1. [Text ](#)
-
-4.2.1.2. [Numeric ](#)
-
-4.2.1.3. [Date (using datepicker)](doc/datepicker.md)
-
-4.2.1.4. [Radio buttons ](doc/radio.md)
-
-4.2.1.5. [CheckBoxes (booleans) ](#)
-
-4.2.1.6. [Select ](#)
-
-4.2.1.7. [DB Select ](#)
-
-4.2.1.8. [Custom ](doc/customs.md)
-
-4.2.2. [Customizing the views](doc/howitspossible.md)
-
-4.2.2.1. [How it's possible ](doc/howitspossible.md)
-
-4.2.2.2. [Disabling some fields in views ](doc/hideafield.md)
-
-4.2.2.3. [Applying format to a field ](#)
-
-4.2.2.4. [Read only fields ](#)
-
-4.2.2.5. [Master-Detail ](doc/masterdetail.md)
-
-4.2.3. [Customizing the models](doc/models.md)
-
-4.2.3.1. [Validation rules ](doc/rules.md)
-
-5. [Excel / Office exportations ](doc/exportations.md)
-
-6. [How to remove a resource ](doc/remove.md)
-
-7. [Changing some settings ](doc/settings.md)
+* 1. [Installation ](doc/installation.md)
+* 2. [Create the CRUD structure for the generator ](doc/crudstructure.md)
+* 3. [Enable Bootstrap 3.0 ](doc/bootstrap.md)
+* 4. [Usage ](#)
+* 4.1. [You need a table ](doc/youneedatable.md)
+* 4.2. [Scaffolding the CRUDs ](doc/scaffolding.md)
+* 4.2.1. [Field types ](#)
+* 4.2.1.1. [Text ](#)
+* 4.2.1.2. [Numeric ](#)
+* 4.2.1.3. [Date (using datepicker)](doc/datepicker.md)
+* 4.2.1.4. [Radio buttons ](doc/radio.md)
+* 4.2.1.5. [CheckBoxes (booleans) ](#)
+* 4.2.1.6. [Select ](#)
+* 4.2.1.7. [DB Select ](#)
+* 4.2.1.8. [Custom ](doc/customs.md)
+* 4.2.2. [Customizing the views](doc/howitspossible.md)
+* 4.2.2.1. [How it's possible ](doc/howitspossible.md)
+* 4.2.2.2. [Disabling some fields in views ](doc/hideafield.md)
+* 4.2.2.3. [Applying format to a field ](#)
+* 4.2.2.4. [Read only fields ](#)
+* 4.2.2.5. [Master-Detail ](doc/masterdetail.md)
+* 4.2.3. [Customizing the models](doc/models.md)
+* 4.2.3.1. [Validation rules ](doc/rules.md)
+* 5. [Excel / Office exportations ](doc/exportations.md)
+* 6. [How to remove a resource ](doc/remove.md)
+* 7. [Changing some settings ](doc/settings.md)
 
 
 
