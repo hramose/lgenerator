@@ -13,6 +13,7 @@ class ViewGenerator extends Generator {
     public $viewDefinitions;
     public $templateCustomsPath;
     public $datepicker_script;
+    public $picture_script;
 
     /**
      * Fetch the compiled template for a view
@@ -24,6 +25,7 @@ class ViewGenerator extends Generator {
     protected function getTemplate($template, $name)
     {
         $this->datepicker_script='';
+        $this->picture_script='';
         $model = $this->cache->getModelName();  // post
         $models = Pluralizer::plural($model);   // posts
 
@@ -74,7 +76,9 @@ class ViewGenerator extends Generator {
             $this->template = str_replace('{{formElements}}', $formElements, $this->template);
         }
 
-        $datepicker_script=$this->writeDatepickerScript();
+        //$datepicker_script=$this->writeDatepickerScript();
+        $datepicker_script=$this->writeScript($this->datepickerScript(), "datepicker.blade.php");
+        $picture_script=$this->writeScript($this->pictureScript(), "picture.blade.php");
 
         // Replace template vars in view
         foreach(array('model', 'models', 'Models', 'Model') as $var)
@@ -458,12 +462,8 @@ EOT;
                 $element = str_replace('{{value}}', $value, $custom);
                 break;
             case 'picture':
-                $element = <<<EOT
-                      @if(\$$model->$name)
-                      <img src="/{{\$$model->$name}}" width="$width=" height="$height" class="img-circle" />
-                      @endif
-                      {!! Form::file('$name') !!} 
-EOT;
+                $element = "<input type=\"file\" id=\"$name\" name=\"$name\" />";
+                $this->addPictureElement($name);
                 break;
             case 'master':
                 $element = "<input name=\"$name\" type=\"hidden\" value=\"{{\$lc->master_id}}\">";
@@ -483,6 +483,11 @@ EOT;
     {
         $formalName = "trans('forms.".ucwords($name)."')";
         $model = $this->cache->getModelName();  // post
+
+        $attributes=$this->fieldAttributes($name, $type);
+        $width = isset($attributes['width']) ? $attributes['width'] : 0;
+        $height = isset($attributes['height']) ? $attributes['height'] : 0;
+        $type=$attributes['type'];
 
         if($type=='date'){ $dateicon='glyphicon-calendar'; }
         if($type=='time'){ $dateicon='glyphicon-time'; }
@@ -514,13 +519,17 @@ EOT;
             $frag = <<<EOT
                 <!-- $name -->
                 <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
-                    <div class="input-group col-md-4 $name">
-                      $element
-                    </div>
-                    {{{ \$errors->first('$name') }}}
-                </div>
+                      @if(\$$model->$name)
+                        <img id="$name" src="/{{\$$model->$name}}" width="$width" height="$height" class="img-circle" />
+                      @else
+                        <img id="$name" src="#" width="$width" height="$height" class="img-circle" />
+                      @endif     
+                      <div class="input-group $name">
+                        $element
+                      </div>
+                      {{{ \$errors->first('$name') }}}      
+                </div>      
                 <!-- /$name -->
-
 EOT;
           break; 
 
@@ -540,7 +549,7 @@ EOT;
           /*campos por defecto*/
           default:
             $frag = <<<EOT
-                <!-- $name -->
+                <!-- $name DEFAULT $type -->
                 <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
                     {!! Form::label('$name', $formalName,array( 'class'=> 'control-label')) !!}
                     <div class="controls">
@@ -615,6 +624,7 @@ EOT;
     /**
      * @return string
      */
+    /*
     public function writeDatepickerScript()
     {
 
@@ -637,5 +647,84 @@ EOT;
 
         return $result;
     }
+*/
+    /**
+     * agrega un elemento para el manejo de imagen al script    
+     * @return string
+     */
+    public function addPictureElement($name)
+    {
+
+    $element = <<<EOT
+    \$('#$name').change(function(){
+        readURL(this, '#pic_$name');
+    }); 
+
+EOT;
+        $this->picture_script=$this->picture_script.$element.PHP_EOL;
+        return true;
+
+    }   
+
+    /**
+     * genera el script de manipulacion de imagenes
+     * @return string
+     */
+    public function pictureScript()
+    {
+      $script='';
+
+      if($this->picture_script!=''){
+        $header = <<<EOT
+
+<!--picture manager Script -->
+<script type="text/javascript">
+function readURL(input, picture) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(picture).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+EOT;
+
+      $footer = <<<EOT
+
+</script>
+<!--end picture manager Script -->
+EOT;
+
+        $script=$header.$this->picture_script.$footer.PHP_EOL;
+      }
+
+      return $script;
+    }
+
+    /**
+     * escribe el archivo con el script 
+     * @return string
+     */
+    public function writeScript($script, $script_filename)
+    {
+
+        $viewName=str_replace('.blade', '', $this->viewName);
+        if($script!='' and ($viewName=='create' or $viewName=='edit')){
+          $model = $this->cache->getModelName();  // post
+          $models = Pluralizer::plural($model);   // posts
+
+          $p=new PathsInfo();    
+          $file=new File();
+          $result=$file->put($p->pathViews()."/cruds/$models/$viewName".'_'.$script_filename, $script);        
+        }else{
+          $result=false;
+        }
+
+        return $result;
+    }
+
+
 
 }

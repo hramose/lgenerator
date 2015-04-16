@@ -1,0 +1,16 @@
+<?php
+    $load_datepicker=false;    
+    $load_picture=false;    
+    if(file_exists($lc->datepicker_file)){
+        $load_datepicker=true;    
+    }                    
+    if(file_exists($lc->picture_file)){
+        $load_picture=true;    
+    }    
+?>
+            @if($load_datepicker)
+                    @include($lc->datepicker_template)
+            @endif
+            @if($load_picture)
+                    @include($lc->picture_template)
+            @endif            

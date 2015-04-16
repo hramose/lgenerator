@@ -34,9 +34,10 @@ class CrudsArgs
         $this->subtitle=$this->config('subtitle');
         $this->icon_title=$this->config("icon_title_$viewname");  
 
-
         $this->datepicker_file=$p->pathViews()."/cruds/$models/$viewname"."_datepicker.blade.php";      
         $this->datepicker_template="cruds.$models.$viewname"."_datepicker";      
+        $this->picture_file=$p->pathViews()."/cruds/$models/$viewname"."_picture.blade.php";      
+        $this->picture_template="cruds.$models.$viewname"."_picture";     
 
         $this->setSessionVars();
 
@@ -48,7 +49,6 @@ class CrudsArgs
         $this->Master=ucwords(trim($master));       
         $this->master_id=$master_id;
         $Master='App\\cruds\\'.$this->Master;
-
 
         if(class_exists($Master)){            
             $models=$Master::MODELS;                    
