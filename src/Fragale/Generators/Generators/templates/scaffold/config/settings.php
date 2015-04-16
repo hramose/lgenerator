@@ -117,6 +117,13 @@ return [
 	'title'=>"trans('forms.'.\$this->models)",
 	'subtitle'=>"trans('forms.view_'.\$this->viewname)",
 
+	/*--------------------------------------------------------------------------
+	| Picture & image classes
+	|---------------------------------------------------------------------------
+	| 	
+	*/	
+	'picture_class'=>"img-rounded",
+
 ];
 
 ?>

@@ -520,9 +520,9 @@ EOT;
                 <!-- $name -->
                 <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
                       @if(\$$model->$name)
-                        <img id="$name" src="/{{\$$model->$name}}" width="$width" height="$height" class="img-circle" />
+                        <img id="pic_$name" src="/{{\$$model->$name}}" width="$width" height="$height" class="{{ \$lc->config('picture_class') }}" />
                       @else
-                        <img id="$name" src="#" width="$width" height="$height" class="img-circle" />
+                        <img id="pic_$name" src="#" width="$width" height="$height" class="{{ \$lc->config('picture_class') }}" />
                       @endif     
                       <div class="input-group $name">
                         $element
@@ -683,7 +683,7 @@ function readURL(input, picture) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $(picture).attr('src', e.target.result);
+            \$(picture).attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
     }
