@@ -387,30 +387,6 @@ EOT;
     }
 
 
-
-    /**
-     * 
-     * 
-     *
-     * @return string
-     */
-    public function fieldAttributes($name, $type)
-    {
-        
-        preg_match('/\(([^)]+)\)/', $type, $lensinfo);
-
-        $type_pure=$type;
-        $field_detail['name']=$name;
-        if (isset($lensinfo[0])){
-          $type_pure=str_replace($lensinfo[0], '', $type);
-          $field_detail['len']=$lensinfo[1];
-        }
-        $field_detail['type']=$type_pure;
-
-        return $field_detail;
-    }
-
-
     /**
      * 
      * 
@@ -422,6 +398,9 @@ EOT;
         $model = $this->cache->getModelName();  // post
 
         $attributes=$this->fieldAttributes($name, $type);
+        $width = isset($attributes['width']) ? $attributes['width'] : 0;
+        $height = isset($attributes['height']) ? $attributes['height'] : 0;
+
 
         /*Verifica si hay campos personalizados*/
         if(isset($this->viewDefinitions['customized_fields'][$name])){
@@ -478,6 +457,14 @@ EOT;
             case 'custom':
                 $element = str_replace('{{value}}', $value, $custom);
                 break;
+            case 'picture':
+                $element = <<<EOT
+                      @if(\$$model->$name)
+                      <img src="/{{\$$model->$name}}" width="$width=" height="$height" class="img-circle" />
+                      @endif
+                      {!! Form::file('$name') !!} 
+EOT;
+                break;
             case 'master':
                 $element = "<input name=\"$name\" type=\"hidden\" value=\"{{\$lc->master_id}}\">";
                 break;    
@@ -495,6 +482,7 @@ EOT;
     public function makeFormGroup($name, $element, $type)
     {
         $formalName = "trans('forms.".ucwords($name)."')";
+        $model = $this->cache->getModelName();  // post
 
         if($type=='date'){ $dateicon='glyphicon-calendar'; }
         if($type=='time'){ $dateicon='glyphicon-time'; }
@@ -520,11 +508,27 @@ EOT;
 
 EOT;
           break;
+
+          case 'picture':
+            $object='$'.$model."->$name";
+            $frag = <<<EOT
+                <!-- $name -->
+                <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
+                    <div class="input-group col-md-4 $name">
+                      $element
+                    </div>
+                    {{{ \$errors->first('$name') }}}
+                </div>
+                <!-- /$name -->
+
+EOT;
+          break; 
+
           case 'master':
             $frag = <<<EOT
                 <!-- $name -->
                 <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
-                    <div class="input-group col-md-4 date $name">
+                    <div class="input-group col-md-4 $name">
                       $element
                     </div>
                     {{{ \$errors->first('$name') }}}

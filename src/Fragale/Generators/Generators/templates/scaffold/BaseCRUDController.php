@@ -319,4 +319,15 @@ class BaseCRUDController extends BaseController {
 		return true;
 	}
 
+	public function tryToCreateDir($path)
+	{
+		$file=new File;
+		if(!$file->exists($path)){
+			$result=$file->makeDirectory($path);
+		}else{
+			$result=true;
+		}
+		return $result;			
+	}	
+
 }

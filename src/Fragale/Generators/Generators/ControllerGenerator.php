@@ -16,7 +16,10 @@ class ControllerGenerator extends Generator {
      */
     protected function getTemplate($template, $className)
     {
+
         $this->template = $this->file->get($template);
+        $picture = $this->havePicture();
+        //dd($picture);
         $resource = strtolower(Pluralizer::plural(
             str_ireplace('Controller', '', $className)
         ));

@@ -95,4 +95,54 @@ abstract class Generator {
      * @return string
      */
     abstract protected function getTemplate($template, $name);
+
+    /**
+     * 
+     * 
+     *
+     * @return string
+     */
+    public function fieldAttributes($name, $type)
+    {
+        
+        preg_match('/\(([^)]+)\)/', $type, $lensinfo);
+
+        $type_pure=$type;
+        $field_detail['name']=$name;
+        if (isset($lensinfo[0])){
+          $type_pure=str_replace($lensinfo[0], '', $type);
+          $field_detail['len']=$lensinfo[1];
+          if(strpos($field_detail['len'],'x')){
+            list($width, $height)=explode('x', $field_detail['len']);
+            $field_detail['width']=$width;
+            $field_detail['height']=$height;
+          }
+        }
+        $field_detail['type']=$type_pure;
+
+        return $field_detail;
+    }
+
+/**
+     * 
+     * 
+     *
+     * @return array
+     */
+    public function havePicture()
+    {
+        $fields = $this->cache->getFields();
+        $result = false;
+        foreach ($fields as $name => $type) {
+            $field=$this->fieldAttributes($name, $type);
+            if ($field['type']=='picture'){
+                $result=$field;
+                break;
+            }            
+        }
+        return $result;
+    }
+
+
+
 }
