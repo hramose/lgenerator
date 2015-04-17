@@ -26,7 +26,7 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 						<div class="panel-body">  
 							<div class="row">
 								<div class="{{$lc->config('col_full')}}">
-									{!! Form::model(${{model}}, array('method' => 'PATCH', 'route' => array('{{models}}.update', ${{model}}->id))) !!}	
+									{!! Form::model(${{model}}, array({{form_files}}'method' => 'PATCH', 'route' => array('{{models}}.update', ${{model}}->id))) !!}	
 
 										{{formElements}}
 										{!! $lc->inputsMaster() !!}

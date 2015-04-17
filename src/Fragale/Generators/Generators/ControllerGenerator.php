@@ -19,7 +19,7 @@ class ControllerGenerator extends Generator {
 
         $this->template = $this->file->get($template);
         $picture = $this->havePicture();
-        //dd($picture);
+
         $resource = strtolower(Pluralizer::plural(
             str_ireplace('Controller', '', $className)
         ));
@@ -47,8 +47,16 @@ class ControllerGenerator extends Generator {
         $models = Pluralizer::plural($model);   // posts
         $Models = ucwords($models);             // Posts
         $Model = Pluralizer::singular($Models); // Post
+        $pictures=$this->havePicture();
 
-        foreach(array('model', 'models', 'Models', 'Model', 'className') as $var)
+        if($pictures){
+            $move_pictures="\$this->movePictures(\$$model);";
+        }else{
+            $move_pictures='';
+        }
+
+
+        foreach(array('model', 'models', 'Models', 'Model', 'className', 'pictures', 'move_pictures') as $var)
         {
             $this->template = str_replace('{{'.$var.'}}', $$var, $this->template);
         }

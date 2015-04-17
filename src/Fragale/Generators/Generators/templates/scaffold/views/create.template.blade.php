@@ -27,7 +27,7 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 						<div class="panel-body">
 							<div class="row">
 								<div class="{{$lc->config('col_full')}}">
-									{!! Form::open(array('route' => '{{models}}.store')) !!}
+									{!! Form::open(array({{form_files}}'route' => '{{models}}.store')) !!}
 									
 										{{formElements}}
 										{!! $lc->inputsMaster() !!}

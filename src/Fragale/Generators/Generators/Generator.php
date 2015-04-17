@@ -123,22 +123,27 @@ abstract class Generator {
         return $field_detail;
     }
 
-/**
-     * 
-     * 
-     *
-     * @return array
-     */
+    /**
+    * 
+    * Devuelve un array con los nombres de los campos que son pictures.
+    *
+    * @return array
+    */
     public function havePicture()
     {
+        $this->arrayOfPictures ="array()";
         $fields = $this->cache->getFields();
         $result = false;
+        $names='';
         foreach ($fields as $name => $type) {
             $field=$this->fieldAttributes($name, $type);
             if ($field['type']=='picture'){
-                $result=$field;
-                break;
+                $names=$names."'$name' ";
             }            
+        }
+        if($names!=''){
+            $result='['.str_replace(' ',',',trim($names)).']';
+            $this->arrayOfPictures = explode(' ', trim($names));
         }
         return $result;
     }

@@ -80,8 +80,13 @@ class ViewGenerator extends Generator {
         $datepicker_script=$this->writeScript($this->datepickerScript(), "datepicker.blade.php");
         $picture_script=$this->writeScript($this->pictureScript(), "picture.blade.php");
 
+        $form_files='';
+        if($this->havePicture()){
+          $form_files= "'files' => true, ";
+        }
+
         // Replace template vars in view
-        foreach(array('model', 'models', 'Models', 'Model') as $var)
+        foreach(array('model', 'models', 'Models', 'Model', 'form_files') as $var)
         {
             $this->template = str_replace('{{'.$var.'}}', $$var, $this->template);
         }
@@ -462,8 +467,12 @@ EOT;
                 $element = str_replace('{{value}}', $value, $custom);
                 break;
             case 'picture':
-                $element = "<input type=\"file\" id=\"$name\" name=\"$name\" />";
-                $this->addPictureElement($name);
+                if ($this->viewName === 'show.blade'){
+                  $element = " ";
+                }else{
+                  $element = "<input type=\"file\" id=\"$name\" name=\"$name\" />";
+                  $this->addPictureElement($name);
+                }
                 break;
             case 'master':
                 $element = "<input name=\"$name\" type=\"hidden\" value=\"{{\$lc->master_id}}\">";
@@ -516,14 +525,33 @@ EOT;
 
           case 'picture':
             $object='$'.$model."->$name";
-            $frag = <<<EOT
-                <!-- $name -->
-                <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
+
+            if ($this->viewName === 'create.blade'){
+            $imagen= <<<EOT
+                        <img id="pic_$name" src="#" width="$width" height="$height" class="{{ \$lc->config('picture_class') }}" />
+EOT;
+            }
+
+            if ($this->viewName === 'edit.blade'){
+            $imagen= <<<EOT
                       @if(\$$model->$name)
                         <img id="pic_$name" src="/{{\$$model->$name}}" width="$width" height="$height" class="{{ \$lc->config('picture_class') }}" />
                       @else
                         <img id="pic_$name" src="#" width="$width" height="$height" class="{{ \$lc->config('picture_class') }}" />
                       @endif     
+EOT;
+            }
+
+            if ($this->viewName === 'show.blade'){
+            $imagen= <<<EOT
+                        <img id="pic_$name" src="/{{\$$model->$name}}" width="$width" height="$height" class="{{ \$lc->config('picture_class') }}" />
+EOT;
+            }
+
+            $frag = <<<EOT
+                <!-- $name -->
+                <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
+                      $imagen
                       <div class="input-group $name">
                         $element
                       </div>
@@ -621,33 +649,6 @@ EOT;
       return $script;
     }
 
-    /**
-     * @return string
-     */
-    /*
-    public function writeDatepickerScript()
-    {
-
-        $viewName=str_replace('.blade', '', $this->viewName);
-        if($this->datepicker_script!='' and ($viewName=='create' or $viewName=='edit')){
-          $model = $this->cache->getModelName();  // post
-          $models = Pluralizer::plural($model);   // posts
-
-          $p=new PathsInfo();    
-          $file=new File();
-          $filename=$p->pathViews()."/cruds/$models/$viewName"."_datepicker.blade.php";
-
-          $result=$file->put($filename, $this->datepickerScript());        
-
-        }else{
-
-          $result=false;
-
-        }
-
-        return $result;
-    }
-*/
     /**
      * agrega un elemento para el manejo de imagen al script    
      * @return string

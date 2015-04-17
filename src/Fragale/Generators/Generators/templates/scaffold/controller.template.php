@@ -15,12 +15,15 @@ class {{className}} extends BaseCRUDController {
 	protected ${{model}};
 	protected $models_name;
 	protected $Model_name;	
+	protected $picture_fields;
 
 	public function __construct({{Model}} ${{model}})
 	{
-		$this->{{model}}  	= ${{model}};
-		$this->models_name 	= '{{models}}';
-		$this->Model_name 	= '{{Model}}';		
+		$this->{{model}}  		= ${{model}};
+		$this->models_name 		= '{{models}}';
+		$this->Model_name 		= '{{Model}}';	
+		$this->picture_fields	= {{pictures}};
+		$this->without_validation= array_merge($this->picture_fields, ['master','master_id']);
 	}
 
 	/*---------------*/
@@ -75,7 +78,7 @@ class {{className}} extends BaseCRUDController {
 
 		/*valida todos los campos del formulario*/
 		$input = Input::all();
-		$formFields = array_except($input, array('master','master_id')); // elimina los parametros master y master_id de los campos a grabar		
+		$formFields = array_except($input, $this->without_validation); // elimina los parametros master y master_id de los campos a grabar		
 		$validation = Validator::make($formFields, {{Model}}::$rules);
 
 		if ($validation->passes())
@@ -100,7 +103,7 @@ class {{className}} extends BaseCRUDController {
 
 		/*valida todos los campos*/
 		$input = array_except(Input::all(), '_method');
-		$formFields = array_except($input, array('master','master_id')); // elimina los parametros master y master_id de los campos a grabar
+		$formFields = array_except($input, $this->without_validation);
 		$validation = Validator::make($formFields, {{Model}}::$rules);
 
 		if ($validation->passes())
@@ -108,6 +111,8 @@ class {{className}} extends BaseCRUDController {
 			$formFields = array_except($formFields, $this->extraFields());  // remueve los campos extra
 			${{model}} = $this->{{model}}->find($id);
 			${{model}}->update($formFields);
+			
+			{{move_pictures}}
 
 			return Redirect::route('{{models}}.show', $this->masterRecordArray($id)  );
 		}
