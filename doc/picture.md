@@ -32,7 +32,7 @@ Of course, also you can modify same preferences for your picture fields at `sett
 	'pictures_path' =>"uploads/pictures",
 ```
 
-Note that the path is the location where the pictures will be moved after upload it, and it's path is relative to `public/`
+Note that the path is the location `uploads/pictures` where the pictures will be moved after upload it, and it's path is relative to `public/` and it **must be writable**
 
 The 'picture_class' can be any of [Bootstrap image shapes](http://getbootstrap.com/css/#images)
 
