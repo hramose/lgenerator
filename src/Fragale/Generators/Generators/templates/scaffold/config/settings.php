@@ -122,7 +122,8 @@ return [
 	|---------------------------------------------------------------------------
 	| 	
 	*/	
-	'picture_class'=>"img-rounded",
+	'picture_class' =>"img-rounded",
+	'pictures_path' =>"uploads/pictures",
 
 ];
 

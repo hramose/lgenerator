@@ -39,6 +39,7 @@ If you are looking for a "generic" generator is recommended to use way/generator
 * 4.2.1.6. [Select ](#)
 * 4.2.1.7. [DB Select ](#)
 * 4.2.1.8. [Custom ](doc/customs.md)
+* 4.2.1.9. [Picture ](doc/picture.md)  <---- NEW
 * 4.2.2. [Customizing the views](doc/howitspossible.md)
 * 4.2.2.1. [How it's possible ](doc/howitspossible.md)
 * 4.2.2.2. [Disabling some fields in views ](doc/hideafield.md)

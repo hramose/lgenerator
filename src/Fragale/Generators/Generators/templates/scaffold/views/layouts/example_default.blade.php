@@ -19,8 +19,7 @@
 			<script src="{{ asset('assets/plugins/bootstrap/bootstrap/js/bootstrap.min.js') }}"></script>
 			<script src="{{ asset('assets/plugins/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 			<script src="{{ asset('assets/plugins/bootstrap/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js') }}"></script>
+			@include('system.cruds.scripts_loader') 
 
-			@include('system.cruds.datepicker_loader')
-				
 			</body>	
 		</html>

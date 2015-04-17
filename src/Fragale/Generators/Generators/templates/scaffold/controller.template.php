@@ -86,6 +86,8 @@ class {{className}} extends BaseCRUDController {
 			$formFields = array_except($formFields, $this->extraFields()); // remueve los campos extra
 			$this->{{model}}->create($formFields);
 
+			{{move_pictures}}
+
 			return Redirect::route('{{models}}.index', $this->masterRecordArray());
 		}
 
@@ -111,7 +113,7 @@ class {{className}} extends BaseCRUDController {
 			$formFields = array_except($formFields, $this->extraFields());  // remueve los campos extra
 			${{model}} = $this->{{model}}->find($id);
 			${{model}}->update($formFields);
-			
+
 			{{move_pictures}}
 
 			return Redirect::route('{{models}}.show', $this->masterRecordArray($id)  );

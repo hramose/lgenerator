@@ -33,18 +33,20 @@ to continue learning how to generate this feature, please make this migration:
 				$table->increments('id');
 				$table->string('first_name');
 				$table->string('last_name');
-				$table->enum('gender', ['f', 'm']);
+				$table->enum('gender', ['f', 'm'])->nullable();
 
-				$table->date('date_of_birth');
-				$table->string('nacionality',3);
-				$table->string('city_of_birth');
+				$table->string('photo')->nullable();
 
-				$table->string('marital_status');			
+				$table->date('date_of_birth')->nullable();
+				$table->string('nacionality',3)->nullable();
+				$table->string('city_of_birth')->nullable();
 
-				$table->string('document_type');
-				$table->string('document_number');
+				$table->string('marital_status')->nullable();	
+
+				$table->string('document_type')->nullable();
+				$table->string('document_number')->nullable();
 				$table->string('passport_number')->nullable();
-				$table->string('ss_number');
+				$table->string('ss_number')->nullable();
 
 				//Employees link
 				$table->integer('employee_id')->unsigned()->nullable();
