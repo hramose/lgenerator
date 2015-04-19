@@ -81,7 +81,8 @@ class ViewGenerator extends Generator {
         $picture_script=$this->writeScript($this->pictureScript(), "picture.blade.php");
 
         $form_files='';
-        if($this->havePicture()){
+        //$pictures=$this->arrayOfPictures();
+        if($this->arrayOfPictures()!='array()'){
           $form_files= "'files' => true, ";
         }
 

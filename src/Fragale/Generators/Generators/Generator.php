@@ -129,11 +129,11 @@ abstract class Generator {
     *
     * @return array
     */
-    public function havePicture()
+    public function arrayOfPictures()
     {
-        $this->arrayOfPictures ="array()";
+        $this->havePictures=false;
         $fields = $this->cache->getFields();
-        $result = false;
+        $result = 'array()';
         $names='';
         foreach ($fields as $name => $type) {
             $field=$this->fieldAttributes($name, $type);
@@ -142,8 +142,8 @@ abstract class Generator {
             }            
         }
         if($names!=''){
-            $result='['.str_replace(' ',',',trim($names)).']';
-            $this->arrayOfPictures = explode(' ', trim($names));
+            $result='['.str_replace(' ',',',trim($names)).']';            
+            $this->havePictures=false;
         }
         return $result;
     }

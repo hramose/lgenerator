@@ -18,7 +18,6 @@ class ControllerGenerator extends Generator {
     {
 
         $this->template = $this->file->get($template);
-        $picture = $this->havePicture();
 
         $resource = strtolower(Pluralizer::plural(
             str_ireplace('Controller', '', $className)
@@ -47,7 +46,7 @@ class ControllerGenerator extends Generator {
         $models = Pluralizer::plural($model);   // posts
         $Models = ucwords($models);             // Posts
         $Model = Pluralizer::singular($Models); // Post
-        $pictures=$this->havePicture();
+        $pictures=$this->arrayOfPictures();
 
         if($pictures){
             $move_pictures="\$this->movePictures(\$$model);";

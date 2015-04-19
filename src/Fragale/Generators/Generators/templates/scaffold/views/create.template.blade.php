@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends(Config::get("cruds.settings.layout", 'layouts.default'))
 
 @section('content')
 <?php
