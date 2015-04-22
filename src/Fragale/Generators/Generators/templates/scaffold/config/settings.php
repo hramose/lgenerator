@@ -19,14 +19,14 @@ return [
 	| 	   default: /config/cruds/settings.php	
 	| 	
 	*/
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| View Layout for CRUDs
 	|--------------------------------------------------------------------------
 	| 	
 	*/	
-	'layout'=> 'layouts.default',
+	'layout'=> 'layouts.kyron',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -112,7 +112,7 @@ return [
 	| 	
 	*/	
 
-	'panel_class'=>'panel-primary',
+	'panel_class'=>'panel-primary ',
 
 	'col_title'	=>'col-xs-8 col-sm-6 col-md-8',
 	'col_search_form'=>'col-xs-4 col-sm-6 col-md-4',

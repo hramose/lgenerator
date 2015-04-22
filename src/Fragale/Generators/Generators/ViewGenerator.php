@@ -232,7 +232,6 @@ EOT;
 
         $key=str_replace('.blade', '', $name).'_disallowed';
         if(isset($this->viewDefinitions['field_definitions'][$key])){
-
             $disallowed=explode(',',$this->viewDefinitions['field_definitions'][$key]);
             $fields = array_except($fields, $disallowed);
         }
