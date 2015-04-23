@@ -23,7 +23,7 @@ If you are looking for a "generic" generator is recommended to use way/generator
 
 
 
-* 1. [Installation ](doc/installation.md)
+* 1. [Installation ](doc/Installation.md)
 * 2. [Create the CRUD structure for the generator ](doc/crudstructure.md)
 * 3. [Enable Bootstrap 3.0 ](doc/bootstrap.md)
 * 3.1. [Check your Bootstrap installation](doc/checkbootstrap.md)
