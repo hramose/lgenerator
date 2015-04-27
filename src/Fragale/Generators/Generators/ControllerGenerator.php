@@ -48,10 +48,10 @@ class ControllerGenerator extends Generator {
         $Model = Pluralizer::singular($Models); // Post
         $pictures=$this->arrayOfPictures();
 
-        if($pictures){
-            $move_pictures="\$this->movePictures(\$$model);";
-        }else{
+        if($pictures=='array()'){
             $move_pictures='';
+        }else{
+            $move_pictures="\$this->movePictures(\$$model);";
         }
 
 
