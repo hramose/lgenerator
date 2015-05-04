@@ -40,6 +40,7 @@ class ViewGeneratorCommand extends BaseGeneratorCommand {
         parent::__construct();
 
         $this->generator = $generator;
+
     }
 
     /**

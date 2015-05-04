@@ -1,12 +1,13 @@
 <?php namespace Fragale\Generators\Commands;
 
-use Fragale\Generators\Generators\ResourceGenerator;
 use Fragale\Generators\Cache;
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
-use Illuminate\Support\Pluralizer;
+use Fragale\Generators\Generators\ResourceGenerator;
 use Fragale\Helpers\PathsInfo;
+use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem as File;
+use Illuminate\Support\Pluralizer;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class MissingFieldsException extends \Exception {}
 
@@ -192,23 +193,30 @@ class ResourceGeneratorCommand extends Command {
     protected function generateViews()
     {
         $p=new PathsInfo;
+        $file=new File();
         $viewsDir = $p->pathViews().'/cruds';
         $container = $viewsDir . '/' . Pluralizer::plural($this->model);
         $layouts = $viewsDir . '/layouts';
         $views = array('index', 'show', 'create', 'edit');
+        $models=Pluralizer::plural($this->model);
+
+
+        $path=$p->pathTemplatesCustoms()."/$models/views_definitions.json";
+        if (file_exists($path))
+        {
+            $this->viewDefinitions = json_decode($file->get($path), true);
+        }
+
+        if (isset($this->viewDefinitions['only_generate_views'])){
+            $views = $this->viewDefinitions['only_generate_views'];
+        } else {
+            $views = ['index', 'show', 'create', 'edit'];
+        }
 
         $this->generator->folders(
             array($container)
         );
 
-        // If generating a scaffold, we also need views/layouts/scaffold  **** OBSOLETO
-        /*
-        if (get_called_class() === 'Fragale\\Generators\\Commands\\ScaffoldGeneratorCommand')
-        {
-            $views[] = 'scaffold';
-            $this->generator->folders($layouts);
-        }
-        */
         // Let's filter through all of our needed views
         // and create each one.
         foreach($views as $view)

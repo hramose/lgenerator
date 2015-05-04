@@ -2,9 +2,10 @@
 namespace Fragale\Generators\Generators;
 
 use Fragale\Helpers\PathsInfo;
-use Illuminate\Support\Pluralizer;
+use Fragale\Helpers\Translation as Lang;
 use Illuminate\Filesystem\Filesystem as File;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Pluralizer;
 
 class ViewGenerator extends Generator {
 
@@ -152,9 +153,9 @@ class ViewGenerator extends Generator {
           $buffer=$file->get($p->pathTemplatesViews().'/master-detail/detail_tables_item.template.blade.php');
           foreach ($this->viewDefinitions['detail_tables'] as $detail) {
             $bufferY=$buffer;
-            $model_detail=$detail['model'];
+            $model_detail=$detail['model']; 
             $display="{{route('$model_detail.index',['master' => '".strtolower($Model)."', 'master_id' => \$currentRecord->id ])}}";
-            $description=$detail['description'];
+            $description=Lang::bladeTranslate($detail['description']);
             foreach(array('Model', 'display','description') as $var){
               $bufferY = str_replace('{{'.$var.'}}', $$var, $bufferY);
             }  

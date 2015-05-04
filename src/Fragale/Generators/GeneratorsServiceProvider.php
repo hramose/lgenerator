@@ -33,6 +33,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 		$this->registerFormDumper();
 
 		$this->registerNavtabsGenerator();
+		$this->registerLangGenerator();
 		$this->registerCrudStructureGenerator();
 		$this->registerCrudRemoveCommand();
 
@@ -40,6 +41,7 @@ class GeneratorsServiceProvider extends ServiceProvider {
 			//'makefast.test',
 			//'makefast.migration',
 			//'makefast.seed',
+			'crud.lang',
 			'makefast.navtabs',
 			'makefast.remove',
 			'makefast.crudstructure',
@@ -53,6 +55,20 @@ class GeneratorsServiceProvider extends ServiceProvider {
 		);
 	}
 
+
+
+	/**
+	 * Register generate:navtabs
+	 *
+	 * @return Commands\LangGeneratorCommand;
+	 */
+	protected function registerLangGenerator()
+	{
+		$this->app['crud.lang'] = $this->app->share(function($app)
+		{
+			return new Commands\LangGeneratorCommand;
+		});
+	}
 
 	/**
 	 * Register generate:navtabs
