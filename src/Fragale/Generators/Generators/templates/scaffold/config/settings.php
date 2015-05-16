@@ -112,7 +112,7 @@ return [
 	| 	
 	*/	
 
-	'panel_class'=>'panel-primary ',
+	'panel_class'=>'h5a panel-primary',
 
 	'col_title'	=>'col-xs-8 col-sm-6 col-md-8',
 	'col_search_form'=>'col-xs-4 col-sm-6 col-md-4',

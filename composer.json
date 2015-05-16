@@ -13,7 +13,8 @@
         "php": ">=5.3.0",
         "mustache/mustache": "2.4.*",     
         "laravelcollective/html": "~5.0",
-        "eternicode/bootstrap-datepicker": "dev-master"
+        "eternicode/bootstrap-datepicker": "dev-master",
+        "eonasdan/bootstrap-datetimepicker": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "0.8.*",

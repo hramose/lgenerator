@@ -14,6 +14,7 @@ class ViewGenerator extends Generator {
     public $viewDefinitions;
     public $templateCustomsPath;
     public $datepicker_script;
+    public $datetimepicker_script;
     public $picture_script;
 
     /**
@@ -26,6 +27,7 @@ class ViewGenerator extends Generator {
     protected function getTemplate($template, $name)
     {
         $this->datepicker_script='';
+        $this->datetimepicker_script='';
         $this->picture_script='';
         $model = $this->cache->getModelName();  // post
         $models = Pluralizer::plural($model);   // posts
@@ -77,8 +79,9 @@ class ViewGenerator extends Generator {
             $this->template = str_replace('{{formElements}}', $formElements, $this->template);
         }
 
-        //$datepicker_script=$this->writeDatepickerScript();
+
         $datepicker_script=$this->writeScript($this->datepickerScript(), "datepicker.blade.php");
+        $datetimepicker_script=$this->writeScript($this->datetimepickerScript(), "datetimepicker.blade.php");
         $picture_script=$this->writeScript($this->pictureScript(), "picture.blade.php");
 
         $form_files='';
@@ -458,9 +461,12 @@ EOT;
             case 'boolean':
                 $element = "{!! Form::checkbox('$name', $value, array('class' => 'form-control' $readonlyClass $size )) !!}";
                 break;
-            case 'date':
             case 'time':
             case 'datetime':                        
+                $element = "{!! Form::text('$name', $value, array('class' => 'form-control', 'size' => '16' $readonlyClass )) !!}";
+                $this->addDateTimepickerElement($name);
+                break;                            
+            case 'date':
                 $element = "{!! Form::text('$name', $value, array('class' => 'form-control', 'size' => '16' $readonlyClass )) !!}";
                 $this->addDatepickerElement($name);
                 break;                
@@ -649,6 +655,56 @@ EOT;
 
       return $script;
     }
+
+
+    /**
+     * @return string
+     */
+    public function addDateTimepickerElement($name)
+    {
+        $element = <<<EOT
+    \$('#$name').datetimepicker({
+        format: 'yyyy-mm-dd',
+        locale:  '<?php echo \$set_lang;?>'
+    });
+EOT;
+        $this->datetimepicker_script=$this->datetimepicker_script.$element.PHP_EOL;
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function datetimepickerScript()
+    {
+      $script='';
+
+      if($this->datetimepicker_script!=''){
+        $header = <<<EOT
+
+<!--datetimepicker Script -->
+<?php
+\$set_lang=Lang::getLocale();
+if (\$set_lang=='ar'){\$set_lang='es';} 
+?>
+<script type="text/javascript">
+    $(function () {
+EOT;
+
+      $footer = <<<EOT
+    });
+</script>
+<!--end datetimepicker Script -->
+EOT;
+
+        $script=$header.$this->datetimepicker_script.$footer.PHP_EOL;
+      }
+
+      return $script;
+    }
+
+
+
 
     /**
      * agrega un elemento para el manejo de imagen al script    
