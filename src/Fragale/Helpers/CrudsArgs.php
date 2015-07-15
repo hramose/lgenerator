@@ -36,6 +36,10 @@ class CrudsArgs
 
         $this->datepicker_file=$p->pathViews()."/cruds/$models/$viewname"."_datepicker.blade.php";      
         $this->datepicker_template="cruds.$models.$viewname"."_datepicker";      
+
+        $this->datetimepicker_file=$p->pathViews()."/cruds/$models/$viewname"."_datetimepicker.blade.php";      
+        $this->datetimepicker_template="cruds.$models.$viewname"."_datetimepicker";      
+
         $this->picture_file=$p->pathViews()."/cruds/$models/$viewname"."_picture.blade.php";      
         $this->picture_template="cruds.$models.$viewname"."_picture";     
 

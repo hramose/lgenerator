@@ -514,6 +514,21 @@ EOT;
           /*campos date, time y datetime */
           case 'datetime':          
           case 'time':          
+            $frag = <<<EOT
+                <!-- $name -->
+                <div class="form-group {{{ \$errors->has('$name') ? 'has-error' : '' }}}">
+                    {!! Form::label('$name', $formalName,array( 'class'=> 'control-label')) !!}
+                    <div class="input-group col-md-4 date" id="$name">
+                      $element
+                      <span class="input-group-addon"><span class="glyphicon $dateicon"></span></span>
+                    </div>
+                    {{{ \$errors->first('$name') }}}
+                </div>
+                <!-- /$name -->
+
+EOT;
+          break;
+
           case 'date':
             $frag = <<<EOT
                 <!-- $name -->
@@ -637,8 +652,8 @@ EOT;
 
 <!--datepicker Script -->
 <?php
-\$set_lang=Lang::getLocale();
-if (\$set_lang=='ar'){\$set_lang='es';} 
+\$set_lang=substr(Lang::getLocale(),0,2);
+//if (\$set_lang=='es-AR'){\$set_lang='es';} 
 ?>
 <script type="text/javascript">
 
@@ -664,7 +679,7 @@ EOT;
     {
         $element = <<<EOT
     \$('#$name').datetimepicker({
-        format: 'yyyy-mm-dd',
+        format: 'YYYY-MM-DD hh:mm A',
         locale:  '<?php echo \$set_lang;?>'
     });
 EOT;
@@ -684,8 +699,8 @@ EOT;
 
 <!--datetimepicker Script -->
 <?php
-\$set_lang=Lang::getLocale();
-if (\$set_lang=='ar'){\$set_lang='es';} 
+\$set_lang=substr(Lang::getLocale(),0,2);
+//if (\$set_lang=='es-AR'){\$set_lang='es';} 
 ?>
 <script type="text/javascript">
     $(function () {
