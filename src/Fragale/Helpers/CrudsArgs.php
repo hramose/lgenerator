@@ -121,8 +121,7 @@ class CrudsArgs
     {
         /*establece su propia URI request*/
         $models=$this->models;
-        //echo($models.'.request_uri'.' '.$_SERVER['REQUEST_URI']);
-        //exit();
+        //dd($_SERVER['REQUEST_URI']);
         Session::put($models.'.request_uri', $_SERVER['REQUEST_URI']);
         return true;
     }
