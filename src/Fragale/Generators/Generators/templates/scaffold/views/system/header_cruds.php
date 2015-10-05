@@ -35,5 +35,4 @@ $classBtnEdit		='';
 $classBtnDelete		='';
 $classBtnBack		='';
 $classBtnShow		='';
-
 ?>

@@ -6,6 +6,7 @@ use App\cruds\{{Model}};
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 
 class {{className}} extends BaseCRUDController {
 
@@ -27,7 +28,7 @@ class {{className}} extends BaseCRUDController {
 	}
 
 	/*---------------*/
-	public function index()
+	public function index(Request $request)
 	{
 		$this->setMmasterRecordInfo(); // carga la informacion de un master-record si corresponde
 
@@ -35,29 +36,28 @@ class {{className}} extends BaseCRUDController {
 
 		${{models}} = $this->doUserFilter(); // construye la coleccion de datos
 
-		return view('cruds.{{models}}.index', $this->masterRecordArray())->with('{{models}}', ${{models}}); 
+		return view('cruds.{{models}}.index', $this->masterRecordArray())->with('{{models}}', ${{models}}) 
+																		 ->with('request', $request);
 	}
 
 	/*---------------*/
-	public function create()
+	public function create(Request $request)
 	{
 		$this->setMmasterRecordInfo();
 
-		return view('cruds.{{models}}.create', $this->masterRecordArray());
+		return view('cruds.{{models}}.create', $this->masterRecordArray())->with('request', $request);
 	}
 
-
 	/*---------------*/
-	public function show($id)
+	public function show(Request $request, $id)
 	{
 		${{model}} = $this->{{model}}->findOrFail($id);
 
-		return view('cruds.{{models}}.show', compact('{{model}}'));
+		return view('cruds.{{models}}.show', compact('{{model}}'))->with('request', $request);
 	}
 
-
 	/*---------------*/
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
 		$this->setMmasterRecordInfo();
 
@@ -68,11 +68,11 @@ class {{className}} extends BaseCRUDController {
 			return Redirect::route('{{models}}.index',$this->masterRecordArray());
 		}
 
-		return view('cruds.{{models}}.edit', array_merge(compact('{{model}}'), $this->masterRecordArray() ));		
+		return view('cruds.{{models}}.edit', array_merge(compact('{{model}}'), $this->masterRecordArray() ))->with('request', $request);		
 	}
 
 	/*---------------*/
-	public function store()
+	public function store(Request $request)
 	{
 		$this->setMmasterRecordInfo();
 
@@ -97,9 +97,8 @@ class {{className}} extends BaseCRUDController {
 			->with('message', trans('forms.validationErrors'));	
 	}
 
-
 	/*---------------*/
-	public function update($id)
+	public function update(Request $request, $id)
 	{
 		$this->setMmasterRecordInfo();
 
@@ -125,9 +124,8 @@ class {{className}} extends BaseCRUDController {
 			->with('message', trans('forms.validationErrors'));
 	}
 
-
 	/*---------------*/
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
 		$this->setMmasterRecordInfo();
 
@@ -135,5 +133,4 @@ class {{className}} extends BaseCRUDController {
 
 		return Redirect::route('{{models}}.index', $this->masterRecordArray());
 	}
-
 }

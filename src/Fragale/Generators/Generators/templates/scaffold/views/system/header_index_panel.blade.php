@@ -4,14 +4,11 @@
       $index="$modelName.index";
     }
 ?>
-<div class="row">
-
-  <div class="{{$lc->config('col_full')}}"> 
 
     <p class="divider"><p>
     {!! $lc->toolButton('create',0) !!}
   
-    <!--
+    {{--
     <div class="btn-group m-r-5 m-b-5">
       <a href="javascript:;" class="btn btn-default">{{trans('forms.export')}}</a>
       <a href="javascript:;" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
@@ -24,8 +21,8 @@
         <li><a href="javascript:;">Action 4</a></li>
       </ul>
     </div>
-    -->
-    <!--
+    --}}
+    {{--
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
         Dropdown
@@ -38,6 +35,4 @@
         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
       </ul>
     </div>
-    -->
-  </div> 
-</div>
+    --}}

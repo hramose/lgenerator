@@ -26,7 +26,8 @@ return [
 	|--------------------------------------------------------------------------
 	| 	
 	*/	
-	'layout'=> 'layouts.kyron',
+	//'layout'=> 'layouts.kyron',
+	'layout'=> 'unify.unifyCRUDsLayout',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -95,8 +96,9 @@ return [
 	|--------------------------------------------------------------------------
 	| 	
 	*/	
-    'btn_class_view' => 'btn btn-info glyphicon glyphicon-option-horizontal btn-sm',
-
+    //'btn_class_view' => 'btn btn-info glyphicon glyphicon-option-horizontal btn-sm',
+    'btn_class_view' => 'label label-info',
+    
 	/*
 	|--------------------------------------------------------------------------
 	| The table in the index view

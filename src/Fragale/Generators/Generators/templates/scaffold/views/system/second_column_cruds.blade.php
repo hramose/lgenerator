@@ -6,14 +6,11 @@
         $have_detail_records=1;    
     }                    
 ?>
-            @if($lc->config('col_2_visible'))
-                <div class="{{$lc->config('col_2_width')}}">
+@include('system.cruds.notifications_layout')
 
-                    @include('system.cruds.notifications_layout')
-                    
-                    @if ($have_detail_records===1)
-                        @include($details_template)
-                    @endif
+@if ($have_detail_records===1)
+    @include($details_template)
+@endif
 
-                </div>
-            @endif
+ 
+

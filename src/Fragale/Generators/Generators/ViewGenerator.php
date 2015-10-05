@@ -40,8 +40,7 @@ class ViewGenerator extends Generator {
         if (file_exists($path))
         {
             $this->viewDefinitions = json_decode($file->get($path), true);
-        }
-
+        } 
         $this->template = $this->file->get($template);
 
         if ($this->needsScaffolding($template))
@@ -206,17 +205,25 @@ class ViewGenerator extends Generator {
         // And then the rows, themselves
         $fields = array_map(function($field) use ($model) {
             $value="\$$model->$field";
+
+            /*aplica formato*/
             $format=$this->formatField($field);
             if ($format!=""){
               $value="sprintf('$format', $value)";
-            }           
-            return "<td>{{{ $value }}}</td>";
+            } 
+
+            /*aplica formato de display*/
+            $displayFormat=$this->displayFieldFormat($field);
+            if ($displayFormat!=""){
+              $value=$displayFormat;
+            } 
+            return "<td>{!! $value !!}</td>";
         }, array_keys($fields));
 
 	   //Modificacion, apertura de los links para show, edit y delete (Mayo 2014 se eliminan los links de edit y delete de la vista index)
 
       $showLink = <<<EOT
-                                            <td>{!! link_to_route('{$models}.show', '', \$lc->showArgs(\${$model}->id), ['class' => \$lc->config('btn_class_view')] ) !!}</td>
+                                            <td><span class="{{{\$lc->config('btn_class_view')}}}">{!! link_to_route('{$models}.show', trans('forms.view'), \$lc->showArgs(\${$model}->id) ) !!}</span></td>
 EOT;
       $deleteLink = "";
       $editLink = "";
@@ -292,12 +299,28 @@ EOT;
 
         $key=$field.'_format';
         if(isset($this->viewDefinitions['field_definitions'][$key])){
-
           $format=$this->viewDefinitions['field_definitions'][$key];
         }
 
         return $format;
     }    
+
+    /**
+     * Verifica si existe un formato de display para ser aplicado a un campo 
+     * solo aplica para las vistas index
+     * @return string
+     */
+    public function displayFieldFormat($field)
+    {
+        $display = '';
+
+        $key=$field.'_display';
+        if(isset($this->viewDefinitions['field_definitions'][$key])){
+          $display=$this->viewDefinitions['field_definitions'][$key];
+        }
+
+        return $display;
+    }     
 
     /**
      * Remove the php tags from a text
