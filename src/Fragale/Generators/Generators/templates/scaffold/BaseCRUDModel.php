@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Input;
 
 class BaseCRUDModel extends Eloquent {
 
+	protected $appends = ['hashid'];
+
 	public function getNextId($id) // deternina el id del proximo registro
 	{
 		$result=$this->getIdPrevOrNext($id,'>');
@@ -76,5 +78,11 @@ class BaseCRUDModel extends Eloquent {
 		}else{
 			return $value;
 		}		
+	}
+
+	public function getHashidAttribute()
+	{
+		//dump($this->attributes['id']);
+    	return \Hashids::encode($this->attributes['id']);
 	}
 }

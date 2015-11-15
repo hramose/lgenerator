@@ -9,13 +9,13 @@ use Illuminate\Support\Pluralizer;
 
 class ViewGenerator extends Generator {
 
-
     public $viewName = '';
     public $viewDefinitions;
     public $templateCustomsPath;
     public $datepicker_script;
     public $datetimepicker_script;
     public $picture_script;
+    public $havehashids;
 
     /**
      * Fetch the compiled template for a view
@@ -32,15 +32,22 @@ class ViewGenerator extends Generator {
         $model = $this->cache->getModelName();  // post
         $models = Pluralizer::plural($model);   // posts
 
+        /*lee el json de definiciones*/
         $p=new PathsInfo();    
         $file=new File();
         $this->templateCustomsPath=$p->pathTemplatesCustoms()."/$models/views_definitions.json";
-
         $path=$this->templateCustomsPath; 
         if (file_exists($path))
         {
             $this->viewDefinitions = json_decode($file->get($path), true);
         } 
+
+        /*use hash ids?*/
+        $this->havehashids=false;
+        if (isset($this->viewDefinitions['hashids'])){
+          $this->havehashids=$this->viewDefinitions['hashids'];
+        }
+
         $this->template = $this->file->get($template);
 
         if ($this->needsScaffolding($template))
@@ -217,13 +224,19 @@ class ViewGenerator extends Generator {
             if ($displayFormat!=""){
               $value=$displayFormat;
             } 
+            
             return "<td>{!! $value !!}</td>";
         }, array_keys($fields));
 
 	   //Modificacion, apertura de los links para show, edit y delete (Mayo 2014 se eliminan los links de edit y delete de la vista index)
+        if($this->havehashids){
+          $idlink='hashid';
+        } else {
+          $idlink='id';
+        }
 
       $showLink = <<<EOT
-                                            <td><span class="{{{\$lc->config('btn_class_view')}}}">{!! link_to_route('{$models}.show', trans('forms.view'), \$lc->showArgs(\${$model}->id) ) !!}</span></td>
+                                            <td><span class="{{{\$lc->config('btn_class_view')}}}">{!! link_to_route('{$models}.show', trans('forms.view'), \$lc->showArgs(\${$model}->$idlink) ) !!}</span></td>
 EOT;
       $deleteLink = "";
       $editLink = "";

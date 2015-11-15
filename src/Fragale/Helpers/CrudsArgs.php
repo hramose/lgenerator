@@ -162,7 +162,7 @@ class CrudsArgs
 
 
 
-function toolBar($record){ 
+function toolBar($record,$hashid=false){ 
 
     /*links botones*/
     $btnGoBack      =link_to_route($this->models.'.index', trans('forms.goBack'), $this->basicArgs(), array('class' => 'btn btn-success'));
@@ -181,11 +181,20 @@ function toolBar($record){
     if ($currentKeyId==$nextKeyId){$classD3='disabled'; }
     if ($currentKeyId==$lastKeyId){$classD4='disabled'; }
 
-    $linkL0=$this->toolButton('index',$record->id);
-    $linkL1=$this->toolButton('create',$record->id);
-    $linkL2=$this->toolButton('edit',$record->id);
-    $linkL3=$this->toolButton('copy',$record->id,'disabled');
-    $linkL4=$this->toolButton('destroy',$record->id);
+
+    if($hashid){        
+        $currentKeyId=\Hashids::encode($currentKeyId);
+        $firstKeyId=\Hashids::encode($firstKeyId);
+        $prevKeyId=\Hashids::encode($prevKeyId);
+        $nextKeyId=\Hashids::encode($nextKeyId);
+        $lastKeyId=\Hashids::encode($lastKeyId);
+    }
+
+    $linkL0=$this->toolButton('index',$currentKeyId);
+    $linkL1=$this->toolButton('create',$currentKeyId);
+    $linkL2=$this->toolButton('edit',$currentKeyId);
+    $linkL3=$this->toolButton('copy',$currentKeyId,'disabled');
+    $linkL4=$this->toolButton('destroy',$currentKeyId);
 
     $linkD1=link_to_route($this->models.'.show', '', $this->showArgs($firstKeyId), array('class' => 'btn btn-info glyphicon glyphicon-step-backward '.$classD1));
     $linkD2=link_to_route($this->models.'.show', '', $this->showArgs($prevKeyId), array('class' => 'btn btn-info glyphicon glyphicon-chevron-left '.$classD2));

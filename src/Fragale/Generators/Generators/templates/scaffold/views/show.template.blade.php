@@ -16,7 +16,7 @@ include_once($p->pathViews().'/system/cruds/header_cruds.php');
 			@include('system.cruds.partial_header_cruds')
 
         	<!-- bloque de formulario -->                    
-			{!! $lc->toolBar(${{model}}) !!}
+			{!! $lc->toolBar(${{model}},$useHashid) !!}
 			<p class="divider"></p>
 			@include('system.cruds.second_column_cruds')
 			<div class="row">

@@ -51,14 +51,17 @@ class {{className}} extends BaseCRUDController {
 	/*---------------*/
 	public function show(Request $request, $id)
 	{
+		{{hashids}}
 		${{model}} = $this->{{model}}->findOrFail($id);
 
-		return view('cruds.{{models}}.show', compact('{{model}}'))->with('request', $request);
+		return view('cruds.{{models}}.show', compact('{{model}}'))->with('request', $request)
+																  ->with('useHashid', $useHashid);
 	}
 
 	/*---------------*/
 	public function edit(Request $request, $id)
 	{
+		{{hashids}}
 		$this->setMmasterRecordInfo();
 
 		${{model}} = $this->{{model}}->find($id);
@@ -68,7 +71,8 @@ class {{className}} extends BaseCRUDController {
 			return Redirect::route('{{models}}.index',$this->masterRecordArray());
 		}
 
-		return view('cruds.{{models}}.edit', array_merge(compact('{{model}}'), $this->masterRecordArray() ))->with('request', $request);		
+		return view('cruds.{{models}}.edit', array_merge(compact('{{model}}'), $this->masterRecordArray() ))->with('request', $request)
+																											->with('useHashid', $useHashid);
 	}
 
 	/*---------------*/
@@ -100,6 +104,7 @@ class {{className}} extends BaseCRUDController {
 	/*---------------*/
 	public function update(Request $request, $id)
 	{
+		{{hashids}}
 		$this->setMmasterRecordInfo();
 
 		/*valida todos los campos*/
@@ -121,12 +126,14 @@ class {{className}} extends BaseCRUDController {
 		return Redirect::route('{{models}}.edit', $this->masterRecordArray($id) )
 			->withInput()
 			->withErrors($validation)
+			->with('useHashid', $useHashid)
 			->with('message', trans('forms.validationErrors'));
 	}
 
 	/*---------------*/
 	public function destroy(Request $request, $id)
 	{
+		{{hashids}}
 		$this->setMmasterRecordInfo();
 
 		$this->{{model}}->find($id)->delete();
